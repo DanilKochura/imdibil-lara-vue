@@ -27,17 +27,17 @@ class Third extends Model
         return Movie::with('director')->where('id', $this->first)->orWhere('id', $this->second)->orWhere('id', $this->third)->get();
     }
 
-    public function first()
+    public function firstMovie()
     {
         return $this->hasOne(Movie::class, 'id', 'first');
 
     }
-    public function second()
+    public function secondMovie()
     {
         return $this->hasOne(Movie::class, 'id', 'second');
 
     }
-    public function third()
+    public function thirdMovie()
     {
         return $this->hasOne(Movie::class, 'id', 'third');
 

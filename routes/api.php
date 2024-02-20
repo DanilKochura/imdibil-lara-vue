@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix("/api")->group(function () {
 });
 Route::get('/rates', [\App\Http\Controllers\Api\MainController::class, 'index']);
+Route::get('/search/movie', [\App\Http\Controllers\Api\MainController::class, 'movies'])->name('search.movie');

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ThirdAddEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MainFilterRequest;
+use App\Mail\ThirdAdd;
 use App\Models\Director;
 use App\Models\Genre;
 use App\Models\Meeting;
@@ -13,6 +15,7 @@ use App\Models\Third;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -113,6 +116,29 @@ class ProfileController extends Controller
             $status = 'Оценка добавлена';
         }
         return response()->json(['status'=> 1, 'text' => $status]);
+
+    }
+
+    public static function addThird(Request $request)
+    {
+        $movies = $request->get('film');
+        if(count($movies) != 3)
+        {
+            return response()->json(['status' => 0, 'text' => 'Можно добавить только 3 фильма']);
+        }
+        if(Third::where('user_id', '=', auth()->id())->where('checked', '=', 0)->get()->count() > 0)
+        {
+            return response()->json(['status' => 0, 'text' => 'Вы уже загрузили тройку']);
+        }
+        $third = Third::create([
+           'user_id' =>  auth()->id(),
+            'first' => $movies[0],
+            'second' => $movies[1],
+            'third' => $movies[2],
+        ]);
+        $third->load('user', 'firstMovie', 'secondMovie', 'thirdMovie');
+        Mail::to('kochura2017@yandex.ru')->send(new ThirdAdd($third));
+        return response()->json(['status' => 1, 'text' => 'Тройка успешно добавлена!']);
 
     }
 

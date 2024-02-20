@@ -24,6 +24,7 @@ Route::prefix('/profile')->name('profile.')->middleware(['auth'])->group(functio
     Route::get('/delete-rate/{rate}', [ProfileController::class, 'deleteRate'])->name('delete-rate');
     Route::post('/add-film', [ProfileController::class, 'addFilm'])->name('add-film');
     Route::post('/add-rate', [ProfileController::class, 'addRate'])->name('add-rate');
+    Route::post('/add-third', [ProfileController::class, 'addThird'])->name('add-third');
 });
-
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 require __DIR__.'/auth.php';

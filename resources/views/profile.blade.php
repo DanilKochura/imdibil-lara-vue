@@ -77,7 +77,7 @@
                             </button>
                             <button type="button" class="btn btn-dark rounded-circle ms-2 mb-2"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#rateAddModal" title="Добавить тройку">
+                                    data-bs-target="#thirdAddModal" title="Добавить тройку">
                                 <i class="fi mdi-filter_3"></i>
                             </button>
                             <button type="button" class="btn btn-dark rounded-circle ms-2 mb-2"
@@ -121,8 +121,8 @@
                                                    data-typed-smart-backspace="true"
                                                    data-typed-shuffle="false"
                                                    data-typed-cursor="|"
-                                                   required name="name-movie"  id="movie_input">
-{{--                                            <label for="movie_input text-small">Название или ID фильма</label>--}}
+                                                   required name="name-movie" id="movie_input">
+                                            {{--                                            <label for="movie_input text-small">Название или ID фильма</label>--}}
                                         </div>
                                         <div class="col-md-5">
                                             <input type="submit" class="btn btn-warning w-100" id="search-movie-btn">
@@ -189,12 +189,14 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="rateAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="rateAddModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Добавить оценку</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Закрыть"></button>
                         </div>
                         <div class="modal-body">
                             <form action="{{route('profile.add-rate')}}" method="post"
@@ -207,13 +209,15 @@
                                   data-error-toast-position="top-center"
 
                                   data-error-scroll-up="false"
-{{--                                  id="addForm"--}}
+                                  {{--                                  id="addForm"--}}
                                   data-ajax-callback-function="filmAddCallback">
                                 @csrf
-                                <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию" required>
+                                <select class="form-select" name="movie" aria-label="Пример выбора по умолчанию"
+                                        required>
                                     <option selected disabled>Выберите фильм</option>
                                     @foreach($unrated as $meeting)
-                                    <option id="opt-{{$meeting->id}}" value="{{$meeting->id}}">{{$meeting->name_m}}</option>
+                                        <option id="opt-{{$meeting->id}}"
+                                                value="{{$meeting->id}}">{{$meeting->name_m}}</option>
                                     @endforeach
                                 </select>
                                 <div class="mb-3">
@@ -246,7 +250,56 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="thirdAddModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавить тройку</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" method="post">
+                                <div class="dropdown">
+                                    <input type="text" class="search w-100 form-control" id="" placeholder="Интерстеллар">
+                                    <div class="res-wrapper bg-white border-1 border-gray-500 border-solid rounded-3 w-100 z-index-10 " style="position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate(0px, 53px);">
+                                        <div class="results p-2">
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="mt-4 mx-0 row">
+                                <div class="col selected t">
+
+                                </div>
+                                <form action="{{route('profile.add-third')}}" method="post" id="thirdadd"
+                                      class="js-ajax bs-validate text-center mt-3" novalidate
+                                      data-ajax-update-url="false"
+                                      data-ajax-show-loading-icon="true"
+
+                                      data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> Please, complete all required fields!"
+                                      data-error-toast-delay="3000"
+                                      data-error-toast-position="top-center"
+
+                                      data-error-scroll-up="false"
+                                      {{--                                  id="addForm"--}}
+                                      data-ajax-callback-function="filmAddCallback">
+                                    @csrf
+                                    <div class="content"></div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             <div class="col-sm-1"></div>

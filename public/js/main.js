@@ -96,7 +96,7 @@ function delete_user_pair(id)
             obj.show();
         });
 }
-function film_add(id, name)
+function film_add(id, name,wrapper)
 {
     if(third[0] == name || third[1] == name || third[2] == name)
     {
@@ -110,15 +110,15 @@ function film_add(id, name)
     third.push(name)
     console.log(third);
 
-    $('#thirdadd').append('<input type="hidden" class="'+name+'" name="film[]" value="'+name+'">');
+    $('#thirdadd .content').append('<input type="hidden" class="'+name+'" name="film[]" value="'+name+'">');
     if(third.length == 3)
     {
-        $('#thirdadd').append('<input type="submit" class="btn btn-warning">');
+        $('#thirdadd .content').append('<input type="submit" class="btn btn-warning">');
     }
     $('.selected.t').append('<div class="row" id="'+name+'"><span class="col-11">'+id+'</span> <button type="button" onclick="delete_film(this);" class="btn-close btn-third-close col" aria-label="Закрыть"></button></div>');
 
 }
-function film_add_two(id, name)
+function film_add_two(id, name,wrapper)
 {
     if(pair[0] == name || pair[1] == name)
     {
@@ -131,7 +131,7 @@ function film_add_two(id, name)
     }
     pair.push(name)
     console.log(pair);
-
+    $(wrapper).fadeOut()
     $('#pairadd').append('<input type="hidden" class="'+name+'" name="film[]" value="'+name+'">');
     if(pair.length == 2)
     {
@@ -191,25 +191,41 @@ function delete_film(obj){
     inp.remove();
     console.log(third);
 }
+
+$('.search').on('focus', function (){
+    let wrapper = $(this).parent()
+    wrapper =$(wrapper).find('.res-wrapper')
+    $(wrapper).fadeIn()
+    console.log('focus')
+})
+
+$('.search').on('blur', function (){
+    let wrapper = $(this).parent()
+    wrapper =$(wrapper).find('.res-wrapper')
+    $(wrapper).fadeOut()
+    console.log('unfocus')
+
+})
 $('.search').on('input', function (){
     $('.results').empty();
     let id = $(this).attr('id');
-
-    $.post('/scripts/ajax/search.php',
-        {text: this.value},
+    let wrapper = $(this).closest('.res-wrapper')
+    if(this.value.length < 3)
+    {
+        return
+    }
+    $.get('/api/search/movie?key='+this.value,
         function(data){
             console.log(data)
-            let a = JSON.parse(data);
-
-            $.each(a, function (key, value)
+            $.each(data, function (key, value)
             {
                 if(id.length > 0)
                 {
-                    $('.results').append('<p onclick="film_add_two(\''+value['name_m']+'\','+value['id_m']+')" class="search-opt" id="'+value['id_m']+'">'+value['name_m']+'</p>');
+                    $('.results').append('<p onclick="film_add_two(\''+value['label']+'\','+value['id']+')" class="cursor-pointer bg-warning-hover mb-2 mt-0 p-1 rounded-1 search-opt" id="'+value['id']+'">'+value['label']+'</p>', wrapper);
 
                 }
                 else{
-                    $('.results').append('<p onclick="film_add(\''+value['name_m']+'\','+value['id_m']+')" class="search-opt" id="'+value['id_m']+'">'+value['name_m']+'</p>');
+                    $('.results').append('<p onclick="film_add(\''+value['label']+'\','+value['id']+')" class="cursor-pointer bg-warning-hover mb-2 mt-0 p-1 rounded-1 search-opt" id="'+value['id']+'">'+value['label']+'</p>', wrapper);
 
                 }
             });
@@ -282,41 +298,7 @@ $('form#pairadd').submit(function (e)
     // $('#rateAddModal').modal('hide');
 
 });
-$('form#thirdadd').submit(function (e)
-{
-    e.preventDefault();
-    let obj = '';
-    $.ajax({
-        url: '/scripts/ajax/addthird.php',
-        method: 'post',
-        dataType: 'json',
-        data: $(this).serialize(),
-        success: function(data){
-            console.log(data);
-            if(data['state'] == 1)
-            {
-                obj = $('#answer');
-            }
-            else
-            {
-                obj = $('#err');
-            }
-            $('#thirdAddModal').modal('hide');
-            obj.find('.toast-body').text(data['text']);
-            obj.show();
-            setTimeout(()=> {
-                location.reload()
-            } ,2000);
 
-
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-    // $('#rateAddModal').modal('hide');
-
-});
 
 // console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
