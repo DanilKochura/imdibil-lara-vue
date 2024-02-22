@@ -27,4 +27,18 @@ Route::prefix('/profile')->name('profile.')->middleware(['auth'])->group(functio
     Route::post('/add-third', [ProfileController::class, 'addThird'])->name('add-third');
 });
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::get('quiz', [\App\Http\Controllers\QuizController::class, 'index']);
+
+
+
+
+
+
+Route::prefix('/admin')->name('admin.')->group(function (){
+    Route::prefix('/quiz')->name('quiz.')->group(function (){
+        Route::get('/create', [\App\Http\Controllers\Admin\QuizController::class, 'index'])->name('create');
+        Route::post('/create', [\App\Http\Controllers\Admin\QuizController::class, 'save'])->name('save');
+    });
+});
+
 require __DIR__.'/auth.php';
