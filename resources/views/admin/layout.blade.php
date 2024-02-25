@@ -28,9 +28,8 @@
 
 </head>
 <body class="header-sticky header-fixed">
-
-<div class="wrapper">
-    <header id="header" class="p-1 text-white header bg-dark">
+<div id="wrapper">
+    <header class="p-1 text-white bg-dark header" id="header">
 
         <div class="container position-relative">
             <nav
@@ -245,20 +244,30 @@
 
     </header>
 
-    @yield('content')
 
-    <div class="container-fluid forum-card">
-        <footer class="my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Главная</a></li>
-                <li class="nav-item"><a href="/news.php" class="nav-link px-2 text-muted">Новости</a></li>
-                <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>
-                <li class="nav-item"><a href="/statistics.php" class="nav-link px-2 text-muted">Аналитика</a></li>
-            </ul>
-            <p class="text-center text-muted">© 2022 IMDBil</p>
-        </footer>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-2 mt-2 border-end">
+                <nav class="nav-deep nav-deep-light js-ajaxified">
+
+                    <!-- navigation -->
+                    <ul id="nav_responsive" class="nav flex-column d-none d-sm-block">
+
+                    @include('admin.nav')
+
+
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="col-10">
+                @yield('content')
+            </div>
+        </div>
     </div>
+
 </div>
+
 
 
 

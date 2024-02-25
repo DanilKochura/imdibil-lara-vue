@@ -22,3 +22,6 @@ Route::prefix("/api")->group(function () {
 });
 Route::get('/rates', [\App\Http\Controllers\Api\MainController::class, 'index']);
 Route::get('/search/movie', [\App\Http\Controllers\Api\MainController::class, 'movies'])->name('search.movie');
+
+Route::get('/quiz/{difficulty}', [\App\Http\Controllers\Api\QuizController::class, 'index']);
+Route::get('/quiz-test/{difficulty}', [\App\Http\Controllers\Api\QuizController::class, 'counter']);
