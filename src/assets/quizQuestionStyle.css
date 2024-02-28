@@ -278,6 +278,10 @@
     .options-container button {
         width: 90%;
     }
+    .options-container button:hover {
+        transform: none;
+        background-color: #808080;
+    }
 }
 
 body {

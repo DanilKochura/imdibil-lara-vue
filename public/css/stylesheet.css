@@ -1012,3 +1012,6 @@ svg.fill-inactive {
 .pulse-danger {
     animation: __pulseDanger 2s infinite;
 }
+@media(hover: hover) {
+
+}

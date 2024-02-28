@@ -24,7 +24,7 @@
         <div class="question_container" v-show="startQuiz">
             <div class="question-contents row">
                 <div class="col-12">
-                    <p class="question">
+                    <p class="question" v-show="questions[currentQuestion - 1].question.text !== ''">
                         {{ questions[currentQuestion - 1].question.text }}
                     </p>
                 </div>
@@ -36,22 +36,18 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="align-items-center row">
+                    <div class="align-items-center row px-3">
 
-                        <div class="col-6">
+                        <div class="col-3 col-sm-6">
                             <div :class="countDown < 10 ? 'warning pulse-danger' : 'count-down'">
                                 {{ countDown }}
                             </div>
                         </div>
-                        <div class="col-6 d-flex d-sm-block fs-3-sm fs-5 justify-content-around">
-                            <div class="">
-                                <i :class="'fi-heart-full fi '+ (errors >= 1 ? 'text-danger' : '')"></i>
-                            </div>
-                            <div class="">
-                                <i :class="'fi-heart-full fi '+(errors >= 2 ? 'text-danger' : '')"></i>
-                            </div>
-                            <div class="">
-                                <i :class="'fi-heart-full fi '+(errors >= 3 ? 'text-danger' : '') "></i>
+                        <div class="col-9 col-sm-6">
+                            <div class="row justify-content-evenly">
+                                <div class="col-3" v-for="i in this.quiz.errors" v-bind:key="i">
+                                    <i :class="'fi-heart-full fi fs-4 '+ (errors >= i ? 'text-danger ' : '') + (errors === i-1 ? ' animate-bouncein' : '')"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,6 +57,7 @@
                             type="button"
                             v-for="(item, index) in options"
                             :key="index"
+                            :disabled="disabled"
                             @click="correctAnswer(item.isCorrect, item.answer, $event)"
                         >
                             {{ item.answer }}
@@ -119,7 +116,8 @@ export default {
             questions: QuestionData,
             options: shuffle(QuestionData[0].options),
             errors: this.quiz.errors,
-            loaded: false
+            loaded: false,
+            disabled: false
         };
     },
     async mounted() {
@@ -140,17 +138,20 @@ export default {
         },
 
         correctAnswer(isCorrect, answer, event) {
+            this.disabled = true
             if (isCorrect) {
                 this.answersArray.push(answer);
                 this.arr = new Set(this.answersArray);
                 if (event)
                 {
+                    event.target.blur()
                     event.target.classList.add("bg-success")
                 }
             } else
             {
                 if (event)
                 {
+                    event.target.blur()
                     event.target.classList.add("bg-danger")
                 }
                 this.errors--
@@ -164,6 +165,7 @@ export default {
                 {
                     event.target.className = ""
                 }
+                this.disabled = false
                 this.handleNextQuestion()
             }, 1000)
         },
@@ -209,7 +211,7 @@ export default {
             this.points = this.answersArray.length;
             if (this.auth)
             {
-
+                console.log('a')
             }
         },
     },
