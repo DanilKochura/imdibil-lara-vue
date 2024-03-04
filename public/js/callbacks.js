@@ -16,3 +16,7 @@ var filmAddCallback = function (el, data) {
         $.SOW.core.toast.show('danger', 'IMDibil', 'Ошибка! '+data.text, 'top-right', 4000, true);
     }
 }
+
+var modalClose = function (el, data) {
+    $(el).closest('.modal').modal('hide')
+}

@@ -544,6 +544,18 @@ function dataDecoder(data, index)
 
 $(document).ready(function(){
 
+    let modal = $('#modalLogin');
+    console.log(modal)
+    if(modal.length > 0)
+    {
+        if(modal.attr('delay'))
+        {
+            setTimeout(() => {
+                $(modal).modal('show')
+            }, modal.attr('delay'))
+        }
+
+    }
     // $('body').scroll(function () {
     // 	let topHead = $(this).scrollTop();
     // 	if ((topHead) >= 1) {

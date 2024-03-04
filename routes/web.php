@@ -28,7 +28,11 @@ Route::prefix('/profile')->name('profile.')->middleware(['auth'])->group(functio
 });
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 Route::get('quiz/{difficulty}', [\App\Http\Controllers\QuizController::class, 'index'])->name('quiz');
-Route::get('quiz', [\App\Http\Controllers\QuizController::class, 'main']);
+Route::post('quiz/save-progress', [\App\Http\Controllers\QuizController::class, 'save'])->name('quiz.save');
+Route::get('quiz', [\App\Http\Controllers\QuizController::class, 'main'])->name('game');
+Route::get('game', function (){
+   return redirect()->route('game');
+});
 
 
 

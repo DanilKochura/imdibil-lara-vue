@@ -211,7 +211,17 @@ export default {
             this.points = this.answersArray.length;
             if (this.auth)
             {
-                console.log('a')
+                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                axios.post('/quiz/save-progress', {
+                        _token: token,
+                        points: this.points,
+                        quiz_id: this.quiz.id,
+                    }
+                ).then(function (response) {
+                    console.log(response)
+                }).catch(function (error) {
+                    console.error(error)
+                })
             }
         },
     },

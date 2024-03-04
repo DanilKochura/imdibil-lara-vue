@@ -186,7 +186,7 @@
 
                         <a href="#" aria-label="My Account" id="dropdownAccountOptions" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="d-inline-block text-center text-dark js-stoppropag">
                             @if(Auth::check())
-                                <img src="{{asset('build/images/uploads/'.(auth()->user()->avatar ?: 'default.png'))}}" alt="Ваня" class="avatar header">
+                                <img src="{{asset('images/uploads/'.(auth()->user()->avatar ?: 'default.jpg'))}}" alt="Ваня" class="avatar header">
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white"  viewBox="0 0 16 16">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -255,7 +255,7 @@
                 <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>
                 <li class="nav-item"><a href="/statistics.php" class="nav-link px-2 text-muted">Аналитика</a></li>
             </ul>
-            <p class="text-center text-muted">© 2022 IMDBil</p>
+            <p class="text-center text-muted">© 2022 - {{\Carbon\Carbon::now()->format('Y')}} IMDBil</p>
         </footer>
     </div>
 </div>

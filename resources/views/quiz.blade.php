@@ -15,7 +15,7 @@
     @endif
     <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
     <script defer="defer" src="{{asset('/build/js/chunk-vendors.1ee941d0.js')}}"></script>
-    <script defer="defer" src="{{asset('/build/js/app.c3381505.js')}}"></script>
+    <script defer="defer" src="{{asset('/build/js/app.c1c6d09c.js')}}"></script>
     <link href="{{asset('/build/css/app.0529a08a.css')}}" rel="stylesheet">
 
 </head>

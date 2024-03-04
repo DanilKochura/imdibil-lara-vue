@@ -15,6 +15,7 @@ class MainController extends Controller
 {
     public static function index(MainFilterRequest $request)
     {
+
         $meetings = Meeting::with(['movie','movie.director', 'rates', 'rates.user'])->orderByDesc('id')->paginate(10);
 
 //        if($request->sort)

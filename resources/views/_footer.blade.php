@@ -6,7 +6,7 @@
             <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>
             <li class="nav-item"><a href="/statistics.php" class="nav-link px-2 text-muted">Аналитика</a></li>
         </ul>
-        <p class="text-center text-muted">© 2022 IMDBil</p>
+        <p class="text-center text-muted">© 2022 - {{\Carbon\Carbon::now()->format('Y')}} IMDBil</p>
     </footer>
 </div>
 <script src="https://imdibil.ru/scheduler/assets/js/core.min.js"></script>
