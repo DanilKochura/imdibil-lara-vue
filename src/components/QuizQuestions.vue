@@ -90,6 +90,7 @@
             v-show="showResult"
             :totalPoints="points"
             :totalQuestions="questions.length"
+            :medals="medals"
         />
     </div>
 </template>
@@ -117,7 +118,12 @@ export default {
             options: shuffle(QuestionData[0].options),
             errors: this.quiz.errors,
             loaded: false,
-            disabled: false
+            disabled: false,
+            medals: {
+                gold: false,
+                silver: false,
+                bronze: false
+            }
         };
     },
     async mounted() {
@@ -206,7 +212,6 @@ export default {
         },
 
         displayResult() {
-            this.showResult = true;
             this.countDown = 1;
             this.points = this.answersArray.length;
             if (this.auth)
@@ -216,13 +221,16 @@ export default {
                         _token: token,
                         points: this.points,
                         quiz_id: this.quiz.id,
+                        total: this.questions.length
                     }
-                ).then(function (response) {
-                    console.log(response)
+                ).then( response => {
+                    this.medals = response.data.medals
                 }).catch(function (error) {
                     console.error(error)
                 })
             }
+            this.showResult = true;
+
         },
     },
 

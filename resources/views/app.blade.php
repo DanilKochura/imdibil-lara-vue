@@ -4,30 +4,29 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Информационный портал киноклуба">
+    @yield('meta')
     <meta name="yandex-verification" content="242eb7336dec418c"/>
     <!-- Bootstrap CSS -->
     {{--    <link rel="stylesheet" href="https://imdibil.ru/scheduler/assets/css/vendor_bundle.min.css">--}}
     {{--    <link rel="stylesheet" href="https://imdibil.ru/scheduler/assets/css/vendor.datatables.css">--}}
     {{--    <link rel="stylesheet" href="https://imdibil.ru/scheduler/assets/css/vendor.fancybox.min.css">--}}
-    <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">
     <link rel="stylesheet" href="{{ asset('/css/core.min.css')}}">
     <script src="{{asset('/js/callbacks.js')}}"></script>
 
-    @if(Route::is('profile.index'))
+@if(Route::is('profile.index'))
 
         <link href="https://imdibil.ru/styles/slick.css" type="text/css" rel="stylesheet"/>
         <link href="https://imdibil.ru/styles/slick-theme.css" type="text/css" rel="stylesheet"/>
     @endif
+    <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">
 
 
     {{--    <link href="https://imdibil.ru/styles/stylesheet.css" type="text/css" rel="stylesheet"/>--}}
 
-    <title>IMDibil</title>
     <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
 
 </head>
-<body class="header-sticky header-fixed">
+<body class="header-sticky header-fixed @if(Route::is('statistics')) bg-dark @endif">
 
 <div class="wrapper">
     <header id="header" class="p-1 text-white header bg-dark">
@@ -260,7 +259,11 @@
     </div>
 </div>
 
-
+<a class="bg-facebook fill-gray-100 d-none d-sm-block p-2 position-fixed rounded-circle left-widget" href='https://t.me/imdibil_ru' target='_blank'>
+    <div class='telegram-icon'>
+        <svg viewBox='0 0 64 64'><path d='M56.4,8.2l-51.2,20c-1.7,0.6-1.6,3,0.1,3.5l9.7,2.9c2.1,0.6,3.8,2.2,4.4,4.3l3.8,12.1c0.5,1.6,2.5,2.1,3.7,0.9 l5.2-5.3c0.9-0.9,2.2-1,3.2-0.3l11.5,8.4c1.6,1.2,3.9,0.3,4.3-1.7l8.7-41.8C60.4,9.1,58.4,7.4,56.4,8.2z M50,17.4L29.4,35.6 c-1.1,1-1.9,2.4-2,3.9c-0.2,1.5-2.3,1.7-2.8,0.3l-0.9-3c-0.7-2.2,0.2-4.5,2.1-5.7l23.5-14.6C49.9,16.1,50.5,16.9,50,17.4z'/></svg>
+    </div>
+</a>
 
 <script src="{{asset('/js/core.min.js')}}"></script>
 <script src="{{asset('/js/vendor_bundle.min.js')}}"></script>
@@ -270,7 +273,9 @@
 {{--<script src="https://imdibil.ru/scripts/main.js"></script>--}}
 <script src="{{ asset('/js/app.js')}}"></script>
 
-
+@if(Route::is('statistics'))
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+@endif
 <a href="#" class="scrollup"></a>
 </body>
 </html>

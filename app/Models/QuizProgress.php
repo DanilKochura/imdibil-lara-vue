@@ -16,6 +16,9 @@ class QuizProgress extends Model
     ];
     public $timestamps = false;
 
-
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id','user_id');
+    }
     protected $table = 'quiz_results';
 }

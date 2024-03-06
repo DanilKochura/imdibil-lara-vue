@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Mail\VerifyMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +49,12 @@ Route::prefix('/admin')->name('admin.')->group(function (){
         Route::get('/new', [\App\Http\Controllers\Admin\QuizController::class, 'new'])->name('new');
         Route::post('/save-quiz', [\App\Http\Controllers\Admin\QuizController::class, 'saveQuiz'])->name('save-quiz');
     });
+});
+
+Route::get('/test', function (){
+    $user = auth()->user();
+    Mail::to($user->email)->send(new VerifyMail($user, $user->password));
+
 });
 
 require __DIR__.'/auth.php';

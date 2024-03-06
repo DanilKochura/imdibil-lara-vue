@@ -17,14 +17,14 @@
 
             <!-- Email Address -->
             <div>
-                <x-label for="login" :value="__('Login')" />
+                <x-label for="login" :value="__('Логин')" />
 
                 <x-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('Пароль')" />
 
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
@@ -50,6 +50,8 @@
                 <x-button class="ml-3">
                     {{ __('Войти') }}
                 </x-button>
+
+
             </div>
         </form>
     </x-auth-card>

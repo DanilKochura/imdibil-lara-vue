@@ -17,10 +17,23 @@ class Quiz extends Model
     public $timestamps = false;
 
 
+
     protected $table = 'quizzes';
 
     public function questions()
     {
         return $this->hasMany(QuizQuestion::class, 'quiz_id', 'id')->with('questions.answers');
     }
+
+    public function unique_results()
+    {
+        return $this->hasMany(QuizProgress::class, 'quiz_id', 'id')->count();
+    }
+
+
+    public function user_medals()
+    {
+        return $this->hasMany(UserQuizMedal::class, 'quiz_id', 'id')->where('user_id', '=', auth()->id())->orderByDesc('rank')->first();
+    }
+
 }

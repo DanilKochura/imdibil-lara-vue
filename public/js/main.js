@@ -544,6 +544,42 @@ function dataDecoder(data, index)
 
 $(document).ready(function(){
 
+
+    if($('.chartjss').length > 0)
+    {
+        axios.get('https://bot.imdibil.ru/api/statistics/user_graph').then(function(data){
+            const config = {
+                type: 'line',
+                data: data.data,
+                options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            suggestedMin: 0,
+                            suggestedMax: 11
+                        }
+                    }
+                },
+            };
+            // console.log(data.data)
+            const myChart = new Chart(
+                document.getElementById('user_graph'),
+                config
+            );
+        })
+    }
+
     let modal = $('#modalLogin');
     console.log(modal)
     if(modal.length > 0)

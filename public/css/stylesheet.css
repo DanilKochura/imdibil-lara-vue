@@ -994,7 +994,7 @@ svg.fill-inactive {
     fill:  #424345!important;
 }
 
-.ratelist li:first-child
+.table-leaders tr:first-child
 {
     color: gold;
     font-size: larger;
@@ -1041,4 +1041,25 @@ svg.fill-inactive {
 
 .card:hover .card-lock-overlay {
     display: flex;
+}
+.table-dark-profile  td {
+    --bs-table-bg: #2e2e2e !important;
+    --bs-table-striped-bg: #383838 !important;
+    --bs-table-striped-color: #fff !important;
+    --bs-table-active-bg: #434343 !important;
+    --bs-table-active-color: #fff !important;
+    --bs-table-hover-bg: #3e3e3e !important;
+    --bs-table-hover-color: #fff !important;
+    border-color: #434343 !important;
+    /*color: #fff !important;*/
+    background-color: #2e2e2e !important;;
+}
+
+
+.left-widget {
+    bottom: 30px;
+    width: 50px;
+    left: 30px;
+    position: fixed;
+
 }

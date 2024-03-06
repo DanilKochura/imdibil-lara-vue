@@ -1,5 +1,16 @@
 @extends('app')
 
+
+
+@section('meta')
+
+    <meta name="keywords" content="киноклуб, мгту" />
+    <meta name="description" content="История заседаний киноклуба IMDibil." />
+    <title>Главная</title>
+    <meta property="og:site_name" content="IMDibil - Информационный портал киноклуба">
+    <meta property="og:title" content="Хронология заседаний">
+@endsection
+
 @section('content')
 <div class="container content" id="test-div">
 {{--    <div class="row">--}}

@@ -26,11 +26,25 @@ class QuizController extends Controller
 
     }
 
-    public static function counter($difficulty)
+    public static function counter($difficulty = null)
     {
-        $quiz = Quiz::where('alias', '=', $difficulty)->get()->first();
-        $quests = QuizQuestion::with('answers')->where('quiz_id', '=', $quiz->id)->get()->shuffle();
-        dd($quests->count());
+        if($difficulty)
+        {
+            $quiz = Quiz::where('alias', '=', $difficulty)->get()->first();
+            $quests = QuizQuestion::with('answers')->where('quiz_id', '=', $quiz->id)->get()->shuffle();
+            dd($quests->count());
+        } else
+        {
+            $res = [];
+            $quests = QuizQuestion::with('answers')->get();
+            $quests = $quests->groupBy('quiz_id');
+            foreach ($quests as $q)
+            {
+                $res[$q->first()->quiz_id] = $q->count();
+            }
+            dd($res);
+        }
+
         $encodedData = base64_encode(json_encode(QuizQuestionResource::collection($quests)));
         return response($encodedData);
     }

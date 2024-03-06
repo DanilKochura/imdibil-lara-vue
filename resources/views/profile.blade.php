@@ -1,4 +1,17 @@
 @extends('app')
+
+
+
+@section('meta')
+
+{{--    <meta name="keywords" content="киноклуб, п" />--}}
+    <meta name="description" content="Профиль пользователя {{$user->name}}" />
+    <title>{{$user->name}}</title>
+    <meta property="og:site_name" content="IMDibil - Информационный портал киноклуба">
+    <meta property="og:title" content="{{$user->name}}">
+@endsection
+
+
 @section('content')
 
     <div class="container main content">
@@ -262,8 +275,11 @@
                         <div class="modal-body">
                             <form action="" method="post">
                                 <div class="dropdown">
-                                    <input type="text" class="search w-100 form-control" id="" placeholder="Интерстеллар">
-                                    <div class="res-wrapper bg-white border-1 border-gray-500 border-solid rounded-3 w-100 z-index-10 " style="position: absolute;
+                                    <input type="text" class="search w-100 form-control" id=""
+                                           placeholder="Интерстеллар">
+                                    <div
+                                        class="res-wrapper bg-white border-1 border-gray-500 border-solid rounded-3 w-100 z-index-10 "
+                                        style="position: absolute;
     inset: 0px auto auto 0px;
     margin: 0px;
     transform: translate(0px, 53px);">
@@ -304,125 +320,118 @@
 
             <div class="col-sm-1"></div>
         </div>
-        <div class="row">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-10 mt-3">
-                <div class="mx-2">
-                    <div class="row">
-                        <div class="col">
-                            <p class="h2">Упущенные возможности <span
-                                    class="badge bg-secondary-soft fs-10p align-top cursor-pointer"
-                                    data-bs-toggle="tooltip" data-bs-placement="right"
-                                    title="Список фильмов, которые {{$user->name}} выставлял, но которые не были выбраны">?</span>
-                            </p>
+        @if($user->isExpert())
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10 mt-3">
+                    <div class="mx-2">
+                        <div class="row">
+                            <div class="col">
+                                <p class="h2">Упущенные возможности <span
+                                        class="badge bg-secondary-soft fs-10p align-top cursor-pointer"
+                                        data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Список фильмов, которые {{$user->name}} выставлял, но которые не были выбраны">?</span>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row selected overflow-hidden">
-                        <div class="your-class mb-0" style="height: 250px;">
-                            @foreach($advices as $movie)
-                                <div class="slide-cust" style="">
-                                    <a href="{{$movie->url}}" target="_blank">
-                                        <img src="{{$movie->poster}}" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                            @endforeach
+                        <div class="row selected overflow-hidden">
+                            <div class="your-class mb-0" style="height: 250px;">
+                                @foreach($advices as $movie)
+                                    <div class="slide-cust" style="">
+                                        <a href="{{$movie->url}}" target="_blank">
+                                            <img src="{{$movie->poster}}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-sm-1"></div>
-            <div class="col-md-10 col-12">
-                <p class="h4">{{auth()->id() == $user->id ? 'Мои оценки' : 'Оценки '.$user->name}}</p>
-                <table class="table-datatable table table-dark"
-                       data-lng-empty="No data available in table"
-                       data-lng-page-info="Showing _START_ to _END_ of _TOTAL_ entries"
-                       data-lng-filtered="(filtered from _MAX_ total entries)"
-                       data-lng-loading="Loading..."
-                       data-lng-processing="Processing..."
-                       data-lng-search="Search..."
-                       data-lng-norecords="No matching records found"
-                       data-lng-sort-ascending=": activate to sort column ascending"
-                       data-lng-sort-descending=": activate to sort column descending"
+            <div class="row mt-2">
+                <div class="col-sm-1"></div>
+                <div class="col-md-10 col-12">
+                    <p class="h4">{{auth()->id() == $user->id ? 'Мои оценки' : 'Оценки '.$user->name}}</p>
+                    <table class="table-datatable table table-dark-profile table-dark m-0"
+                           data-lng-empty="No data available in table"
+                           data-lng-page-info="Отражены оценки с  _START_ по _END_ из _TOTAL_"
+                           data-lng-filtered="(filtered from _MAX_ total entries)"
+                           data-lng-loading="Loading..."
+                           data-lng-processing="Processing..."
+                           data-lng-search="Search..."
+                           data-lng-norecords="No matching records found"
+                           data-lng-sort-ascending=": activate to sort column ascending"
+                           data-lng-sort-descending=": activate to sort column descending"
 
-                       data-main-search="true"
-                       data-column-search="false"
-                       data-row-reorder="false"
-                       data-col-reorder="true"
-                       data-responsive="true"
-                       data-header-fixed="true"
-                       data-select-onclick="true"
-                       data-enable-paging="true"
-                       data-enable-col-sorting="true"
-                       data-autofill="false"
-                       data-group="false"
-                       data-items-per-page="10"
+                           data-main-search="false"
+                           data-column-search="false"
+                           data-row-reorder="false"
+                           data-col-reorder="false"
+                           data-responsive="false"
+                           data-header-fixed="false"
+                           data-select-onclick="false"
+                           data-enable-paging="false"
+                           data-enable-col-sorting="true"
+                           data-autofill="false"
+                           data-group="false"
+                           data-items-per-page="10"
 
-                       data-enable-column-visibility="true"
-                       data-lng-column-visibility="Column Visibility"
+                           data-enable-column-visibility="false"
+                           data-lng-column-visibility="Column Visibility"
 
-                       data-enable-export="true"
-                       data-lng-export="<i class='fi fi-squared-dots fs-5 lh-1'></i>"
-                       data-lng-csv="CSV"
-                       data-lng-pdf="PDF"
-                       data-lng-xls="XLS"
-                       data-lng-copy="Copy"
-                       data-lng-print="Print"
-                       data-lng-all="All"
-                       data-export-pdf-disable-mobile="true"
-                       data-export='["csv", "pdf", "xls"]'
-                       data-options='["copy", "print"]'
-                       data-custom-config='{}'>
-                    <thead>
-                    <tr>
-                        <th>Название</th>
-                        <th>Оценка</th>
-                        <th>Средний балл</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($user->rates as $rate)
+                           data-enable-export="false"
+                           data-custom-config='{}'>
+                        <thead>
                         <tr>
-                            <td><a class="mov-nam"
-                                   href="{{$rate->meeting->movie->url}}">{{$rate->meeting->movie->name_m}}</a></td>
-                            <td class="rate-ch align-middle">{{$rate->rate}}</td>
-
-                            <td class="rate-ch align-middle">{{$rate->meeting->movie->our_rate}}</td>
-                            @if(auth()->id() == $user->id)
-                                <td>
-                                    <a href="{{route('profile.delete-rate', $rate)}}"
-                                       data-href="{{route('profile.delete-rate', $rate)}}"
-                                       class="js-ajax-confirm btn"
-
-                                       data-ajax-confirm-mode="ajax"
-                                       data-ajax-confirm-type="danger"
-
-                                       data-ajax-confirm-title="Подтвердите действие"
-                                       data-ajax-confirm-body="Вы уверены, что хотите удалить оценку?"
-
-                                       data-ajax-confirm-btn-yes-class="btn-sm btn-danger"
-                                       data-ajax-confirm-btn-yes-text="Удалить"
-                                       data-ajax-confirm-btn-yes-icon="fi fi-check"
-
-                                       data-ajax-confirm-btn-no-class="btn-sm btn-light"
-                                       data-ajax-confirm-btn-no-text="Отменить"
-                                       data-ajax-confirm-btn-no-icon="fi fi-close"
-                                       data-ajax-confirm-callback-function="my_confirm_callback">
-                                        <i class="fi fi-thrash text-danger"></i>
-                                    </a>
-                                </td>
-                            @else
-                                <td></td>
-                            @endif
+                            <th>Название</th>
+                            <th>Оценка</th>
+                            <th>Средний балл</th>
+                            <th></th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($user->rates as $rate)
+                            <tr>
+                                <td class="table-dark"><a class="mov-nam"
+                                                          href="{{$rate->meeting->movie->url}}">{{$rate->meeting->movie->name_m}}</a>
+                                </td>
+                                <td class="rate-ch align-middle">{{$rate->rate}}</td>
+
+                                <td class="rate-ch align-middle">{{$rate->meeting->movie->our_rate}}</td>
+                                @if(auth()->id() == $user->id)
+                                    <td>
+                                        <a href="{{route('profile.delete-rate', $rate)}}"
+                                           data-href="{{route('profile.delete-rate', $rate)}}"
+                                           class="js-ajax-confirm btn"
+
+                                           data-ajax-confirm-mode="ajax"
+                                           data-ajax-confirm-type="danger"
+
+                                           data-ajax-confirm-title="Подтвердите действие"
+                                           data-ajax-confirm-body="Вы уверены, что хотите удалить оценку?"
+
+                                           data-ajax-confirm-btn-yes-class="btn-sm btn-danger"
+                                           data-ajax-confirm-btn-yes-text="Удалить"
+                                           data-ajax-confirm-btn-yes-icon="fi fi-check"
+
+                                           data-ajax-confirm-btn-no-class="btn-sm btn-light"
+                                           data-ajax-confirm-btn-no-text="Отменить"
+                                           data-ajax-confirm-btn-no-icon="fi fi-close"
+                                           data-ajax-confirm-callback-function="my_confirm_callback">
+                                            <i class="fi fi-thrash text-danger"></i>
+                                        </a>
+                                    </td>
+                                @else
+                                    <td></td>
+                                @endif
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-1"></div>
             </div>
-            <div class="col-sm-1"></div>
-        </div>
+        @endif
 
     </div>
 

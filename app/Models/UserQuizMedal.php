@@ -9,14 +9,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Genre extends Model
+class UserQuizMedal extends Model
 {
-
     protected $fillable = [
-        'name_g'
+       'id', 'quiz_id', 'user_id', 'rank'
     ];
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id','user_id');
+    }
+    protected $table = 'quiz_medals';
     public $timestamps = false;
-
-
 }

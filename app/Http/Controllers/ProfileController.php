@@ -70,12 +70,12 @@ class ProfileController extends Controller
         $movie = Movie::updateOrCreate([
             'name_m' => $request['nameRu'],
             'year_of_cr' => $request['year'],
-            'director_id' => $dir->id,
-            'url' => $request['webUrl']
         ],[
+            'director_id' => $dir->id,
+            'url' => $request['webUrl'],
             'description' => $request['description'],
             'duration' => $request['filmLength'],
-            'original' => $request['nameOriginal'],
+            'original' => ($request['nameOriginal'] and $request['nameOriginal'] !== 'null') ? $request['nameOriginal'] : null,
             'poster' => $request['posterUrl'],
             'rating' => round($request['ratingImdb'], 2),
             'rating_kp' => round($request['ratingKinopoisk'], 2),

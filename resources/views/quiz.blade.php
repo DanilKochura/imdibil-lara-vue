@@ -4,7 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Информационный портал киноклуба">
+    <meta name="description" content="Киновикторина - {{$quiz['title']}}. {{$quiz['text']}}">
+    <title>{{$quiz['title']}}</title>
     <meta name="yandex-verification" content="242eb7336dec418c"/>
     <link rel="stylesheet" href="{{ asset('/css/core.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">
@@ -15,14 +16,14 @@
     @endif
     <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
     <script defer="defer" src="{{asset('/build/js/chunk-vendors.1ee941d0.js')}}"></script>
-    <script defer="defer" src="{{asset('/build/js/app.c1c6d09c.js')}}"></script>
-    <link href="{{asset('/build/css/app.0529a08a.css')}}" rel="stylesheet">
+    <script defer="defer" src="{{asset('/build/js/app.b9afcffe.js')}}"></script>
+    <link href="{{asset('/build/css/app.647c6a56.css')}}" rel="stylesheet">
 
 </head>
 <body class="" style="background-color: #595959">
 
 
-<div id="app" v-quiz="{{$quiz}}">
+<div id="app" v-quiz="{{json_encode($quiz)}}">
 </div>
 
 </body>
