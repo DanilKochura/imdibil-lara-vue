@@ -18,17 +18,19 @@
         <div class="row user-info">
             <div class="col-sm-1"></div>
             <div class="col-sm-2 col-6">
-                <img class="user-avatar" src="{{asset('build/images/uploads/'.$user->avatar)}}">
+                <img class="user-avatar" src="{{asset('images/uploads/'.($user->avatar ?: 'default.jpg'))}}">
             </div>
             <div class="col-sm-4 col-6 ">
                 <div class="d-flex flex-row align-items-center">
                     <h1>{{$user->name}}</h1>
                     <span class="badge badge-success badge-soft ms-1">{{$user->getRole()}}</span>
                 </div>
-                <p>Средняя оценка: <span
-                        class="badge text-black bg-ch">{{round($user->rates->pluck('rate')->avg(), 2)}}</span></p>
-                <p>Количество встреч: {{$user->rates->pluck('rate')->count()}}</p>
-                <p class="d-none">Дата регистрации: 12.03.2022</p>
+                @if($user->isExpert())
+                    <p>Средняя оценка: <span
+                            class="badge text-black bg-ch">{{round($user->rates->pluck('rate')->avg(), 2)}}</span></p>
+                    <p>Количество встреч: {{$user->rates->pluck('rate')->count()}}</p>
+                    <p class="d-none">Дата регистрации: 12.03.2022</p>
+                @endif
 
 
             </div>

@@ -21,7 +21,7 @@
                         <label for="difSel" class="col-form-label"><strong>Тип вопроса</strong></label>
                         <select class="form-select" name="quiz_id" id="difSel">
                             @foreach($quizzes as $quiz)
-                                <option value="{{$quiz->id}}" {{$quiz->id == 1 ? 'selected' : ''}}>{{$quiz->alias}}</option>
+                                <option value="{{$quiz->id}}" {{$quiz->id == 2 ? 'selected' : ''}}>{{$quiz->alias}}</option>
                             @endforeach
                         </select>
                     </div>

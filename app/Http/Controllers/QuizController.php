@@ -41,7 +41,9 @@ class QuizController extends Controller
             return [
                 'points' => $group->pluck('points'),
                 'sum' => $group->pluck('points')->sum(),
-                'name' => $group->first()->user->name
+                'name' => $group->first()->user->name,
+                'avatar' => $group->first()->user->avatar,
+                'id' => $group->first()->user->id
             ];
         });
         $results = collect($results);

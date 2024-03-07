@@ -1063,3 +1063,21 @@ svg.fill-inactive {
     position: fixed;
 
 }
+
+
+.table-leaders .avatar {
+    width: 40px;
+    height: 40px;
+}
+
+
+.table-leaders tr:first-child .avatar
+{
+    border: #FFC107 3px solid;
+
+}
+
+
+#wrapper {
+    height: inherit;
+}
