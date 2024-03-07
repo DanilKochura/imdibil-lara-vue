@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Third;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,21 @@ Route::get('/quiz-test/{difficulty?}', [\App\Http\Controllers\Api\QuizController
 Route::prefix('/statistics')->group( function (){
    Route::get('user_graph', [\App\Http\Controllers\MainController::class, 'user_graph']);
 });
+
+
+
+Route::any('/bot', function (){
+    $movie = false;
+//    $response = Telegram::getMe();
+//    dd($we);
+    $bot = new \App\Http\Controllers\TelegramController();
+    $bot->handleRequest();
+});
+Route::any('/bot-test', function (){
+
+//    $response = Telegram::getMe();
+//    dd($we);
+    $bot = new \App\Http\Controllers\TelegramController();
+    $bot->handleRequest();
+});
+

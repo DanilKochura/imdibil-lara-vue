@@ -16,7 +16,7 @@ class BaseCommand extends Command
 
     protected  $name = 'base';
     protected  $description = 'Start Command to get you started';
-    protected $pattern = '{username} {age: \d+}';
+//    protected $pattern = '{username} {age: \d+}';
 
     public function handle()
     {

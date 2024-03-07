@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Mail\VerifyMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +56,8 @@ Route::prefix('/admin')->name('admin.')->group(function (){
 Route::get('/test', function (){
     $user = auth()->user();
     Mail::to($user->email)->send(new VerifyMail($user, $user->password));
-
 });
+
+
 
 require __DIR__.'/auth.php';

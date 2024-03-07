@@ -30,15 +30,15 @@ return [
     */
     'bots'                         => [
         'mybot' => [
-            'token'               => env('TELEGRAM_BOT_TOKEN', '6668217917:AAFwja7lnQf3syi97YUFUfnc043_cEpyWcY'),
-            'certificate_path'    => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
-            'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'YOUR-BOT-WEBHOOK-URL'),
+            'token'               => env('TELEGRAM_BOT_TOKEN', '6668217917:AAEuNIJLxq-5Ccdjnw6ex1h0g12dGBq0Vsk'),
+//            'certificate_path'    => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
+            'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'https://bot.imdibil.ru/bot'),
             'commands'            => [
-               \App\Http\Controllers\Commands\BaseCommand::class,
-               \App\Http\Controllers\Commands\TestCommand::class,
-                \App\Http\Controllers\Commands\GetApkCommand::class,
-                \App\Http\Controllers\Commands\WeekPollCommand::class,
-                \App\Http\Controllers\Commands\PollCommand::class
+//               \App\Http\Controllers\Commands\BaseCommand::class,
+//               \App\Http\Controllers\Commands\TestCommand::class,
+//                \App\Http\Controllers\Commands\GetApkCommand::class,
+//                \App\Http\Controllers\Commands\WeekPollCommand::class,
+//                \App\Http\Controllers\Commands\PollCommand::class
             ],
         ],
 
@@ -96,7 +96,7 @@ return [
     | Possible Values: (Boolean) "true" OR "false"
     |
     */
-    'resolve_command_dependencies' => true,
+    'resolve_command_dependencies' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -115,7 +115,7 @@ return [
     |
     */
     'commands'                     => [
-        Telegram\Bot\Commands\HelpCommand::class,
+//        Telegram\Bot\Commands\HelpCommand::class,
     ],
 
     /*
@@ -199,6 +199,6 @@ return [
         // 'start' => Acme\Project\Commands\StartCommand::class,
         // 'stop' => Acme\Project\Commands\StopCommand::class,
         // 'status' => Acme\Project\Commands\StatusCommand::class,
-        'base' => \App\Http\Controllers\Commands\BaseCommand::class
+//        'base' => \App\Http\Controllers\Commands\BaseCommand::class
     ],
 ];

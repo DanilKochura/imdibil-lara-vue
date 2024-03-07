@@ -19,6 +19,7 @@ class QuizController extends Controller
 {
     public static function index($difficulty)
     {
+        Log::info("Кто-то играет: ".$difficulty);
         $quiz = Quiz::where('alias', '=', $difficulty)->get()->first();
         $quiz = [
             'id' => $quiz->id,
