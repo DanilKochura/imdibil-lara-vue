@@ -58,7 +58,7 @@
     <div class="row m-0" style="justify-content: center"><div class="three"><h1>Заседание #{{$meeting->id}}</h1></div></div>
     <div class="container rounded forum-card my-4">
         <div class="row justify-content-center justify-content-md-start" >
-            <div class="col-md-2 poster"><a href="{{$meeting->movie->url}}" target="_blank"><img src="{{$meeting->movie->poster}}" class="img-fluid rounded"id="IM"></a></div>
+            <div class="col-md-2 poster"><a href="{{$meeting->movie->url}}" target="_blank"><img src="{{asset('/images/posters/'.$meeting->movie->poster)}}" class="img-fluid rounded"id="IM" /></a></div>
             <div class="col-md-4 text-left description">
                 <p class="name">{{$meeting->movie->name_m}}</p>
                 <div class="original">{{$meeting->movie->original}}</div>

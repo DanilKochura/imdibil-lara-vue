@@ -17,7 +17,7 @@ use Telegram\Bot\Objects\Update;
 class WeekPollCommand extends Command
 {
 
-    protected  $name = 'week';
+    protected  $name = 'weekpoll';
     protected  $description = 'Опрос на ближайшую неделю';
 
     public function handle()

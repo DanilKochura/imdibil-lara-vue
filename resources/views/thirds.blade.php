@@ -33,7 +33,7 @@
                          id="id-{{$film->id}}">
                         <div class="row logo-and-rates">
                             <div class="col-sm-6 col-6">
-                                <a href="{{$film->url}}" target="_blank"> <img src="{{$film->poster}}"
+                                <a href="{{$film->url}}" target="_blank"> <img src="{{asset('/images/posters/'.$film->poster)}}"
                                                                                class="img-fluid rounded" id="IM"></a>
                             </div>
                             <div class="col-sm-6 col-6">

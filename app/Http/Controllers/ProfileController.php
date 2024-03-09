@@ -13,9 +13,11 @@ use App\Models\Movie;
 use App\Models\Rate;
 use App\Models\Third;
 use App\Models\User;
+use Faker\Core\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -66,6 +68,7 @@ class ProfileController extends Controller
     public static function addFilm(Request $request)
     {
         $request = $request->all();
+
         $dir = Director::firstOrCreate(['name_d' => $request['director']]);
         $movie = Movie::updateOrCreate([
             'name_m' => $request['nameRu'],
@@ -76,7 +79,6 @@ class ProfileController extends Controller
             'description' => $request['description'],
             'duration' => $request['filmLength'],
             'original' => ($request['nameOriginal'] and $request['nameOriginal'] !== 'null') ? $request['nameOriginal'] : null,
-            'poster' => $request['posterUrl'],
             'rating' => round($request['ratingImdb'], 2),
             'rating_kp' => round($request['ratingKinopoisk'], 2),
         ]);
@@ -92,6 +94,12 @@ class ProfileController extends Controller
         } elseif (!$movie->wasRecentlyCreated && !$movie->wasChanged()){
             $status = 'Фильм уже есть в базе';
         } elseif($movie->wasRecentlyCreated){
+            $image = file_get_contents($request['posterUrl']);
+            $name = \Faker\Provider\Uuid::uuid().'.jpg';
+//            Storage::put(public_path('/images/posters/'.$name), $image);
+            file_put_contents(public_path('/images/posters/'.$name), $image);
+            $movie->poster = $name;
+            $movie->save();
             $status = 'Фильм добавлен в базу';
         }
         return response()->json(['status'=> 1, 'text' => $status]);

@@ -30,3 +30,5 @@ yarn-error.log
 /public/js/vendor.leaflet.js
 /public/js/vendor.markdowneditor.js
 /public/js/vendor.
+
+/public/images/posters
