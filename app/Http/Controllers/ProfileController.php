@@ -50,7 +50,7 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             $user->avatar =  $user->login . '.' . $request->avatar->extension();
 
-            $request->avatar->move(public_path("build/images/uploads/"), $user->avatar);
+            $request->avatar->move(public_path("images/uploads/"), $user->avatar);
         }
         $user->name = $validated['name'];
         $user->save();

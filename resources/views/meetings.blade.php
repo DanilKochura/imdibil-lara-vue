@@ -100,7 +100,7 @@
                      @endif
                      <div class="col d-flex flex-column border-bottom-sm mt-4 mt-0-md">
                              <a href="profile/{{ $rate->user->id  }}" class="mx-auto my-2">
-                                 <img  src="https://imdibil.ru/uploads/{{$rate->user->login}}.jpg" alt="{{$rate->user->name}}" class="avatar">
+                                 <img  src="https://imdibil.ru/images/uploads/{{$rate->user->avatar}}" alt="{{$rate->user->name}}" class="avatar">
                              </a>
                              <div class="rate-ch text-center w-1">{{ $rate->rate  }}</div>
                      </div>

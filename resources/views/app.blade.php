@@ -15,8 +15,8 @@
 
 @if(Route::is('profile.index'))
 
-        <link href="https://imdibil.ru/styles/slick.css" type="text/css" rel="stylesheet"/>
-        <link href="https://imdibil.ru/styles/slick-theme.css" type="text/css" rel="stylesheet"/>
+        <link href="{{asset('css/slick.css')}}" type="text/css" rel="stylesheet"/>
+        <link href="{{asset('css/slick-theme.css')}}" type="text/css" rel="stylesheet"/>
     @endif
     <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">
 
@@ -55,7 +55,7 @@
 
                     <!-- navbar : brand (logo) -->
                     <a class="navbar-brand" href="/">
-                        <img src="https://imdibil.ru/image/logogo.png" width="110" height="38" alt="..." class="logo-head">
+                        <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="..." class="logo-head">
                     </a>
 
                 </div>
@@ -80,8 +80,8 @@
                             Mobile Menu Logo
                             Logo : height: 70px max
                         -->
-                        <a class="navbar-brand" href="index.html">
-                            <img src="https://imdibil.ru/image/logogo.png" width="110" height="38" alt="...">
+                        <a class="navbar-brand" href="/">
+                            <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="...">
                         </a>
 
                     </div>
@@ -153,9 +153,9 @@
                         {{--                    </li>--}}
                         <li class="nav-item dropdown">
 
-                            <a href="/seasons" class=" nav-link">
-                                Статистика по сезонам
-                            </a>
+{{--                            <a href="/seasons" class=" nav-link">--}}
+{{--                                Статистика по сезонам--}}
+{{--                            </a>--}}
 
 
                         </li>
@@ -165,6 +165,12 @@
                         <li class="nav-item d-block d-sm-none text-center mb-4">
 
 
+                            <a href="https://t.me/imdibil_ru" class=" nav-link">
+                                <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z"></path>
+                                </svg>
+                                Подписывайтесь на телеграмм
+                            </a>
                         </li>
 
 
@@ -250,9 +256,10 @@
         <footer >
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Главная</a></li>
-                <li class="nav-item"><a href="/news.php" class="nav-link px-2 text-muted">Новости</a></li>
-                <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>
-                <li class="nav-item"><a href="/statistics.php" class="nav-link px-2 text-muted">Аналитика</a></li>
+                <li class="nav-item"><a href="{{route('news')}}" class="nav-link px-2 text-muted">Новости</a></li>
+{{--                <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>--}}
+                <li class="nav-item"><a href="{{'statictics'}}" class="nav-link px-2 text-muted">Аналитика</a></li>
+                <li class="nav-item"><a href="{{'quiz'}}" class="nav-link px-2 text-muted">Викторина</a></li>
             </ul>
             <p class="text-center text-muted">© 2022 - {{\Carbon\Carbon::now()->format('Y')}} IMDBil</p>
         </footer>

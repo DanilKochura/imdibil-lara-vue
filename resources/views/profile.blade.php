@@ -95,11 +95,11 @@
                                     data-bs-target="#thirdAddModal" title="Добавить тройку">
                                 <i class="fi mdi-filter_3"></i>
                             </button>
-                            <button type="button" class="btn btn-dark rounded-circle ms-2 mb-2"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#movieAddModal" title="Добавить тройку">
-                                <i class="fi mdi-filter_2"></i>
-                            </button>
+{{--                            <button type="button" class="btn btn-dark rounded-circle ms-2 mb-2"--}}
+{{--                                    data-bs-toggle="modal"--}}
+{{--                                    data-bs-target="#movieAddModal" title="Добавить тройку">--}}
+{{--                                <i class="fi mdi-filter_2"></i>--}}
+{{--                            </button>--}}
                         @endif
                     @endif
 
@@ -341,7 +341,7 @@
                                 @foreach($advices as $movie)
                                     <div class="slide-cust" style="">
                                         <a href="{{$movie->url}}" target="_blank">
-                                            <img src="{{$movie->poster}}" class="img-fluid" alt="">
+                                            <img src="{{asset('images/posters/'.$movie->poster)}}" class="img-fluid" alt="">
                                         </a>
                                     </div>
                                 @endforeach
@@ -354,7 +354,7 @@
                 <div class="col-sm-1"></div>
                 <div class="col-md-10 col-12">
                     <p class="h4">{{auth()->id() == $user->id ? 'Мои оценки' : 'Оценки '.$user->name}}</p>
-                    <table class="table-datatable table table-dark-profile table-dark m-0"
+                    <table class="table-datatable table table-dark-profile table-dark m-0 table-responsive"
                            data-lng-empty="No data available in table"
                            data-lng-page-info="Отражены оценки с  _START_ по _END_ из _TOTAL_"
                            data-lng-filtered="(filtered from _MAX_ total entries)"
@@ -369,7 +369,7 @@
                            data-column-search="false"
                            data-row-reorder="false"
                            data-col-reorder="false"
-                           data-responsive="false"
+                           data-responsive="true"
                            data-header-fixed="false"
                            data-select-onclick="false"
                            data-enable-paging="false"
@@ -388,7 +388,7 @@
                             <th>Название</th>
                             <th>Оценка</th>
                             <th>Средний балл</th>
-                            <th></th>
+                            <th>Удалить</th>
                         </tr>
                         </thead>
                         <tbody>

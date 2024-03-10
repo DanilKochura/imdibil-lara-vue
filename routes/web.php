@@ -43,12 +43,13 @@ Route::get('game', function (){
 
 
 
-Route::prefix('/admin')->name('admin.')->group(function (){
+Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function (){
     Route::prefix('/quiz')->name('quiz.')->group(function (){
         Route::get('/create', [\App\Http\Controllers\Admin\QuizController::class, 'index'])->name('create');
         Route::post('/create', [\App\Http\Controllers\Admin\QuizController::class, 'save'])->name('save');
         Route::get('/show', [\App\Http\Controllers\Admin\QuizController::class, 'show'])->name('show');
         Route::get('/new', [\App\Http\Controllers\Admin\QuizController::class, 'new'])->name('new');
+        Route::get('/quizzes', [\App\Http\Controllers\Admin\QuizController::class, 'show_quizzes'])->name('show_quizzes');
         Route::post('/save-quiz', [\App\Http\Controllers\Admin\QuizController::class, 'saveQuiz'])->name('save-quiz');
     });
 });

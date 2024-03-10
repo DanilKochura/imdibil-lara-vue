@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     public function unrated()
     {
-        return DB::table('meetings')->select('name_m', 'meetings.id')->join('movies', 'movie_id', 'movies.id')->leftJoinSub("select * from rates where user_id = '{$this->id}'", 'ur','meetings.id', 'meeting_id')->whereNull('rate')->get();
+        return DB::table('meetings')->select('name_m', 'meetings.id')->join('movies', 'movie_id', 'movies.id')->leftJoinSub("select * from rates where user_id = '{$this->id}'", 'ur','meetings.id', 'meeting_id')->whereNull('ur.id')->get();
 //        return Meeting::with('movie', 'rates')->whereRelation('rates', 'user_id', '=', $this->id)->whereRelation('rates', 'rate', '=', null)->dd()->get();
     }
 

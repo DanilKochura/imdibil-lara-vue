@@ -25,7 +25,6 @@ class QuizController extends Controller
 
     public static function save(Request $request)
     {
-//        dd($request->all());
         $validated = $request->validate([
             'text' => 'nullable|string',
             'image' => 'image',
@@ -70,15 +69,32 @@ class QuizController extends Controller
         return view('admin.quiz.new');
 
     }
+    public static function show_quizzes()
+    {
+        $quizzes = Quiz::all();
+        return view('admin.quiz.quizzes', compact('quizzes'));
+
+    }
 
 
     public static function saveQuiz(Request $request)
     {
-//        dd($request->all());
+        $validated = $request->validate([
+           "title" => "required|string",
+           "text" => "required|string",
+           "text_preview" => "required|string",
+           "alias" => "required|string",
+           "type" => "required|numeric",
+           "time" => "required|numeric",
+           "errors" => "required|numeric",
+           "sum" => "numeric|in:1,0",
+           "status" => "numeric|in:1,0",
+           "image" => "required|image",
+        ]);
+        $validated['user_id'] = auth()->id();
         $quiz = Quiz::create($request->all());
         if ($request->hasFile('image')) {
             $quiz->image =  $quiz->alias . '.' . $request->image->extension();
-
             $request->image->move(public_path("images/quiz/"), $quiz->image);
             $quiz->save();
         }

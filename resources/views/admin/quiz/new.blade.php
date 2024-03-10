@@ -8,38 +8,115 @@
                 @csrf
                 <div class="row mb-2">
                     <div class="col-12">
-                        <label for="name" class="col-form-label"><strong>Заголовок</strong></label>
-                        <input id="name" class="form-control form-control-sm" name="name" value="" type="text" autocomplete="off">
+                        <div class="form-group">
+                            <label for="title" class="col-form-label"><strong>Заголовок</strong></label>
+                            <input id="title" class="form-control form-control-sm" name="title"
+                                   value="{{ old('title') }}" type="text" autocomplete="off">
+
+                            @if($errors->has('title'))
+                                <div>
+                                    <span
+                                        class="invalid-feedback d-block"><strong>{{ $errors->first('title') }}</strong></span>
+
+                                </div>
+                            @endif </div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-12">
-                        <label for="text" class="col-form-label"><strong>Текст для карточки</strong></label>
-                        <input id="text" class="form-control form-control-sm" name="text" value="" type="text" autocomplete="off">
+                        <div class="form-group">
+                            <label for="text" class="col-form-label"><strong>Текст для карточки</strong></label>
+                            <input id="text" class="form-control form-control-sm" name="text" value="{{ old('text') }}"
+                                   type="text" autocomplete="off">
+                            @if($errors->has('text'))
+                                <span
+                                    class="invalid-feedback d-block"><strong>{{ $errors->first('text') }}</strong></span>
+                            @endif
+
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-12">
-                        <label for="text_preview" class="col-form-label"><strong>Превью</strong></label>
-                        <input id="text_preview" class="form-control form-control-sm" name="text_preview" value="" type="text" autocomplete="off">
+                        <div class="form-group">
+
+                            <label for="text_preview" class="col-form-label"><strong>Превью</strong></label>
+                            <input id="text_preview" class="form-control form-control-sm" name="text_preview"
+                                   value="{{ old('text_preview') }}" type="text" autocomplete="off">
+                            @if($errors->has('text_preview'))
+                                <span
+                                    class="invalid-feedback d-block"><strong>{{ $errors->first('text_preview') }}</strong></span>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-12">
-                        <label for="alias" class="col-form-label"><strong>Алиас</strong></label>
-                        <input id="alias" class="form-control form-control-sm" name="alias" value="" type="text" autocomplete="off">
+                    <div class="col-3">
+                        <label for="difSel" class="col-form-label"><strong>Категория</strong></label>
+                        <select class="form-select" name="type" id="difSel">
+                            <option value="1" disabled>Стандартная</option>
+                            <option value="2" selected>Тематические</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+
+                            <label for="alias" class="col-form-label"><strong>Алиас</strong></label>
+                            <input id="alias" class="form-control form-control-sm" name="alias"
+                                   value="{{ old('alias') }}" type="text" autocomplete="off">
+                            @if($errors->has('alias'))
+                                <span
+                                    class="invalid-feedback d-block"><strong>{{ $errors->first('alias') }}</strong></span>
+                            @endif
+                        </div>
+
+                    </div>
+                    <div class="col-2">
+                        <label for="time" class="col-form-label"><strong>Таймер</strong></label>
+                        <input id="time" class="form-control form-control-sm" name="time"
+                               value="{{ old('time') ?: 15 }}" type="number" autocomplete="off">
+
+                    </div>
+                    <div class="col-2">
+                        <label for="errors" class="col-form-label"><strong>Ошибки</strong></label>
+                        <input id="errors" class="form-control form-control-sm" name="errors"
+                               value="{{ old('errors') ?: 3 }}" type="number" autocomplete="off">
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5">
+                        <div class="form-group">
+                            <label for="image" class="col-form-label"><strong>Картинка</strong> <small
+                                    class="text-danger text-decoration-underline">Максимальный размер картинки 500
+                                    кб.</small></label>
+                            <input id="image" class="form-control form-control-sm" name="image" type="file"
+                                   value="{{ old('image') }}">
+                            @if($errors->has('image'))
+                                <span
+                                    class="invalid-feedback d-block"><strong>{{ $errors->first('image') }}</strong></span>
+                            @endif
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5">
+                        <label class="d-flex align-items-center mb-3">
+                            <input class="d-none-cloaked" type="checkbox" name="sum" value="1">
+                            <i class="switch-icon"></i>
+                            <span class="px-3 user-select-none"> Суммировать время</span>
+                        </label>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-5">
-                        <label for="image" class="col-form-label"><strong>Картинка</strong> <small class="text-danger text-decoration-underline">Максимальный размер картинки 500 кб.</small></label>
-                        <input id="image" class="form-control form-control-sm" name="image" type="file">
-                    </div>
-                    <div class="col-3">
-                        <label for="difSel" class="col-form-label"><strong>Категория</strong></label>
-                        <select class="form-select" name="type" id="difSel">
-                            <option value="1" selected>Стандартная</option>
-                        </select>
+                        <label class="d-flex align-items-center mb-3">
+                            <input class="d-none-cloaked" type="checkbox" name="status" value="1">
+                            <i class="switch-icon"></i>
+                            <span class="px-3 user-select-none">Статус</span>
+                        </label>
                     </div>
                 </div>
 
@@ -50,6 +127,5 @@
             </form>
         </div>
     </div>
-
 
 @endsection

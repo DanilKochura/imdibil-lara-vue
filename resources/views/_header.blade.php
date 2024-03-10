@@ -46,7 +46,7 @@
 
                 <!-- navbar : brand (logo) -->
                 <a class="navbar-brand" href="/">
-                    <img src="https://imdibil.ru/image/logogo.png" width="110" height="38" alt="..." class="logo-head">
+                    <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="..." class="logo-head">
                 </a>
 
             </div>

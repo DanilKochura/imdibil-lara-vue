@@ -15,6 +15,8 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
+
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">

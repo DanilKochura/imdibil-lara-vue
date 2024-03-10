@@ -55,7 +55,7 @@
 
                     <!-- navbar : brand (logo) -->
                     <a class="navbar-brand" href="/">
-                        <img src="https://imdibil.ru/image/logogo.png" width="110" height="38" alt="..." class="logo-head">
+                        <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="..." class="logo-head">
                     </a>
 
                 </div>
@@ -81,7 +81,7 @@
                             Logo : height: 70px max
                         -->
                         <a class="navbar-brand" href="index.html">
-                            <img src="https://imdibil.ru/image/logogo.png" width="110" height="38" alt="...">
+                            <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="...">
                         </a>
 
                     </div>

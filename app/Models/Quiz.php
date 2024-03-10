@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Quiz extends Model
 {
     protected $fillable = [
-       'id', 'title', 'image', 'text', 'text_preview', 'alias', 'type'
+       'id', 'title', 'image', 'text', 'text_preview', 'alias', 'type', 'title', 'time','errors','sum','user_id','status'
     ];
     public $timestamps = false;
 

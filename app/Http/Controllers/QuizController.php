@@ -48,7 +48,7 @@ class QuizController extends Controller
             ];
         });
         $results = collect($results);
-        $results->sortBy('sum');
+        $results = $results->sortByDesc("sum")->slice(0, 7);
         return view('game', compact('quizzes', 'results'));
     }
 
