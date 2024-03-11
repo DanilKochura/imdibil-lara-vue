@@ -34,8 +34,9 @@ class ProfileController extends Controller
 
         $advices = $user->advices();
         $unrated = $user->unrated();
+        $quiz = $user->quiz_progress();
 //        dd($unrated);
-        return view('profile', compact('user', 'advices', 'unrated'));
+        return view('profile', compact('user', 'advices', 'unrated', 'quiz'));
     }
 
     public static function update(Request $request)

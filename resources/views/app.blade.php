@@ -255,13 +255,13 @@
     <div class="container-fluid bg-dark bottom-0 py-4">
         <footer >
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Главная</a></li>
-                <li class="nav-item"><a href="{{route('news')}}" class="nav-link px-2 text-muted">Новости</a></li>
+                <li class="nav-item"><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+                <li class="nav-item"><a href="{{route('news')}}" class="nav-link px-2 text-white">Новости</a></li>
 {{--                <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>--}}
-                <li class="nav-item"><a href="{{'statictics'}}" class="nav-link px-2 text-muted">Аналитика</a></li>
-                <li class="nav-item"><a href="{{'quiz'}}" class="nav-link px-2 text-muted">Викторина</a></li>
+                <li class="nav-item"><a href="{{'statictics'}}" class="nav-link px-2 text-white">Аналитика</a></li>
+                <li class="nav-item"><a href="{{'quiz'}}" class="nav-link px-2 text-white">Викторина</a></li>
             </ul>
-            <p class="text-center text-muted">© 2022 - {{\Carbon\Carbon::now()->format('Y')}} IMDBil</p>
+            <p class="text-center text-white">© 2022 - {{\Carbon\Carbon::now()->format('Y')}} IMDBil</p>
         </footer>
     </div>
 </div>

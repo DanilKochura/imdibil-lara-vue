@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\VerifyMail;
 use Illuminate\Support\Facades\Log;
@@ -45,12 +46,13 @@ Route::get('game', function (){
 
 Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function (){
     Route::prefix('/quiz')->name('quiz.')->group(function (){
-        Route::get('/create', [\App\Http\Controllers\Admin\QuizController::class, 'index'])->name('create');
-        Route::post('/create', [\App\Http\Controllers\Admin\QuizController::class, 'save'])->name('save');
-        Route::get('/show', [\App\Http\Controllers\Admin\QuizController::class, 'show'])->name('show');
-        Route::get('/new', [\App\Http\Controllers\Admin\QuizController::class, 'new'])->name('new');
-        Route::get('/quizzes', [\App\Http\Controllers\Admin\QuizController::class, 'show_quizzes'])->name('show_quizzes');
-        Route::post('/save-quiz', [\App\Http\Controllers\Admin\QuizController::class, 'saveQuiz'])->name('save-quiz');
+        Route::get('/create', [QuizController::class, 'index'])->name('create');
+        Route::post('/create', [QuizController::class, 'save'])->name('save');
+        Route::get('/show', [QuizController::class, 'show'])->name('show');
+        Route::get('/new', [QuizController::class, 'new'])->name('new');
+        Route::get('/quizzes', [QuizController::class, 'show_quizzes'])->name('show_quizzes');
+        Route::post('/save-quiz', [QuizController::class, 'saveQuiz'])->name('save-quiz');
+        Route::get('/{quiz}/questions', [QuizController::class, 'questions'])->name('questions');
     });
 });
 

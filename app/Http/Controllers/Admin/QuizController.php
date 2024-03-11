@@ -17,6 +17,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class QuizController extends Controller
 {
+
     public static function index()
     {
         $quizzes = Quiz::all();
@@ -89,7 +90,7 @@ class QuizController extends Controller
            "errors" => "required|numeric",
            "sum" => "numeric|in:1,0",
            "status" => "numeric|in:1,0",
-           "image" => "required|image",
+           "image" => "required|image|max:500",
         ]);
         $validated['user_id'] = auth()->id();
         $quiz = Quiz::create($request->all());
@@ -101,4 +102,11 @@ class QuizController extends Controller
         return redirect()->back();
 
     }
+
+    public static function questions(Quiz $quiz)
+    {
+        $quiz->load('questions');
+        return view('admin.quiz.questions', compact('quiz'));
+    }
+
 }

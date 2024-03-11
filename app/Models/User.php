@@ -89,5 +89,10 @@ class User extends Authenticatable
 //        return Meeting::with('movie', 'rates')->whereRelation('rates', 'user_id', '=', $this->id)->whereRelation('rates', 'rate', '=', null)->dd()->get();
     }
 
+    public function quiz_progress()
+    {
+        return $this->hasMany(QuizProgress::class, 'user_id', 'id')->with('quiz')->get();
+    }
+
 
 }

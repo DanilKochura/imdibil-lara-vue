@@ -322,6 +322,77 @@
 
             <div class="col-sm-1"></div>
         </div>
+        @if($quiz->count())
+            <div class="row mt-2">
+                <div class="col-sm-1"></div>
+                <div class="col-md-10 col-12">
+                    <p class="h4">Прогресс викторины</p>
+                    <table class="table-datatable table table-dark-profile table-dark m-0 table-responsive"
+                           data-lng-empty="No data available in table"
+                           data-lng-page-info="Отражены оценки с  _START_ по _END_ из _TOTAL_"
+                           data-lng-filtered="(filtered from _MAX_ total entries)"
+                           data-lng-loading="Loading..."
+                           data-lng-processing="Processing..."
+                           data-lng-search="Search..."
+                           data-lng-norecords="No matching records found"
+                           data-lng-sort-ascending=": activate to sort column ascending"
+                           data-lng-sort-descending=": activate to sort column descending"
+
+                           data-main-search="false"
+                           data-column-search="false"
+                           data-row-reorder="false"
+                           data-col-reorder="false"
+                           data-responsive="true"
+                           data-header-fixed="false"
+                           data-select-onclick="false"
+                           data-enable-paging="false"
+                           data-enable-col-sorting="true"
+                           data-autofill="false"
+                           data-group="false"
+                           data-items-per-page="10"
+
+                           data-enable-column-visibility="false"
+                           data-lng-column-visibility="Column Visibility"
+
+                           data-enable-export="false"
+                           data-custom-config='{}'>
+                        <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Лучший результат</th>
+                            <th>Количество попыток</th>
+                            <th>Медали</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($quiz as $progress)
+                            <tr>
+                                <td>
+                                    <a href="{{route('quiz', $progress->quiz->alias)}}" class="link-warning">
+                                        {{$progress->quiz->title}}
+                                    </a>
+                                </td>
+                                <td>{{$progress->points}}</td>
+                                <td>{{$progress->attempt}}</td>
+                                <td>
+                                    @php $rank = $progress->medals()->count() @endphp
+                                    <div class="d-flex justify-content-evenly   ">
+                                        <x-medal class=" {{($rank and $rank > 0) ? '' : 'fill-inactive'}} fill-brown avatar" data-bs-toggle="tooltip"
+                                                 data-bs-placement="top" title="Пройдено 60%"></x-medal>
+                                        <x-medal class=" {{($rank and $rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 avatar" data-bs-toggle="tooltip"
+                                                 data-bs-placement="top" title="Пройдено 80%"></x-medal>
+                                        <x-medal class=" {{($rank and $rank == 3) ? '' : 'fill-inactive'}} fill-warning avatar" data-bs-toggle="tooltip"
+                                                 data-bs-placement="top" title="Пройдено 95%"></x-medal>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        @endif
         @if($user->isExpert())
             <div class="row">
                 <div class="col-sm-1"></div>

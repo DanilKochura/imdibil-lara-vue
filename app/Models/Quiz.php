@@ -22,7 +22,7 @@ class Quiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(QuizQuestion::class, 'quiz_id', 'id')->with('questions.answers');
+        return $this->hasMany(QuizQuestion::class, 'quiz_id', 'id')->with('answers');
     }
 
     public function unique_results()

@@ -19,6 +19,7 @@
                             <th>Таймер</th>
                             <th>Суммирутся</th>
                             <th>Ошибки</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,11 @@
 {{--                                <td>{{$quiz->questions->count()}}</td>--}}
                                 <td>{{$quiz->sum}}</td>
                                 <td>{{$quiz->errors}}</td>
+                                <td>
+                                    <a href="{{route('admin.quiz.questions', $quiz)}}" class="btn  rounded-circle btn-outline-success mb-2">
+                                        <i class="fi fi-plus"></i>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -5,7 +5,7 @@
     <meta name="keywords" content="киновикторина, викторина про кино, тесты на знание кино, викторина кинематограф, кинематограф, веселые тесты, развлекательные тесты" />
     <meta name="description" content="На нашем портале доступны различные викторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры." />
     <title>Киновикторина</title>
-    <meta property="og:site_name" content="IMDibil - Киновикторнв">
+    <meta property="og:site_name" content="IMDibil - Киновикторина">
     <meta property="og:title" content="Киновикторины">
 @endsection
 
