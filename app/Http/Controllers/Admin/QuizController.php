@@ -24,6 +24,11 @@ class QuizController extends Controller
          return view('admin.quiz.create', compact('quizzes'));
     }
 
+    public static function edit(Quiz $quiz)
+    {
+        return view('admin.quiz.edit', compact('quiz'));
+    }
+
     public static function save(Request $request)
     {
         $validated = $request->validate([
@@ -100,6 +105,30 @@ class QuizController extends Controller
             $quiz->save();
         }
         return redirect()->back();
+
+    }
+
+    public static function updateQuiz(Quiz $quiz,Request $request)
+    {
+        $validated = $request->validate([
+           "title" => "required|string",
+           "text" => "required|string",
+           "text_preview" => "required|string",
+           "alias" => "required|string",
+           "type" => "required|numeric",
+           "time" => "required|numeric",
+           "errors" => "required|numeric",
+           "sum" => "numeric|in:1,0",
+           "status" => "numeric|in:1,0",
+           "image" => "nullable|image|max:500",
+        ]);
+        $quiz->update($request->except('image'));
+        if ($request->hasFile('image')) {
+            $quiz->image =  $quiz->alias . '.' . $request->image->extension();
+            $request->image->move(public_path("images/quiz/"), $quiz->image);
+            $quiz->save();
+        }
+        return redirect()->route('admin.quiz.show_quizzes');
 
     }
 

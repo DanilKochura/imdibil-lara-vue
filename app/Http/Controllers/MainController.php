@@ -100,7 +100,7 @@ class MainController extends Controller
 
     public static function news()
     {
-        $thirds = Third::with('selected', 'user')->orderByDesc('id')->paginate(5);
+        $thirds = Third::with('selected', 'user')->where('checked','=', 1)->orderByDesc('id')->paginate(5);
 //        dd($thirds);
         return view('thirds', compact('thirds'));
     }

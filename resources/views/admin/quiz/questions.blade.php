@@ -76,7 +76,7 @@
                        data-autofill="false"
                        data-group="false"
                        data-items-per-page="10"
-
+                       data-order='[ 0, "desc" ]'
                        data-enable-column-visibility="true"
                        data-lng-column-visibility="Column Visibility"
 

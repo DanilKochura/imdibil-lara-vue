@@ -80,8 +80,8 @@ class ProfileController extends Controller
             'description' => $request['description'],
             'duration' => $request['filmLength'],
             'original' => ($request['nameOriginal'] and $request['nameOriginal'] !== 'null') ? $request['nameOriginal'] : null,
-            'rating' => round($request['ratingImdb'], 2),
-            'rating_kp' => round($request['ratingKinopoisk'], 2),
+            'rating' => round($request['ratingImdb'], 1),
+            'rating_kp' => round($request['ratingKinopoisk'], 1),
         ]);
         $genres = explode(' ', $request['genres']);
         foreach ($genres as $genre)

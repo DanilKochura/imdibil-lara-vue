@@ -45,8 +45,10 @@ class TelegramController extends Controller
         if (isset($request['message'])) {
             $this->chat_id = $request['message']['chat']['id'];
             $this->username = $request['message']['from']['username'];
-            $this->text = $request['message']['text'];
-
+            if(isset($request['message']['text']))
+            {
+                $this->text = $request['message']['text'] ?: $request['message']['caption'];
+            }
             switch ($this->text) {
                 case '/start':
                 case '/menu':
@@ -55,10 +57,10 @@ class TelegramController extends Controller
                 case '/week':
                     $this->weekPoll();
                     break;
-                case '/nextWatch':
+                case '/nextwatch':
                     $this->nextWatch();
                     break;
-                    case '/test':
+                case '/test':
                     $this->test();
                     break;
             }
@@ -100,8 +102,6 @@ class TelegramController extends Controller
 
         $messageId = $response->getMessageId();
     }
-
-
 
 
     protected function formatArray($data)
@@ -153,13 +153,12 @@ class TelegramController extends Controller
     protected function nextWatch()
     {
         $film = Third::with('selected')->where('checked', '=', 1)->get()->last()->selected;
-
         $reply = "<b>" . $film->name_m . "</b> - " . $film->year_of_cr .
             PHP_EOL . "Длительность - " . $film->duration . " минут" .
             PHP_EOL . "КП: <b>" . $film->rating_kp . "</b>" .
             PHP_EOL . "IMDB: <b>" . $film->rating . "</b>" .
             PHP_EOL . "<a href='$film->url'>Кинопоиск</a>";
-        $this->telegram->sendPhoto(['chat_id' => $this->chat_id, 'photo' => \Telegram\Bot\FileUpload\InputFile::create($film->poster, $film->name_m), 'parse_mode' => 'HTML', 'caption' => $reply]);
+        $this->telegram->sendPhoto(['chat_id' => $this->chat_id, 'photo' => \Telegram\Bot\FileUpload\InputFile::create(asset('/images/posters/'.$film->poster), $film->name_m), 'parse_mode' => 'HTML', 'caption' => $reply]);
 //        $this->sendMessage($reply, true);
 
     }

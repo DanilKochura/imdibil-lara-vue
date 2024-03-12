@@ -45,13 +45,16 @@ Route::get('game', function (){
 
 
 Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function (){
+    Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index']);
     Route::prefix('/quiz')->name('quiz.')->group(function (){
         Route::get('/create', [QuizController::class, 'index'])->name('create');
         Route::post('/create', [QuizController::class, 'save'])->name('save');
         Route::get('/show', [QuizController::class, 'show'])->name('show');
         Route::get('/new', [QuizController::class, 'new'])->name('new');
+        Route::get('/{quiz}/edit', [QuizController::class, 'edit'])->name('edit');
         Route::get('/quizzes', [QuizController::class, 'show_quizzes'])->name('show_quizzes');
         Route::post('/save-quiz', [QuizController::class, 'saveQuiz'])->name('save-quiz');
+        Route::post('/{quiz}/update-quiz', [QuizController::class, 'updateQuiz'])->name('update-quiz');
         Route::get('/{quiz}/questions', [QuizController::class, 'questions'])->name('questions');
     });
 });

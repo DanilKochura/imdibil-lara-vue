@@ -17,6 +17,7 @@
                             <th>Алиас</th>
                             <th>Картинка</th>
                             <th>Таймер</th>
+                            <th>Количество вопросов</th>
                             <th>Суммирутся</th>
                             <th>Ошибки</th>
                             <th></th>
@@ -28,16 +29,32 @@
                                 <td>{{$quiz->id}}</td>
                                 <td>{{$quiz->title}}</td>
                                 <td>{{$quiz->text}}</td>
-                                <td>{{$quiz->alias}}</td>
+                                <td><a href="{{route('quiz', $quiz->alias)}}" class="link-dashed">{{$quiz->alias}}</a></td>
                                 <td><img src="{{asset('images/quiz/'.$quiz->image)}}" alt="" class="img-fluid"></td>
                                 <td>{{$quiz->time}}</td>
+                                <td><span class="fw-bold">{{$quiz->questions->count()}}</span></td>
 {{--                                <td>{{$quiz->questions->count()}}</td>--}}
-                                <td>{{$quiz->sum}}</td>
+                                <td>
+                                    @if($quiz->sum)
+                                        <span class="badge bg-success-soft">Да</span>
+                                    @else
+                                        <span class="badge bg-danger-soft">Нет</span>
+                                    @endif
+                                </td>
                                 <td>{{$quiz->errors}}</td>
                                 <td>
-                                    <a href="{{route('admin.quiz.questions', $quiz)}}" class="btn  rounded-circle btn-outline-success mb-2">
-                                        <i class="fi fi-plus"></i>
-                                    </a>
+                                    <div class="d-flex flex-column align-items-center">
+                                        <div>
+                                            <a href="{{route('admin.quiz.questions', $quiz)}}" class="btn  rounded-circle btn-outline-success mb-2">
+                                                <i class="fi fi-plus"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="{{route('admin.quiz.edit', $quiz)}}" class="btn  rounded-circle btn-outline-primary mb-2">
+                                                <i class="fi fi-pencil"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

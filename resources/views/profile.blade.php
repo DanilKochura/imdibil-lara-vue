@@ -327,7 +327,7 @@
                 <div class="col-sm-1"></div>
                 <div class="col-md-10 col-12">
                     <p class="h4">Прогресс викторины</p>
-                    <table class="table-datatable table table-dark-profile table-dark m-0 table-responsive"
+                    <table class="table table-dark-profile table-dark m-0 table-responsive"
                            data-lng-empty="No data available in table"
                            data-lng-page-info="Отражены оценки с  _START_ по _END_ из _TOTAL_"
                            data-lng-filtered="(filtered from _MAX_ total entries)"
@@ -448,7 +448,7 @@
                            data-autofill="false"
                            data-group="false"
                            data-items-per-page="10"
-
+                           data-order='[ 1, "desc" ]'
                            data-enable-column-visibility="false"
                            data-lng-column-visibility="Column Visibility"
 
