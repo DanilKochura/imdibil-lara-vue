@@ -9,8 +9,10 @@ use App\Models\Quiz;
 use App\Models\QuizProgress;
 use App\Models\Rate;
 use App\Models\Third;
+use App\Models\User;
 use App\Models\UserQuizMedal;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -19,7 +21,15 @@ class QuizController extends Controller
 {
     public static function index($difficulty)
     {
-        Log::info("Кто-то играет: ".$difficulty);
+        $user = "Неизвестен";
+        if (\auth()->check())
+        {
+            $user = \auth()->user()->name;
+        }
+        Log::build([
+            'driver' => 'daily',
+            'path' => storage_path('logs/quiz.log'),
+        ])->info("Кто-то играет: ".$difficulty.". ".$user);
         $quiz = Quiz::where('alias', '=', $difficulty)->get()->first();
         $quiz = [
             'id' => $quiz->id,
@@ -47,9 +57,11 @@ class QuizController extends Controller
                 'id' => $group->first()->user->id
             ];
         });
+        $quizzesAll = Quiz::where('type', '=', 2)->where('status', '=', 1)->get();
+
         $results = collect($results);
         $results = $results->sortByDesc("sum")->slice(0, 7);
-        return view('game', compact('quizzes', 'results'));
+        return view('game', compact('quizzes', 'results', 'quizzesAll'));
     }
 
 
@@ -63,9 +75,15 @@ class QuizController extends Controller
                 'user_id' => auth()->id(),
                 'points' => $request['points']
             ]);
+            if ($request['points'] / $request['total'] > 0.95) {
+                event(new \App\Events\QuizResultsEvent($result, User::find(auth()->id())));
+            }
         } else {
             if ($request['points'] > $result->points) {
                 $result->points = $request['points'];
+                if ($request['points'] / $request['total'] > 0.95) {
+                    event(new \App\Events\QuizResultsEvent($result, User::find(auth()->id())));
+                }
             }
             $result->attempt++;
             $result->save();

@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\QuizResultsEvent;
 use App\Events\ThirdAddEvent;
+use App\Listeners\QuizResultListener;
 use App\Listeners\ThirdAddListener;
+use App\Notifications\QuizResultNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ThirdAddEvent::class => [
             ThirdAddListener::class
+        ],
+        QuizResultsEvent::class => [
+            QuizResultListener::class
         ]
     ];
 

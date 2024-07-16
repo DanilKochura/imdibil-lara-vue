@@ -23,9 +23,12 @@
         <!-- start quiz page -->
         <div class="question_container" v-show="startQuiz">
             <div class="question-contents row">
-                <div class="col-12">
+                <div class="col-12 d-flex justify-content-between">
                     <p class="question" v-show="questions[currentQuestion - 1].question.text !== ''">
                         {{ questions[currentQuestion - 1].question.text }}
+                    </p>
+                    <p class="m-0 text-end">
+                        Вопрос {{currentQuestion}}/{{questions.length}}
                     </p>
                 </div>
 

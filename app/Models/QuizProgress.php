@@ -16,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 class QuizProgress extends Model
 {
     protected $fillable = [
-       'id',  'quiz_id', 'user_id', 'points', 'attempt'
+       'id',  'quiz_id', 'user_id', 'points', 'attempt', 'date_cert'
     ];
     public $timestamps = false;
 

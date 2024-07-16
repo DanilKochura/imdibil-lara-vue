@@ -95,6 +95,49 @@
         </div>
     </div>
 
+
+    @if(count($quizzesAll))
+        <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
+            <h3 class="text-center text-warning">Тематические</h3>
+            <div class="row text-center">
+                @foreach($quizzesAll as $quiz)
+                    <div class="col-sm-3 mb-2">
+                        <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
+                            {{--                        @if($quiz->id == 3)--}}
+                            {{--                            <div class="card-lock-overlay">--}}
+                            {{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
+                            {{--                                <div class="lock-content">--}}
+                            {{--                                    <span>Будет доступно с 20 марта</span>--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
+                            {{--                        @endif--}}
+                            <div class="card-header">
+                                <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-warning">{{$quiz->title}}</h5>
+                                <p class="card-text">{{$quiz->text}}</p>
+                                @php $rank = $quiz->user_medals() @endphp
+                                <div class="d-flex justify-content-evenly   ">
+                                    <x-medal class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25" data-bs-toggle="tooltip"
+                                             data-bs-placement="top" title="Пройдено 60%"></x-medal>
+                                    <x-medal class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25" data-bs-toggle="tooltip"
+                                             data-bs-placement="top" title="Пройдено 80%"></x-medal>
+                                    <x-medal class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25" data-bs-toggle="tooltip"
+                                             data-bs-placement="top" title="Пройдено 95%"></x-medal>
+                                </div>
+                                <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}" time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}" class="mt-2"></x-quiz-info>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <a href="{{route('quiz', $quiz->alias)}}" class="btn btn-outline-warning w-100">Играть</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    @endif
     @if(!auth()->check())
         @include('components.login-modal')
     @endif

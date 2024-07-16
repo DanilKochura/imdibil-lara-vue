@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="container main content">
+    <div class="container main content" style="min-height: 100%">
         <div class="row user-info">
             <div class="col-sm-1"></div>
             <div class="col-sm-2 col-6">
@@ -425,6 +425,9 @@
                             <th>Лучший результат</th>
                             <th>Количество попыток</th>
                             <th>Медали</th>
+                            @if(auth()->id() == $user->id)
+                                <th></th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -448,6 +451,15 @@
                                                  data-bs-placement="top" title="Пройдено 95%"></x-medal>
                                     </div>
                                 </td>
+                                @if(auth()->id() == $user->id)
+                                    <td class="text-center">
+                                        @if($progress->date_cert)
+                                            <a target="_blank" class="link-secondary" href="{{asset('/certs/'.$progress->id.'.pdf')}}">
+                                                <i class="fi fi-arrow-download"></i>
+                                            </a>
+                                        @endif
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -455,6 +467,7 @@
                 </div>
                 <div class="col-sm-1"></div>
             </div>
+
         @endif
         @if($user->isExpert())
             <div class="row">
@@ -570,5 +583,5 @@
         @endif
 
     </div>
-
+    </div>
 @endsection

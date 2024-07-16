@@ -7,6 +7,7 @@ use App\Mail\VerifyMail;
 use App\Models\Third;
 use App\Models\UserVote;
 use App\Models\VotePair;
+use App\View\PdfBase\PDFCertificate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,6 @@ Route::prefix('/profile')->name('profile.')->middleware(['auth'])->group(functio
     Route::post('/vote', [\App\Http\Controllers\VoteController::class, 'vote'])->name('vote-pair');
 
 });
-Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 Route::get('quiz/{difficulty}', [\App\Http\Controllers\QuizController::class, 'index'])->name('quiz');
 Route::post('quiz/save-progress', [\App\Http\Controllers\QuizController::class, 'save'])->name('quiz.save');
 Route::get('quiz', [\App\Http\Controllers\QuizController::class, 'main'])->name('game');
@@ -53,6 +53,7 @@ Route::get('/vote', [\App\Http\Controllers\VoteController::class, 'index']);
 
 
 Route::prefix('/admin')->middleware(['auth', 'admin'])->name('admin.')->group(function (){
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
     Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index']);
     Route::prefix('/quiz')->name('quiz.')->group(function (){
         Route::get('/create', [QuizController::class, 'index'])->name('create');
@@ -88,16 +89,10 @@ Route::get('/test', function (){
 });
 
 Route::get('/test1', function (){
-    $votePairs = VotePair::where('round', '=', 1)->get();
-    if($votePairs->pluck('winner')->contains(null))
-    {
-        dd([]);
-    } else
-    {
+    $progress = \App\Models\QuizProgress::find(15);
+    $progress->load('user', 'quiz.questions');
 
-        $winners = $votePairs->pluck('winner');
-        dd($votePairs, $winners);
-    }
+    event(new \App\Events\QuizResultsEvent($progress, \App\Models\User::find(4)));
 });
 
 

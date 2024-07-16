@@ -126,6 +126,7 @@ class QuizController extends Controller
            "image" => "nullable|image|max:500",
         ]);
         $quiz->update($request->except('image'));
+        if (!$request->get('status')) $quiz->update(['status' => 0]);
         if ($request->hasFile('image')) {
             $quiz->image =  $quiz->alias . '.' . $request->image->extension();
             $request->image->move(public_path("images/quiz/"), $quiz->image);
