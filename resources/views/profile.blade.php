@@ -95,11 +95,11 @@
                                     data-bs-target="#thirdAddModal" title="Добавить тройку">
                                 <i class="fi mdi-filter_3"></i>
                             </button>
-{{--                            <button type="button" class="btn btn-dark rounded-circle ms-2 mb-2"--}}
-{{--                                    data-bs-toggle="modal"--}}
-{{--                                    data-bs-target="#movieAddModal" title="Добавить тройку">--}}
-{{--                                <i class="fi mdi-filter_2"></i>--}}
-{{--                            </button>--}}
+                            <button type="button" class="btn btn-danger rounded-circle ms-2 mb-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#pairAddModal" title="Добавить пару">
+                                <i class="fi mdi-filter_2"></i>
+                            </button>
                         @endif
                     @endif
 
@@ -315,6 +315,69 @@
 
 
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="pairAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавить пару</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            @if($user->pair->count() == 0)
+                                <form action="" method="post">
+                                    <div class="dropdown">
+                                        <input type="text" class="search w-100 form-control" id="pair"
+                                               placeholder="Интерстеллар">
+                                        <div
+                                            class="res-wrapper bg-white border-1 border-gray-500 border-solid rounded-3 w-100 z-index-10 "
+                                            style="position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate(0px, 53px);">
+                                            <div class="resultss p-2">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="mt-4 mx-0 row">
+                                    <div class="col selected p">
+
+                                    </div>
+                                    <form action="{{route('profile.add-pair')}}" method="post" id="pairadd"
+                                                                                class="js-ajax bs-validate text-center mt-3" novalidate
+                                          data-ajax-update-url="false"
+                                          data-ajax-show-loading-icon="true"
+
+                                          data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> Please, complete all required fields!"
+                                          data-error-toast-delay="3000"
+                                          data-error-toast-position="top-center"
+
+                                          data-error-scroll-up="false"
+                                          {{--                                  id="addForm"--}}
+                                          data-ajax-callback-function="filmAddCallback">
+                                        @csrf
+                                        <div class="content"></div>
+                                    </form>
+
+                                </div>
+                            @else
+                                <div class="row text-center">
+                                    <p class="text-center">Вы уже отправили пару на модерацию.</p>
+
+                                    <div class="col-6"><img src="{{asset('/images/posters/'.$user->pair[0]->secondMovie->poster)}}"  class="img-fluid rounded" style="width: 150px; height: 200px"alt=""></div>
+                                    <div class="col-6"><img src="{{asset('/images/posters/'.$user->pair[0]->firstMovie->poster)}}"  class="img-fluid rounded" style="width: 150px; height: 200px"alt=""></div>
+                                    <form action="{{route('profile.delete-pair', $user->pair[0])}}" method="post" >
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-warning mt-3" onclick="delete_user_pair({{$user->id}})">Удалить</button>
+                                    </form>
+                                </div>
+                            @endif
                     </div>
                 </div>
             </div>

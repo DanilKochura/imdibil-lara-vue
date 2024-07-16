@@ -120,11 +120,11 @@ function film_add(id, name,wrapper)
 }
 function film_add_two(id, name,wrapper)
 {
-    if(pair[0] == name || pair[1] == name)
+    if(pair[0] === name || pair[1] === name)
     {
         return;
     }
-    if(pair.length == 2)
+    if(pair.length === 2)
     {
         alert('Выбрано максимальное количество фильмов!');
         return;
@@ -133,7 +133,7 @@ function film_add_two(id, name,wrapper)
     console.log(pair);
     $(wrapper).fadeOut()
     $('#pairadd').append('<input type="hidden" class="'+name+'" name="film[]" value="'+name+'">');
-    if(pair.length == 2)
+    if(pair.length === 2)
     {
         $('#pairadd').append('<input type="submit" class="btn btn-warning">');
     }
@@ -221,7 +221,7 @@ $('.search').on('input', function (){
             {
                 if(id.length > 0)
                 {
-                    $('.results').append('<p onclick="film_add_two(\''+value['label']+'\','+value['id']+')" class="cursor-pointer bg-warning-hover mb-2 mt-0 p-1 rounded-1 search-opt" id="'+value['id']+'">'+value['label']+'</p>', wrapper);
+                    $('.resultss').append('<p onclick="film_add_two(\''+value['label']+'\','+value['id']+')" class="cursor-pointer bg-warning-hover mb-2 mt-0 p-1 rounded-1 search-opt" id="'+value['id']+'">'+value['label']+'</p>', wrapper);
 
                 }
                 else{
@@ -263,41 +263,7 @@ $('form#Addrate').submit(function (e)
     $('#rateAddModal').modal('hide');
 
 });
-$('form#pairadd').submit(function (e)
-{
-    e.preventDefault();
-    let obj = '';
-    $.ajax({
-        url: '/scripts/ajax/addpair.php',
-        method: 'post',
-        dataType: 'json',
-        data: $(this).serialize(),
-        success: function(data){
-            console.log(data);
-            if(data['state'] == 1)
-            {
-                obj = $('#answer');
-            }
-            else
-            {
-                obj = $('#err');
-            }
-            $('#pairAddModal').modal('hide');
-            obj.find('.toast-body').text(data['text']);
-            obj.show();
-            setTimeout(()=> {
-                location.reload()
-            } ,2000);
 
-
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-    // $('#rateAddModal').modal('hide');
-
-});
 
 
 // console.log('dd');
@@ -547,7 +513,7 @@ $(document).ready(function(){
 
     if($('.chartjss').length > 0)
     {
-        axios.get('https://bot.imdibil.ru/api/statistics/user_graph').then(function(data){
+        axios.get('https://imdibil.ru/api/statistics/user_graph').then(function(data){
             const config = {
                 type: 'line',
                 data: data.data,
@@ -760,17 +726,21 @@ $(document).ready(function(){
         votemodal.find('#first').find('.avatars').empty();
         votemodal.find('#second').find('.avatars').empty();
         console.log(data);
-        $.each(data['first']['votes'], function (key, val) {
-            votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
-        });
-        $.each(data['second']['votes'], function (key, val) {
-            votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
+        $.each(data['votes'], function (key, val) {
+            if (val['vote'] == data['first']['id'])
+            {
+                votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/images/uploads/' + val['user']['avatar'] + '">');
+            } else
+            {
+                votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/images/uploads/' + val['user']['avatar'] + '">');
+            }
         });
 
-        votemodal.find('#first').find('a').attr('href', data['first']['url']).find('img').attr('src', data['first']['poster']);
-        votemodal.find('#second').find('a').attr('href', data['second']['url']).find('img').attr('src', data['second']['poster']);
-        votemodal.find('#first').find('button').attr('data-movie', data['first']['id_m'])
-        votemodal.find('#second').find('button').attr('data-movie', data['second']['id_m'])
+
+        votemodal.find('#first').find('a').attr('href', data['first']['url']).find('img').attr('src', "https://imdibil.ru/images/posters/"+data['first']['poster']);
+        votemodal.find('#second').find('a').attr('href', data['second']['url']).find('img').attr('src', "https://imdibil.ru/images/posters/"+data['second']['poster']);
+        votemodal.find('#first').find('button').attr('data-movie', data['first']['id'])
+        votemodal.find('#second').find('button').attr('data-movie', data['second']['id'])
         votemodal.find('.btn-vote').attr('data-vote',vote );
 
         votemodal.modal('show');
@@ -780,7 +750,7 @@ $(document).ready(function(){
         let film = $(this).attr('data-movie');
         let vote = $(this).attr('data-vote');
         $.ajax({
-            url: 'https://imdibil.ru/scripts/ajax/votepair.php',
+            url: 'https://imdibil.ru/profile/vote',
             method: 'post',
             dataType: 'json',
             data: {id_vote: vote, id_m: film},

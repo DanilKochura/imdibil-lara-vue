@@ -70,6 +70,12 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class,   'user_id','id')->whereNotNull('rate')->orderByDesc('rate');
     }
 
+    public function pair()
+    {
+        return $this->hasMany(Pair::class,   'user_id','id');
+    }
+
+
     public function advices()
     {
         $id = $this->id;
@@ -94,5 +100,9 @@ class User extends Authenticatable
         return $this->hasMany(QuizProgress::class, 'user_id', 'id')->with('quiz')->get();
     }
 
+    public function isAdmin()
+    {
+        return $this->role == 3;
+    }
 
 }

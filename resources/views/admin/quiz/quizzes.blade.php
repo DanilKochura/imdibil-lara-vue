@@ -46,7 +46,7 @@
                                     <div class="d-flex flex-column align-items-center">
                                         <div>
                                             <a href="{{route('admin.quiz.questions', $quiz)}}" class="btn  rounded-circle btn-outline-success mb-2">
-                                                <i class="fi fi-plus"></i>
+                                                <i class="fi fi-question">?</i>
                                             </a>
                                         </div>
                                         <div>

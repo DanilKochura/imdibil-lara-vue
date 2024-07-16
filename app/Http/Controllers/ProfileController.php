@@ -10,11 +10,13 @@ use App\Models\Director;
 use App\Models\Genre;
 use App\Models\Meeting;
 use App\Models\Movie;
+use App\Models\Pair;
 use App\Models\Rate;
 use App\Models\Third;
 use App\Models\User;
 use Faker\Core\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -30,11 +32,12 @@ class ProfileController extends Controller
         {
             $user = auth()->user();
         }
-        $user->load('rates', 'rates.movie');
+        $user->load('rates', 'rates.movie', 'pair.secondMovie', 'pair.firstMovie');
 
         $advices = $user->advices();
         $unrated = $user->unrated();
         $quiz = $user->quiz_progress();
+//        dd($user->pair->count());
 //        dd($unrated);
         return view('profile', compact('user', 'advices', 'unrated', 'quiz'));
     }
@@ -150,5 +153,30 @@ class ProfileController extends Controller
         return response()->json(['status' => 1, 'text' => 'Тройка успешно добавлена!']);
 
     }
+
+    public function addPair(Request $request)
+    {
+        if(Pair::where('user_id', '=', Auth::id())->get()->count() > 0){
+            return response()->json(['status' => 0, 'text' => 'Вы уже добавили пару']);
+        }
+        $movies = $request->get('film');
+        if(count($movies) != 2)
+        {
+            return response()->json(['status' => 0, 'text' => 'Можно добавить только 2 фильма']);
+        }
+        $third = Pair::create([
+            'user_id' =>  auth()->id(),
+            'first' => $movies[0],
+            'second' => $movies[1],
+        ]);
+        return response()->json(['status' => 1, 'text' => 'Пара успешно добавлена!']);
+    }
+
+    public function deletePair(Pair $pair)
+    {
+        $pair->delete();
+        return redirect()->back();
+    }
+
 
 }

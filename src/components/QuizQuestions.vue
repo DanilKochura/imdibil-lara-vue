@@ -127,7 +127,7 @@ export default {
         };
     },
     async mounted() {
-        const response = await axios("https://bot.imdibil.ru/api/quiz/"+this.quiz.alias)
+        const response = await axios("https://imdibil.ru/api/quiz/"+this.quiz.alias)
         const decodedData = atob(response.data);
 
         // Преобразуем обратно в JSON объект

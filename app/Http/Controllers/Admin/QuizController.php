@@ -33,13 +33,12 @@ class QuizController extends Controller
     {
         $validated = $request->validate([
             'text' => 'nullable|string',
-            'image' => 'image',
+            'image' => 'image|max:500',
             'quiz_id' => 'required:numeric',
             'time' => 'numeric',
-            'answer.*' => 'required|string|required',
+            'answer.*' => 'required|nullable',
             'correct' => 'required|numeric'
         ]);
-
 
         $question =   QuizQuestion::create(
             $validated
@@ -53,11 +52,15 @@ class QuizController extends Controller
 
         foreach ($validated['answer'] as $key =>$answer)
         {
-            $question->answers()->create([
-                'question_id' => $question->id,
-                'text' => $answer,
-                'correct' => $key == $validated['correct']
-            ]);
+            if ($answer)
+            {
+                $question->answers()->create([
+                    'question_id' => $question->id,
+                    'text' => $answer,
+                    'correct' => $key == $validated['correct']
+                ]);
+            }
+
         }
         return redirect()->back();
     }

@@ -15,9 +15,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
     @endif
     <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
-    <script defer="defer" src="{{asset('/build/js/chunk-vendors.1ee941d0.js')}}"></script>
-    <script defer="defer" src="{{asset('/build/js/app.b9afcffe.js')}}"></script>
-    <link href="{{asset('/build/css/app.647c6a56.css')}}" rel="stylesheet">
+    <script defer="defer" src="{{asset('/build/js/chunk-vendors.3de24877.js')}}"></script>
+    <script defer="defer" src="{{asset('/build/js/app.76ff4cb3.js')}}"></script>
+    <link href="{{asset('/build/css/app.dda347cd.css')}}" rel="stylesheet">
 
 </head>
 <body class="" style="background-color: #595959">

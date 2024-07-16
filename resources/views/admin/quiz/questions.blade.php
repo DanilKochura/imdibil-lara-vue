@@ -5,19 +5,29 @@
         <div class="row mb-3">
             <form action="{{route('admin.quiz.save')}}" method="post" enctype="multipart/form-data">
                 @csrf
+
                 <div class="row mb-2">
                     <div class="col-5">
                         <label for="site_name" class="col-form-label"><strong>Вопрос </strong><span class="text-sm text-secondary">*необязательное поле</span></label>
                         <input id="site_name" class="form-control form-control-sm" name="text" value="" type="text" autocomplete="off">
+                        @error('text')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-5">
                         <label for="image" class="col-form-label"><strong>Картинка</strong> <small class="text-danger text-decoration-underline">Максимальный размер картинки 500 кб.</small></label>
                         <input id="image" class="form-control form-control-sm" name="image" type="file">
                     </div>
+                    @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                         <input type="hidden" value="{{$quiz->id}}" name="quiz_id">
                     <div class="col-2">
                         <label for="timing" class="col-form-label"><strong>Время</strong></label>
                         <input id="timing" class="form-control form-control" name="time" value="{{$quiz->time}}" type="number" autocomplete="off">
+                        @error('timing')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="row mb-2">

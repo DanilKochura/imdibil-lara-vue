@@ -7,6 +7,7 @@
     <title>Киновикторина</title>
     <meta property="og:site_name" content="IMDibil - Киновикторина">
     <meta property="og:title" content="Киновикторины">
+    <meta property="og:image" content="{{asset('images/quiz_preview.png')}}">
 @endsection
 
 @section('content')
@@ -28,14 +29,14 @@
             @foreach($quizzes as $quiz)
                 <div class="col-sm-3 mb-2">
                     <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
-                        @if($quiz->id == 3)
-                            <div class="card-lock-overlay">
-                                <i class="fi fi-locked" style="font-size: 48px;"></i>
-                                <div class="lock-content">
-                                    <span>Будет доступно с 20 марта</span>
-                                </div>
-                            </div>
-                        @endif
+{{--                        @if($quiz->id == 3)--}}
+{{--                            <div class="card-lock-overlay">--}}
+{{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
+{{--                                <div class="lock-content">--}}
+{{--                                    <span>Будет доступно с 20 марта</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
                         <div class="card-header">
                             <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top" alt="...">
                         </div>

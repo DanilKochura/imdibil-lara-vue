@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\QuizController;
+use App\Http\Controllers\BotController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\VerifyMail;
+use App\Models\Third;
+use App\Models\UserVote;
+use App\Models\VotePair;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +34,10 @@ Route::prefix('/profile')->name('profile.')->middleware(['auth'])->group(functio
     Route::post('/add-film', [ProfileController::class, 'addFilm'])->name('add-film');
     Route::post('/add-rate', [ProfileController::class, 'addRate'])->name('add-rate');
     Route::post('/add-third', [ProfileController::class, 'addThird'])->name('add-third');
+    Route::post('/add-pair', [ProfileController::class, 'addPair'])->name('add-pair');
+    Route::delete('/delete-pair/{pair}', [ProfileController::class, 'deletePair'])->name('delete-pair');
+    Route::post('/vote', [\App\Http\Controllers\VoteController::class, 'vote'])->name('vote-pair');
+
 });
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 Route::get('quiz/{difficulty}', [\App\Http\Controllers\QuizController::class, 'index'])->name('quiz');
@@ -39,12 +47,12 @@ Route::get('game', function (){
    return redirect()->route('game');
 });
 
+Route::get('/vote', [\App\Http\Controllers\VoteController::class, 'index']);
 
 
 
 
-
-Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function (){
+Route::prefix('/admin')->middleware(['auth', 'admin'])->name('admin.')->group(function (){
     Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index']);
     Route::prefix('/quiz')->name('quiz.')->group(function (){
         Route::get('/create', [QuizController::class, 'index'])->name('create');
@@ -60,12 +68,40 @@ Route::prefix('/admin')->middleware('auth')->name('admin.')->group(function (){
 });
 
 Route::get('/test', function (){
-    $user = auth()->user();
-    Mail::to($user->email)->send(new VerifyMail($user, $user->password));
+    $pairs = \App\Models\VotePair::where('round', '=', 4)->get();
+    foreach ($pairs as $pair)
+    {
+        $select = [$pair->first, $pair->second];
+        for ($i = 1; $i < 10; $i++)
+        {
+            if($i == 4) continue;
+            UserVote::firstOrCreate([
+                'user_id' => $i,
+                'pair_id' => $pair->id,
+                'pair_event' => $pair->event_id
+            ],
+            [
+                'vote' => $select[array_rand($select)]
+            ]);
+        }
+    }
+});
+
+Route::get('/test1', function (){
+    $votePairs = VotePair::where('round', '=', 1)->get();
+    if($votePairs->pluck('winner')->contains(null))
+    {
+        dd([]);
+    } else
+    {
+
+        $winners = $votePairs->pluck('winner');
+        dd($votePairs, $winners);
+    }
 });
 
 
 
-
+Route::post('/bot', [BotController::class, 'handle']);
 
 require __DIR__.'/auth.php';

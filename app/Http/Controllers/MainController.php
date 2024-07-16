@@ -7,6 +7,7 @@ use App\Http\Requests\MainFilterRequest;
 use App\Models\Meeting;
 use App\Models\Rate;
 use App\Models\Third;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -15,18 +16,35 @@ class MainController extends Controller
 {
     public static function index(MainFilterRequest $request)
     {
+        $perPage = 10;
+        $page = $request->input('page', 1);
 
-        $meetings = Meeting::with(['movie', 'movie.director', 'rates', 'rates.user'])->orderByDesc('id')->paginate(10);
+        // Получаем встречи в исходном порядке (уменьшение id) с пагинацией
+        $paginatedMeetings = Meeting::with(['movie', 'movie.director', 'rates', 'rates.user'])
+            ->orderByDesc('id')
+            ->paginate($perPage, ['*'], 'page', $page);
 
-//        if($request->sort)
-//        {
-//            $meetings->orderByRaw('movie.'.$request->sort, $request->order);
-//        }
+        // Получаем все встречи для добавления позиции
+        $allMeetings = Meeting::with(['movie', 'movie.director', 'rates', 'rates.user'])
+            ->get()
+            ->sortByDesc(function ($meeting) {
+                return $meeting->movie->our_rate;
+            })
+            ->values();
 
-//        $meetings;
-//        $meetings = Meeting::with(['movie','movie.director', 'rates', 'rates.user'])->get()->pluck('rates');
-//        dd($meetings->pluck('movie')->pluck('director'));
-        return view('meetings', compact('meetings'));
+        // Добавляем поле position каждому элементу коллекции
+        $allMeetings->each(function ($meeting, $index) {
+            $meeting->movie->position = $index + 1;
+        });
+
+        // Связываем позиции с пагинированной коллекцией
+        $paginatedMeetings->getCollection()->transform(function ($meeting) use ($allMeetings) {
+            $meeting->movie->position = $allMeetings->firstWhere('id', $meeting->id)->movie->position;
+            return $meeting;
+        });
+
+        $meetings = $paginatedMeetings;
+        return view('meetings', compact('paginatedMeetings', 'meetings'));
     }
 
     public static function statistics()

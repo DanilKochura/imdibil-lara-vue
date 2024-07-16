@@ -61,7 +61,7 @@
             <div class="col-md-2 poster"><a href="{{$meeting->movie->url}}" target="_blank"><img src="{{asset('/images/posters/'.$meeting->movie->poster)}}" class="img-fluid rounded"id="IM" /></a></div>
             <div class="col-md-4 text-left description">
                 <p class="name">{{$meeting->movie->name_m}}</p>
-                <div class="original">{{$meeting->movie->original}}</div>
+                <div class="original">{{$meeting->movie->original}} <span class="text-secondary fs-6">#{{$meeting->movie->position}}</span></div>
                 <div class="year">Год: {{$meeting->movie->year_of_cr}}</div>
 {{--                <div class="type">Жанр:--}}
 {{--                        <?php--}}
@@ -86,7 +86,7 @@
                         <tr>
                             <td class="rate-ch">{{$meeting->movie->rating}}</td>
                             <td class="rate-ch">{{$meeting->movie->rating_kp}}</td>
-                            <td class="rate-ch">{{$meeting->movie->our_rate}}</td>
+                            <td class="rate-ch">{{$meeting->movie->our_rate}} </td>
                         </tr>
                         </tbody>
                     </table>
