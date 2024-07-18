@@ -14,9 +14,14 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class MainController extends Controller
 {
+    public static function landing() {
+        $meetings = Meeting::with(['movie', 'movie.director', 'rates', 'rates.user'])
+            ->orderByDesc('id')->get();
+        return view('landing', compact('meetings'));
+    }
     public static function index(MainFilterRequest $request)
     {
-        $perPage = 10;
+        $perPage = 20  ;
         $page = $request->input('page', 1);
 
         // Получаем встречи в исходном порядке (уменьшение id) с пагинацией

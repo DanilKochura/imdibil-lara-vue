@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\VerifyMail;
+use App\Models\Meeting;
 use App\Models\Third;
 use App\Models\UserVote;
 use App\Models\VotePair;
@@ -24,7 +25,8 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\MainController::class, 'index'])->name('main');
+Route::get('/', [\App\Http\Controllers\MainController::class, 'landing'])->name('main');
+Route::get('/meetings', [\App\Http\Controllers\MainController::class, 'index'])->name('meetings');
 Route::get('/news', [\App\Http\Controllers\MainController::class, 'news'])->name('news');
 Route::get('/statistics', [\App\Http\Controllers\MainController::class, 'statistics'])->name('statistics');
 
@@ -96,7 +98,11 @@ Route::get('/test1', function (){
 });
 
 
-
+Route::get('/landing', function (){
+    $meetings = Meeting::with(['movie', 'movie.director', 'rates', 'rates.user'])
+        ->orderByDesc('id')->get();
+   return view('landing', compact('meetings'));
+})->name('landing');
 Route::post('/bot', [BotController::class, 'handle']);
 
 require __DIR__.'/auth.php';

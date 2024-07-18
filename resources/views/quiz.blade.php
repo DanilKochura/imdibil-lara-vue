@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Киновикторина - {{$quiz['title']}}. {{$quiz['text']}}">
-    <title>{{$quiz['title']}}</title>
+    <title>Викторина {{$quiz['title']}}</title>
     <meta name="yandex-verification" content="242eb7336dec418c"/>
     <link rel="stylesheet" href="{{ asset('/css/core.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">

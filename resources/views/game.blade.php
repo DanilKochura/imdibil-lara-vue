@@ -6,7 +6,7 @@
     <meta name="description" content="На нашем портале доступны различные викторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры." />
     <title>Киновикторина</title>
     <meta property="og:site_name" content="IMDibil - Киновикторина">
-    <meta property="og:title" content="Киновикторины">
+    <meta property="og:title" content="Киновикторины IMDIBIL">
     <meta property="og:image" content="{{asset('images/quiz_preview.png')}}">
 @endsection
 

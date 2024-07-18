@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://imdibil.ru/</loc>
+	<lastmod>2024-07-16T19:48:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/statistics</loc>
+	<lastmod>2024-07-16T19:48:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news</loc>
+	<lastmod>2024-07-16T19:48:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/login</loc>
+	<lastmod>2024-07-16T19:48:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/register</loc>
+	<lastmod>2024-07-16T19:48:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/quiz</loc>
+	<lastmod>2024-07-16T19:48:23+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=2</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=3</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=4</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=5</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=6</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=7</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/forgot-password</loc>
+	<lastmod>2024-07-16T19:48:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/quiz/simple</loc>
+	<lastmod>2024-07-16T19:48:31+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/quiz/medium</loc>
+	<lastmod>2024-07-16T19:48:31+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/quiz/hard</loc>
+	<lastmod>2024-07-16T19:48:31+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://imdibil.ru/news?page=1</loc>
+	<lastmod>2024-07-16T19:48:31+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+</urlset>
