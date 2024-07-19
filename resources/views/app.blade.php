@@ -108,6 +108,13 @@
 
                             </li>
 
+                            <!-- features -->
+                            <li class="nav-item">
+
+                                <a href="/meetings" class="nav-link">Заседания</a>
+
+
+                            </li>
 
                             <!-- pages -->
                             <li class="nav-item">

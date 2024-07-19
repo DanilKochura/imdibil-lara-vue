@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Quiz extends Model
 {
     protected $fillable = [
-       'id', 'title', 'image', 'text', 'text_preview', 'alias', 'type', 'title', 'time','errors','sum','user_id','status'
+       'id', 'title', 'image', 'text', 'text_preview', 'alias', 'type', 'title', 'time','errors','sum','user_id','status', 'medal'
     ];
     public $timestamps = false;
 
@@ -25,6 +25,11 @@ class Quiz extends Model
         return $this->hasMany(QuizQuestion::class, 'quiz_id', 'id')->with('answers');
     }
 
+    public function questionsCount()
+    {
+        return $this->hasMany(QuizQuestion::class, 'quiz_id', 'id')->with('answers')->count();
+    }
+
     public function unique_results()
     {
         return $this->hasMany(QuizProgress::class, 'quiz_id', 'id')->count();
@@ -35,5 +40,6 @@ class Quiz extends Model
     {
         return $this->hasMany(UserQuizMedal::class, 'quiz_id', 'id')->where('user_id', '=', auth()->id())->orderByDesc('rank')->first();
     }
+
 
 }

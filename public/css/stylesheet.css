@@ -989,6 +989,35 @@ html, body
 {
     fill: #9b603d;
 }
+.fill-super
+{
+    animation: super-medal 5s infinite ease-in-out;
+}
+
+@keyframes super-medal {
+    0%, 100%
+    {
+        fill: #d90ceb;
+    }
+    30%
+    {
+        fill: #0a53be;
+    }
+    60%
+    {
+      fill: #03adaa;
+    }
+    90%
+    {
+        fill: #d5325d;
+    }
+}
+
+.medal-counter
+{
+    right: 0px;
+    top: 20px !important;
+}
 
 svg.fill-inactive {
     fill:  #424345!important;

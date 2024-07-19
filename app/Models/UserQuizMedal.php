@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class UserQuizMedal extends Model
 {
     protected $fillable = [
-       'id', 'quiz_id', 'user_id', 'rank'
+       'id', 'quiz_id', 'user_id', 'rank','percent'
     ];
 
     public function user()

@@ -1,7 +1,6 @@
 @extends('app')
 
 
-
 @section('meta')
 
 {{--    <meta name="keywords" content="киноклуб, п" />--}}
@@ -30,9 +29,25 @@
                             class="badge text-black bg-ch">{{round($user->rates->pluck('rate')->avg(), 2)}}</span></p>
                     <p>Количество встреч: {{$user->rates->pluck('rate')->count()}}</p>
                     <p class="d-none">Дата регистрации: 12.03.2022</p>
+
+                @else
+
                 @endif
 
+                @foreach($medals as $rank => $medal)
 
+                    <div type="button" class="btn position-relative">
+                        <x-medals type="medal" class="{{ ($rank == 3) ? 'fill-warning' : (($rank == 2) ? 'fill-gray-600' : 'fill-brown') }} avatar">
+
+                        </x-medals>
+                        <span class="position-absolute medal-counter translate-middle badge rounded-pill bg-success">
+                                {{count($medal)}}
+	                    </span>
+                    </div>
+
+
+
+                @endforeach
             </div>
             <div class="col-sm-4 text-black">
 
@@ -443,12 +458,17 @@
                                 <td>
                                     @php $rank = $progress->medals()->count() @endphp
                                     <div class="d-flex justify-content-evenly   ">
-                                        <x-medal class=" {{($rank and $rank > 0) ? '' : 'fill-inactive'}} fill-brown avatar" data-bs-toggle="tooltip"
-                                                 data-bs-placement="top" title="Пройдено 60%"></x-medal>
-                                        <x-medal class=" {{($rank and $rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 avatar" data-bs-toggle="tooltip"
-                                                 data-bs-placement="top" title="Пройдено 80%"></x-medal>
-                                        <x-medal class=" {{($rank and $rank == 3) ? '' : 'fill-inactive'}} fill-warning avatar" data-bs-toggle="tooltip"
-                                                 data-bs-placement="top" title="Пройдено 95%"></x-medal>
+                                        <x-medals type="{{$progress->quiz->medal}}" class=" {{($rank and $rank > 0) ? '' : 'fill-inactive'}} fill-brown avatar" data-bs-toggle="tooltip"
+                                                 data-bs-placement="top" title="Пройдено 60%"></x-medals>
+                                        <x-medals type="{{$progress->quiz->medal}}" class=" {{($rank and $rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 avatar" data-bs-toggle="tooltip"
+                                                 data-bs-placement="top" title="Пройдено 80%"></x-medals>
+                                        @if($progress->quiz->questionsCount() == $progress->points)
+                                            <x-medals  type="{{$progress->quiz->medal}}" class="fill-super avatar" data-bs-toggle="tooltip"
+                                                       data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                        @else
+                                            <x-medals  type="{{$progress->quiz->medal}}" class=" {{($rank and $rank == 3) ? '' : 'fill-inactive'}} fill-warning avatar" data-bs-toggle="tooltip"
+                                                       data-bs-placement="top" title="Пройдено 95%"></x-medals>
+                                        @endif
                                     </div>
                                 </td>
                                 @if(auth()->id() == $user->id)

@@ -27,13 +27,14 @@
                     <p class="question" v-show="questions[currentQuestion - 1].question.text !== ''">
                         {{ questions[currentQuestion - 1].question.text }}
                     </p>
-                    <p class="m-0 text-end">
-                        Вопрос {{currentQuestion}}/{{questions.length}}
-                    </p>
+
                 </div>
 
                 <div class="col-md-8">
                     <div style="margin: 10px">
+                        <p class="counter m-0">
+                            {{currentQuestion}}/{{questions.length}}
+                        </p>
                         <img :src="questions[currentQuestion - 1].question.image" alt="" class="img-fluid rounded-3">
                     </div>
                 </div>

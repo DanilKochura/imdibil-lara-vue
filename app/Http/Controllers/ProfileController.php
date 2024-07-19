@@ -32,14 +32,19 @@ class ProfileController extends Controller
         {
             $user = auth()->user();
         }
-        $user->load('rates', 'rates.movie', 'pair.secondMovie', 'pair.firstMovie');
+        $user->load('rates', 'rates.movie', 'pair.secondMovie', 'pair.firstMovie', 'medals');
 
         $advices = $user->advices();
         $unrated = $user->unrated();
         $quiz = $user->quiz_progress();
+        $medals = [];
+        foreach ($user->medals->groupBy('quiz_id') as $item)
+        {
+            $medals[$item->first()->rank][] = $item->first();
+        }
 //        dd($user->pair->count());
 //        dd($unrated);
-        return view('profile', compact('user', 'advices', 'unrated', 'quiz'));
+        return view('profile', compact('user', 'advices', 'unrated', 'quiz', 'medals'));
     }
 
     public static function update(Request $request)

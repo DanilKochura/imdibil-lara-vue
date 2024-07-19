@@ -91,7 +91,7 @@ Route::get('/test', function (){
 });
 
 Route::get('/test1', function (){
-    $progress = \App\Models\QuizProgress::find(15);
+    $progress = \App\Models\QuizProgress::find(33);
     $progress->load('user', 'quiz.questions');
 
     event(new \App\Events\QuizResultsEvent($progress, \App\Models\User::find(4)));

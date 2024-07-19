@@ -33,7 +33,7 @@ class QuizController extends Controller
     {
         $validated = $request->validate([
             'text' => 'nullable|string',
-            'image' => 'image|max:500',
+            'image' => 'image|max:500|required_without:text',
             'quiz_id' => 'required:numeric',
             'time' => 'numeric',
             'answer.*' => 'required|nullable',
