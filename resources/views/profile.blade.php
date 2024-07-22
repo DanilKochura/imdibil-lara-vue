@@ -401,7 +401,7 @@
             <div class="col-sm-1"></div>
         </div>
         @if($quiz->count())
-            <div class="row mt-2">
+            <div class="row mt-2 d-none d-md-block">
                 <div class="col-sm-1"></div>
                 <div class="col-md-10 col-12">
                     <p class="h4">Прогресс викторины</p>
@@ -487,7 +487,69 @@
                 </div>
                 <div class="col-sm-1"></div>
             </div>
+                <div class=" mt-2 d-block d-md-none">
+                    <p class="h4">Прогресс викторины</p>
 
+
+
+                            @foreach($quiz as $progress)
+                            <div class="col-12 bg-dark">
+
+                                    <p class="text-center">
+                                        <a href="{{route('quiz', $progress->quiz->alias)}}" class="link-warning">
+                                            {{$progress->quiz->title}}
+                                        </a>
+                                    </p>
+                                    <div class="d-flex justify-content-evenly">
+                                        <div>
+                                            <div>
+                                                <p>Очки: {{$progress->points}}</p>
+                                            </div>
+                                            <div>
+                                                <p>Попытки: {{$progress->attempt}}</p>
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                            @php $rank = $progress->medals()->count() @endphp
+                                            <div class="align-items-center d-flex justify-content-evenly w-200">
+
+                                                @if($progress->quiz->questionsCount() == $progress->points)
+                                                    <x-medals  type="{{$progress->quiz->medal}}" class="fill-super avatar" data-bs-toggle="tooltip"
+                                                               data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                                @elseif($rank == 3)
+                                                    <x-medals  type="{{$progress->quiz->medal}}" class=" {{($rank and $rank == 3) ? '' : 'fill-inactive'}} fill-warning avatar" data-bs-toggle="tooltip"
+                                                               data-bs-placement="top" title="Пройдено 95%"></x-medals>
+                                                @elseif($rank == 2)
+                                                    <x-medals  type="{{$progress->quiz->medal}}" class="fill-gray-200 avatar" data-bs-toggle="tooltip"
+                                                               data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                                @elseif($rank == 1)
+                                                    <x-medals  type="{{$progress->quiz->medal}}" class="fill-brown avatar" data-bs-toggle="tooltip"
+                                                               data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                                @elseif($rank == 0)
+                                                    <x-medals  type="{{$progress->quiz->medal}}" class="fill-inactive avatar" data-bs-toggle="tooltip"
+                                                               data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                                @endif
+                                                    @if(auth()->id() == $user->id)
+                                                        <div>
+                                                            <p class="text-center">
+                                                                @if($progress->date_cert)
+                                                                    <a target="_blank" class="link-secondary" href="{{asset('/certs/'.$progress->id.'.pdf')}}">
+                                                                        <i class="fi fi-arrow-download"></i>
+                                                                    </a>
+                                                                @endif
+                                                            </p>
+                                                        </div>
+                                                    @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                            </div>
+
+                            @endforeach
+                </div>
         @endif
         @if($user->isExpert())
             <div class="row">

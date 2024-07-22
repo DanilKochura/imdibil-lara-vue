@@ -179,30 +179,38 @@
             </div>
         </div>
     </div>
+<script src="{{asset('/js/core.min.js')}}"></script>
 
 <script>
-    function createPopcornKernel() {
-        const kernel = document.createElement('div');
-        kernel.className = 'popcorn-kernel';
+    function createPopcornKernel(num = 1) {
+        let i = 0;
+        for(i = 0; i < num; i++)
+        {
+            setTimeout(() => {
+                const kernel = document.createElement('div');
+                kernel.className = 'popcorn-kernel';
 
-        // Set random size
-        const size = Math.random() * 10 + 10; // Size between 10 and 20px
-        kernel.style.width = `${size}px`;
-        kernel.style.height = `${size}px`;
+                // Set random size
+                const size = Math.random() * 10 + 10; // Size between 10 and 20px
+                kernel.style.width = `${size}px`;
+                kernel.style.height = `${size}px`;
 
-        // Set random horizontal translation
-        const randomX = Math.random() * 100 - 50; // Random value between -50 and 50px
-        kernel.style.setProperty('--random-x', `${randomX}px`);
+                // Set random horizontal translation
+                const randomX = Math.random() * 150 - 70; // Random value between -50 and 50px
+                kernel.style.setProperty('--random-x', `${randomX}px`);
 
-        document.body.appendChild(kernel);
+                document.body.appendChild(kernel);
 
-        const rect = document.querySelector('.popcorn-container').getBoundingClientRect();
-        kernel.style.left = `${rect.left + rect.width / 2 - size / 2}px`;
-        kernel.style.top = `${rect.top - size}px`;
+                const rect = document.querySelector('.popcorn-container').getBoundingClientRect();
+                kernel.style.left = `${rect.left + rect.width / 2 - size / 2}px`;
+                kernel.style.top = `${rect.top - size}px`;
 
-        setTimeout(() => {
-            kernel.remove();
-        }, 3000);
+                setTimeout(() => {
+                    kernel.remove();
+                }, 3000);
+            }, 300+i*100);
+
+        }
     }
 
     setInterval(createPopcornKernel, 500);
@@ -240,10 +248,12 @@
             document.getElementById('popcorn-container').appendChild(kernel);
         }
     }
+    $('.popcorn-box').on('click', function () {
+        createPopcornKernel(20)
+    })
 
     document.addEventListener('DOMContentLoaded', spawnPopcornKernels);
 </script>
-<script src="{{asset('/js/core.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 <script src="{{asset('/js/vendor_bundle.min.js')}}"></script>
 <script src="{{asset('/js/main.js')}}"></script>

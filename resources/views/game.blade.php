@@ -44,13 +44,13 @@
                             <h5 class="card-title text-warning">{{$quiz->title}}</h5>
                             <p class="card-text">{{$quiz->text}}</p>
                             @php $rank = $quiz->user_medals() @endphp
-                            <div class="d-flex justify-content-evenly   ">
-                                <x-medal class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25" data-bs-toggle="tooltip"
-                                         data-bs-placement="top" title="Пройдено 60%"></x-medal>
-                                <x-medal class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25" data-bs-toggle="tooltip"
-                                         data-bs-placement="top" title="Пройдено 80%"></x-medal>
-                                <x-medal class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25" data-bs-toggle="tooltip"
-                                         data-bs-placement="top" title="Пройдено 95%"></x-medal>
+                            <div class="d-flex justify-content-evenly">
+                                <x-medals type="{{$quiz->medal}}" class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25" data-bs-toggle="tooltip"
+                                         data-bs-placement="top" title="Пройдено 60%"></x-medals>
+                                <x-medals type="{{$quiz->medal}}" class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25" data-bs-toggle="tooltip"
+                                         data-bs-placement="top" title="Пройдено 80%"></x-medals>
+                                <x-medals type="{{$quiz->medal}}" class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25" data-bs-toggle="tooltip"
+                                         data-bs-placement="top" title="Пройдено 95%"></x-medals>
                             </div>
                             <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}" time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}" class="mt-2"></x-quiz-info>
                         </div>

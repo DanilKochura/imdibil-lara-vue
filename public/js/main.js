@@ -207,7 +207,7 @@ $('.search').on('blur', function (){
 
 })
 $('.search').on('input', function (){
-    $('.results').empty();
+    $('.resultss').empty();
     let id = $(this).attr('id');
     let wrapper = $(this).closest('.res-wrapper')
     if(this.value.length < 3)

@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Third;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,4 +81,28 @@ Route::get('/find-movie', function (\Illuminate\Http\Request $request) {
         ];
     }
     dd($response);
+});
+
+
+Route::post('/login', function (Request $request) {
+
+    $request->validate([
+        'email' => 'required',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
+
+    $user = User::where('login', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    return $user->createToken($request->device_name)->plainTextToken;
+});
+
+Route::prefix('mobile/')->group(function (){
+    Route::get('/meetings', [\App\Http\Controllers\Api\Mobile\MainController::class, 'index']);
 });
