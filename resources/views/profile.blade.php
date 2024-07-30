@@ -132,17 +132,16 @@
                                                   data-bs-toggle="tooltip"
                                                   data-bs-placement="top" title="Пройдено 95%"></x-medals>
                                     @elseif($rank == 2)
-                                        <x-medals type="{{$progress->quiz->medal}}" class="fill-gray-200 avatar"
+                                        <x-medals type="{{$progress->quiz->medal}}" class="fill-gray-600 avatar"
                                                   data-bs-toggle="tooltip"
-                                                  data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                                  data-bs-placement="top" title="Пройдено 80%"></x-medals>
                                     @elseif($rank == 1)
                                         <x-medals type="{{$progress->quiz->medal}}" class="fill-brown avatar"
                                                   data-bs-toggle="tooltip"
-                                                  data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                                  data-bs-placement="top" title="Пройдено 60%"></x-medals>
                                     @elseif($rank == 0)
-                                        <x-medals type="{{$progress->quiz->medal}}" class="fill-inactive avatar"
-                                                  data-bs-toggle="tooltip"
-                                                  data-bs-placement="top" title="Пройдено 100%"></x-medals>
+                                        <x-medals type="{{$progress->quiz->medal}}" class="fill-inactive-mobile avatar"
+                                                  ></x-medals>
                                     @endif
 
                                 </div>

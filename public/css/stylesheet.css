@@ -1669,3 +1669,6 @@ svg.fill-inactive {
 .link-dashed-gold {
     border-bottom: 1px dashed #ffd700 !important;
 }
+svg.fill-inactive-mobile {
+    fill: #e1e2e394 !important;
+}
