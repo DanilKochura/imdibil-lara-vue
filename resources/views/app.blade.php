@@ -115,12 +115,12 @@
 
 
                             </li>
-                            <li class="nav-item">
+{{--                            <li class="nav-item">--}}
 
-                                <a href="/vote" class="nav-link">Турнир</a>
+{{--                                <a href="/vote" class="nav-link">Турнир</a>--}}
 
 
-                            </li>
+{{--                            </li>--}}
 
                             <!-- pages -->
                             <li class="nav-item">

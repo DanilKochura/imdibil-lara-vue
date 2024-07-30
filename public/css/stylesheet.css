@@ -1665,3 +1665,7 @@ svg.fill-inactive {
 .text-gold {
     color: #ffd700;
 }
+
+.link-dashed-gold {
+    border-bottom: 1px dashed #ffd700 !important;
+}

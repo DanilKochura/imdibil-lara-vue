@@ -37,6 +37,7 @@ class ProfileController extends Controller
         $advices = $user->advices();
         $unrated = $user->unrated();
         $quiz = $user->quiz_progress();
+        $meets_count = Meeting::all()->count();
         $medals = [];
         foreach ($user->medals->groupBy('quiz_id') as $item)
         {
@@ -44,7 +45,7 @@ class ProfileController extends Controller
         }
 //        dd($user->pair->count());
 //        dd($unrated);
-        return view('profile', compact('user', 'advices', 'unrated', 'quiz', 'medals'));
+        return view('profile', compact('user', 'advices', 'unrated', 'quiz', 'medals', 'meets_count'));
     }
 
     public static function update(Request $request)
