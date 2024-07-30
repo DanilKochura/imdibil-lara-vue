@@ -13,11 +13,12 @@
 
 @section('content')
 
-    <div class="container main content bg-dark d-block d-md-none px-0" style="min-height: 100%">
+    <div class="container main content bg-dark d-block d-md-none px-0" style="min-height: calc(100% - 300px)">
         <div class="row user-info px-2">
             <div class="col-sm-1"></div>
             <div class="col-sm-2 col-6">
-                <img class="user-avatar" src="{{asset('images/uploads/'.($user->avatar ?: 'default.jpg'))}}">
+                <div class="avatar avatar-xxl rounded-circle user-avatar border border-4 border-success" style=" background-image:url({{asset('images/uploads/'.($user->avatar ?: 'default.jpg'))}})"></div>
+{{--                <img class="border border-4 border-success rounded-circle shadow-warning-xlg-hover user-avatar" src="{{asset('images/uploads/'.($user->avatar ?: 'default.jpg'))}}">--}}
             </div>
             <div class="col-sm-4 col-6 ">
                 <div class="d-flex flex-row align-items-center justify-content-evenly">
@@ -224,6 +225,30 @@
 
                     @endforeach
                 </div>
+            </div>
+        @endif
+
+
+        @if(!$user->isExpert())
+            <div class="row pt-4 bg-white">
+                <p class="text-center">
+                    Наши викторины
+                </p>
+                    <div class="col-12">
+                        @foreach($quizzes as $quiz_x)
+                        <div class="row m-2 rounded-3 shadow align-items-center bg-dark">
+                                <div class="col-2 mx-0 px-0">
+                                    <img class="img-fluid" style="border-radius: .45rem 0 0 .45rem !important" src="{{asset('images/quiz/'.$quiz_x->image)}}">
+                                </div>
+                                <div class="col-9">
+                                    <a class="fs-4 link-light link-dashed-gold mov-nam"
+                                       href="/quiz/{{$quiz_x->alias}}">{{$quiz_x->title}}</a>
+                                </div>
+
+                            </div>
+                        @endforeach
+                    </div>
+
             </div>
         @endif
     </div>
@@ -904,4 +929,6 @@
             </div>
         </div>
     </div>
-@endsection
+
+
+   @endsection

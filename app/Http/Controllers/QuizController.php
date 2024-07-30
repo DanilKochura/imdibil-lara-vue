@@ -52,6 +52,7 @@ class QuizController extends Controller
             return [
                 'points' => $group->pluck('points'),
                 'sum' => $group->pluck('points')->sum(),
+                'attempts' => $group->pluck('attempt')->sum(),
                 'name' => $group->first()->user->name,
                 'avatar' => $group->first()->user->avatar,
                 'id' => $group->first()->user->id
@@ -60,7 +61,7 @@ class QuizController extends Controller
         $quizzesAll = Quiz::where('type', '=', 2)->where('status', '=', 1)->get();
 
         $results = collect($results);
-        $results = $results->sortByDesc("sum")->slice(0, 7);
+        $results = $results->sortByDesc("sum")->slice(0, 10);
         return view('game', compact('quizzes', 'results', 'quizzesAll'));
     }
 

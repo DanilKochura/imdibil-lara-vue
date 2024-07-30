@@ -11,6 +11,7 @@ use App\Models\Genre;
 use App\Models\Meeting;
 use App\Models\Movie;
 use App\Models\Pair;
+use App\Models\Quiz;
 use App\Models\Rate;
 use App\Models\Third;
 use App\Models\User;
@@ -43,9 +44,15 @@ class ProfileController extends Controller
         {
             $medals[$item->first()->rank][] = $item->first();
         }
+
+        $quizzes = [];
+        if (!$user->isExpert())
+        {
+            $quizzes = Quiz::all()->sortByDesc('id');
+        }
 //        dd($user->pair->count());
 //        dd($unrated);
-        return view('profile', compact('user', 'advices', 'unrated', 'quiz', 'medals', 'meets_count'));
+        return view('profile', compact('user', 'advices', 'unrated', 'quiz', 'medals', 'meets_count', 'quizzes'));
     }
 
     public static function update(Request $request)

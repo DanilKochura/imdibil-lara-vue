@@ -510,7 +510,18 @@ function dataDecoder(data, index)
 
 $(document).ready(function(){
 
-
+    $('.js-togglified').on('click', function ()
+    {
+        if ($(this).hasClass('active'))
+        {
+            $(this).removeClass('active')
+            $($(this).data('bs-target')).addClass('d-none')
+        } else
+        {
+            $(this).addClass('active')
+            $($(this).data('bs-target')).removeClass('d-none')
+        }
+    })
     if($('.chartjss').length > 0)
     {
         axios.get('https://imdibil.ru/api/statistics/user_graph').then(function(data){

@@ -2,8 +2,10 @@
 
 @section('meta')
 
-    <meta name="keywords" content="киновикторина, викторина про кино, тесты на знание кино, викторина кинематограф, кинематограф, веселые тесты, развлекательные тесты" />
-    <meta name="description" content="На нашем портале доступны различные киновикторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры." />
+    <meta name="keywords"
+          content="киновикторина, викторина про кино, тесты на знание кино, викторина кинематограф, кинематограф, веселые тесты, развлекательные тесты"/>
+    <meta name="description"
+          content="На нашем портале доступны различные киновикторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры."/>
     <title>Киновикторина</title>
     <meta property="og:site_name" content="IMDibil - Киновикторина">
     <meta property="og:title" content="Киновикторины IMDIBIL">
@@ -16,8 +18,8 @@
             background: linear-gradient(rgb(56 56 56 / 100%), rgb(110 110 110 / 76%)), url(https://imdibil.ru/image/bg.jpg) center/cover;
 
         }
-        body
-        {
+
+        body {
             --bs-bg-opacity: 1;
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
         }
@@ -27,32 +29,40 @@
         <h3 class="text-center text-warning">Фильм по кадру</h3>
         <div class="row text-center">
             @foreach($quizzes as $quiz)
-                <div class="col-sm-3 mb-2">
+                <div class="col-sm-3 col-6 mb-2">
                     <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
-{{--                        @if($quiz->id == 3)--}}
-{{--                            <div class="card-lock-overlay">--}}
-{{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
-{{--                                <div class="lock-content">--}}
-{{--                                    <span>Будет доступно с 20 марта</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
+                        {{--                        @if($quiz->id == 3)--}}
+                        {{--                            <div class="card-lock-overlay">--}}
+                        {{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
+                        {{--                                <div class="lock-content">--}}
+                        {{--                                    <span>Будет доступно с 20 марта</span>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+                        {{--                        @endif--}}
                         <div class="card-header">
                             <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top" alt="...">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title text-warning">{{$quiz->title}}</h5>
-                            <p class="card-text">{{$quiz->text}}</p>
+                            <p class="card-text d-none d-sm-block">{{$quiz->text}}</p>
                             @php $rank = $quiz->user_medals() @endphp
                             <div class="d-flex justify-content-evenly">
-                                <x-medals type="{{$quiz->medal}}" class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25" data-bs-toggle="tooltip"
-                                         data-bs-placement="top" title="Пройдено 60%"></x-medals>
-                                <x-medals type="{{$quiz->medal}}" class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25" data-bs-toggle="tooltip"
-                                         data-bs-placement="top" title="Пройдено 80%"></x-medals>
-                                <x-medals type="{{$quiz->medal}}" class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25" data-bs-toggle="tooltip"
-                                         data-bs-placement="top" title="Пройдено 95%"></x-medals>
+                                <x-medals type="{{$quiz->medal}}"
+                                          class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-placement="top" title="Пройдено 60%"></x-medals>
+                                <x-medals type="{{$quiz->medal}}"
+                                          class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-placement="top" title="Пройдено 80%"></x-medals>
+                                <x-medals type="{{$quiz->medal}}"
+                                          class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25"
+                                          data-bs-toggle="tooltip"
+                                          data-bs-placement="top" title="Пройдено 95%"></x-medals>
                             </div>
-                            <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}" time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}" class="mt-2"></x-quiz-info>
+                            <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}"
+                                         time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
+                                         class="mt-2"></x-quiz-info>
                         </div>
                         <div class="card-footer text-muted">
                             <a href="{{route('quiz', $quiz->alias)}}" class="btn btn-outline-warning w-100">Играть</a>
@@ -60,7 +70,7 @@
                     </div>
                 </div>
             @endforeach
-            <div class="col-sm-3 mb-2">
+            <div class="col-sm-3 mb-2 d-none d-sm-block">
                 <div class="bg-dark border-0 card shadow-light-md-hover ">
                     <div class="card-header">
                         <h5 class="text-warning">
@@ -71,17 +81,21 @@
                         <table class="table table-dark">
                             <tbody>
                             @foreach($results as $result)
+                                @if($loop->iteration == 8)
+                                    @break
+                                @endif
                                 <tr class="align-middle">
                                     <td>{{$loop->iteration}}</td>
                                     <td>
-                                        <a href="{{route('profile.index', $result['id'])}}" >
-                                                <img src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}" alt="Ваня" class="avatar header">
+                                        <a href="{{route('profile.index', $result['id'])}}">
+                                            <img src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}"
+                                                 alt="Ваня" class="avatar header">
                                         </a>
                                     </td>
                                     <td>{{$result['name']}}</td>
-{{--                                    @foreach($result['points'] as $point)--}}
-{{--                                        <td>{{$point}}</td>--}}
-{{--                                    @endforeach--}}
+                                    {{--                                    @foreach($result['points'] as $point)--}}
+                                    {{--                                        <td>{{$point}}</td>--}}
+                                    {{--                                    @endforeach--}}
                                     <td>{{$result['sum']}}</td>
                                 </tr>
                             @endforeach
@@ -101,7 +115,7 @@
             <h3 class="text-center text-warning">Тематические</h3>
             <div class="row text-center">
                 @foreach($quizzesAll as $quiz)
-                    <div class="col-sm-3 mb-2">
+                    <div class="col-sm-3 col-6 mb-2">
                         <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
                             {{--                        @if($quiz->id == 3)--}}
                             {{--                            <div class="card-lock-overlay">--}}
@@ -116,20 +130,29 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title text-warning">{{$quiz->title}}</h5>
-                                <p class="card-text">{{$quiz->text}}</p>
+                                <p class="card-text d-none d-sm-block">{{$quiz->text}}</p>
                                 @php $rank = $quiz->user_medals() @endphp
                                 <div class="d-flex justify-content-evenly   ">
-                                    <x-medal class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25" data-bs-toggle="tooltip"
-                                             data-bs-placement="top" title="Пройдено 60%"></x-medal>
-                                    <x-medal class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25" data-bs-toggle="tooltip"
-                                             data-bs-placement="top" title="Пройдено 80%"></x-medal>
-                                    <x-medal class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25" data-bs-toggle="tooltip"
-                                             data-bs-placement="top" title="Пройдено 95%"></x-medal>
+                                    <x-medal
+                                        class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Пройдено 60%"></x-medal>
+                                    <x-medal
+                                        class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Пройдено 80%"></x-medal>
+                                    <x-medal
+                                        class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Пройдено 95%"></x-medal>
                                 </div>
-                                <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}" time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}" class="mt-2"></x-quiz-info>
+                                <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}"
+                                             time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
+                                             class="mt-2"></x-quiz-info>
                             </div>
                             <div class="card-footer text-muted">
-                                <a href="{{route('quiz', $quiz->alias)}}" class="btn btn-outline-warning w-100">Играть</a>
+                                <a href="{{route('quiz', $quiz->alias)}}"
+                                   class="btn btn-outline-warning w-100">Играть</a>
                             </div>
                         </div>
                     </div>
@@ -141,4 +164,73 @@
     @if(!auth()->check())
         @include('components.login-modal')
     @endif
+
+
+
+    <div class="bottom-0 end-0 m-4 position-fixed z-index-100 d-block d-sm-none">
+
+        <a href="#" class="btn-burger-menu btn-toggle bg-dark rounded d-inline-block px-3 py-3 shadow-md js-togglified"
+           style="width:60px;height:60px;" data-bs-target="#fullMenuOveer" data-toggle-container-class="hide-force"
+           data-toggle-body-class="overflow-hidden">
+          <span class="group-icon text-center">
+            <span class="burger-menu"></span>
+            <i class="fi fi-close text-center w-100 fs-2 lh-1 text-white" style="margin-top: -8px;"></i>
+          </span>
+        </a>
+
+    </div>
+
+    <div id="fullMenuOveer"
+         class="position-fixed top-0 bottom-0 left-0 right-0 text-white z-index-99 d-none"
+         style="background: linear-gradient(180deg,#5e5e5e 0,#1e1e1e);">
+
+
+        <!-- container -->
+        <div class="d-lg-flex text-white justify-content-evenly mx-5">
+
+            <!-- left column -->
+
+
+            <!-- right column -->
+            <div class="col-12 col-lg-7 d-lg-flex">
+                <div class="w-100 align-self-center text-center-md text-center-xs py-2">
+
+                    <h5 class="text-warning">
+                        Список лидеров
+                    </h5>
+                    <div class="row banner-leaders">
+
+                        @foreach($results as $result)
+                            <div class="col-12 mt-2 {{$loop->iteration == 1 ? 'text-gold fw-bold fs-bigger' : ''}}">
+                                <div class="row align-items-center">
+                                    <div class="col-1">{{$loop->iteration}}</div>
+                                    <div class="col-3">
+                                        <a href="{{route('profile.index', $result['id'])}}" >
+                                            <img src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}" alt="Ваня" class="avatar header  {{$loop->iteration == 1 ? 'border-warning' : ''}}">
+                                        </a>
+                                    </div>
+                                    <div class="col-4">{{$result['name']}}</div>
+                                    {{--                                    @foreach($result['points'] as $point)--}}
+                                    {{--                                        <td>{{$point}}</td>--}}
+                                    {{--                                    @endforeach--}}
+                                    <div class="col-2">
+                                        <div class="text-center">{{$result['sum']}}</div>
+                                        <div class="fs-10p text-secondary">очки</div></div>
+                                    <div class="col-2 text-center">
+                                        <div class="text-center">{{$result['attempts']}}</div>
+                                        <div class="fs-10p text-secondary">поп.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @endforeach
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 @endsection
