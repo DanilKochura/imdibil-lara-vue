@@ -5,7 +5,56 @@
 // 	let id = this.attr('id');
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
-
+jQuery.fn.getPos = function(){
+    var o = this[0];
+    var left = 0, top = 0, parentNode = null, offsetParent = null;
+    offsetParent = o.offsetParent;
+    var original = o;
+    var el = o;
+    while (el.parentNode != null) {
+        el = el.parentNode;
+        if (el.offsetParent != null) {
+            var considerScroll = true;
+            if (window.opera) {
+                if (el == original.parentNode || el.nodeName == "TR") {
+                    considerScroll = false;
+                }
+            }
+            if (considerScroll) {
+                if (el.scrollTop && el.scrollTop > 0) {
+                    top -= el.scrollTop;
+                }
+                if (el.scrollLeft && el.scrollLeft > 0) {
+                    left -= el.scrollLeft;
+                }
+            }
+        }
+        if (el == offsetParent) {
+            left += o.offsetLeft;
+            if (el.clientLeft && el.nodeName != "TABLE") {
+                left += el.clientLeft;
+            }
+            top += o.offsetTop;
+            if (el.clientTop && el.nodeName != "TABLE") {
+                top += el.clientTop;
+            }
+            o = el;
+            if (o.offsetParent == null) {
+                if (o.offsetLeft) {
+                    left += o.offsetLeft;
+                }
+                if (o.offsetTop) {
+                    top += o.offsetTop;
+                }
+            }
+            offsetParent = o.offsetParent;
+        }
+    }
+    return {
+        left: left,
+        top: top
+    };
+};
 
 let third = [];
 let pair = [];
@@ -522,6 +571,42 @@ $(document).ready(function(){
             $($(this).data('bs-target')).removeClass('d-none')
         }
     })
+    try {
+       if ($('#test-stick').length)
+       {
+           let header_height = $('#js_header_spacer').css('height')
+           let block_width = document.getElementById('stick_wrapper').offsetWidth
+           let block_height = document.getElementById('test-stick').getBoundingClientRect().height
+           header_height = parseInt(header_height)
+           // $('.test-stick').stick_in_parent()
+           $('body').scroll(function () {
+               let row_pos = document.getElementById('sticker-handler').getBoundingClientRect()
+               let stick_bottom = document.getElementById('test-stick').getBoundingClientRect().bottom
+               let row_top = row_pos.top
+               let row_bottom = row_pos.bottom
+               $('.test-stick').css("position", "fixed")
+               $('.test-stick').css("width", block_width)
+               console.log(row_top, row_bottom, stick_bottom, block_height)
+               if (row_top > header_height)
+               {
+                   $('.test-stick').css("top", row_top+15)
+                   console.log('top')
+               } else {
+                   if (row_bottom < stick_bottom + 20) {
+                       $('.test-stick').css("top",row_bottom - 15 - block_height)
+                       console.log('bottom')
+                       console.log(row_bottom + 15 - block_height)
+
+                   } else
+                   {
+                       console.log('no')
+                       $('.test-stick').css("top", header_height+10)
+                   }
+
+               }
+           });
+       }
+    } catch (e) {}
     if($('.chartjss').length > 0)
     {
         axios.get('https://imdibil.ru/api/statistics/user_graph').then(function(data){
@@ -656,17 +741,17 @@ $(document).ready(function(){
 
 
     }
-    $('body').scroll(function(){
-        // alert('after')
-        // console.log('as');
-        if ($(this).scrollTop() > 100) {
-            // console.log('ada');
-            console.log($('.scrollup'));
-            $('.scrollup').fadeIn();
-        } else {
-            $('.scrollup').fadeOut();
-        }
-    });
+    // $('body').scroll(function(){
+    //     // alert('after')
+    //     // console.log('as');
+    //     if ($(this).scrollTop() > 100) {
+    //         // console.log('ada');
+    //         console.log($('.scrollup'));
+    //         $('.scrollup').fadeIn();
+    //     } else {
+    //         $('.scrollup').fadeOut();
+    //     }
+    // });
 
     $('.scrollup').click(function(){
         $("html, body").animate({ scrollTop: 0 }, 600);

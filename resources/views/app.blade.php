@@ -11,6 +11,7 @@
     {{--    <link rel="stylesheet" href="https://imdibil.ru/scheduler/assets/css/vendor.datatables.css">--}}
     {{--    <link rel="stylesheet" href="https://imdibil.ru/scheduler/assets/css/vendor.fancybox.min.css">--}}
     <link rel="stylesheet" href="{{ asset('/css/core.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/css/vendor_bundle.min.css')}}">
     <script src="{{asset('/js/callbacks.js')}}"></script>
 
 @if(Route::is('profile.index'))
@@ -288,6 +289,7 @@
 
 <script src="{{asset('/js/core.min.js')}}"></script>
 <script src="{{asset('/js/vendor_bundle.min.js')}}"></script>
+<script src="{{asset('/js/vendor.sticky_kit.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 {{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>--}}
 <script src="{{asset('/js/main.js')}}"></script>
@@ -297,6 +299,6 @@
 @if(Route::is('statistics'))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endif
-<a href="#" class="scrollup"></a>
+{{--<a href="#" class="scrollup"></a>--}}
 </body>
 </html>

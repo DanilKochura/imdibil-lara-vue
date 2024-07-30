@@ -24,146 +24,174 @@
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
         }
     </style>
-    <h1 class="text-gold text-center">Викторины</h1>
-    <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
-        <h3 class="text-center text-warning">Фильм по кадру</h3>
-        <div class="row text-center">
-            @foreach($quizzes as $quiz)
-                <div class="col-sm-3 col-6 mb-2">
-                    <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
-                        {{--                        @if($quiz->id == 3)--}}
-                        {{--                            <div class="card-lock-overlay">--}}
-                        {{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
-                        {{--                                <div class="lock-content">--}}
-                        {{--                                    <span>Будет доступно с 20 марта</span>--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        @endif--}}
-                        <div class="card-header">
-                            <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-warning">{{$quiz->title}}</h5>
-                            <p class="card-text d-none d-sm-block">{{$quiz->text}}</p>
-                            @php $rank = $quiz->user_medals() @endphp
-                            <div class="d-flex justify-content-evenly">
-                                <x-medals type="{{$quiz->medal}}"
-                                          class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top" title="Пройдено 60%"></x-medals>
-                                <x-medals type="{{$quiz->medal}}"
-                                          class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top" title="Пройдено 80%"></x-medals>
-                                <x-medals type="{{$quiz->medal}}"
-                                          class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top" title="Пройдено 95%"></x-medals>
-                            </div>
-                            <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}"
-                                         time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
-                                         class="mt-2"></x-quiz-info>
-                        </div>
-                        <div class="card-footer text-muted">
-                            <a href="{{route('quiz', $quiz->alias)}}" class="btn btn-outline-warning w-100">Играть</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-            <div class="col-sm-3 mb-2 d-none d-sm-block">
-                <div class="bg-dark border-0 card shadow-light-md-hover ">
-                    <div class="card-header">
-                        <h5 class="text-warning">
-                            Список лидеров
-                        </h5>
-                    </div>
-                    <div class="card-body text-white table-leaders">
-                        <table class="table table-dark">
-                            <tbody>
-                            @foreach($results as $result)
-                                @if($loop->iteration == 8)
-                                    @break
-                                @endif
-                                <tr class="align-middle">
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>
-                                        <a href="{{route('profile.index', $result['id'])}}">
-                                            <img src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}"
-                                                 alt="Ваня" class="avatar header">
-                                        </a>
-                                    </td>
-                                    <td>{{$result['name']}}</td>
-                                    {{--                                    @foreach($result['points'] as $point)--}}
-                                    {{--                                        <td>{{$point}}</td>--}}
-                                    {{--                                    @endforeach--}}
-                                    <td>{{$result['sum']}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
+                   <div class="container" >
+                       <div class="row">
+                           <h1 class="text-gold text-center">Викторины</h1>
+                       </div>
+                       <div class="row" id="sticker-handler">
+                           <div class="col-12 col-md-8">
+                               <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
+                                   <h3 class="text-center text-warning">Фильм по кадру</h3>
+                                   <div class="row text-center">
+                                       @foreach($quizzes as $quiz)
+                                           <div class="col-sm-4 col-6 mb-2 px-1">
+                                               <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
+                                                   {{--                        @if($quiz->id == 3)--}}
+                                                   {{--                            <div class="card-lock-overlay">--}}
+                                                   {{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
+                                                   {{--                                <div class="lock-content">--}}
+                                                   {{--                                    <span>Будет доступно с 20 марта</span>--}}
+                                                   {{--                                </div>--}}
+                                                   {{--                            </div>--}}
+                                                   {{--                        @endif--}}
+                                                   <div class="card-header">
+                                                       <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top"
+                                                            alt="...">
+                                                   </div>
+                                                   <div class="card-body">
+                                                       <h5 class="card-title text-warning">{{$quiz->title}}</h5>
+                                                       <p class="card-text d-none d-sm-block">{{$quiz->text}}</p>
+                                                       @php $rank = $quiz->user_medals() @endphp
+                                                       <div class="d-flex justify-content-evenly">
+                                                           <x-medals type="{{$quiz->medal}}"
+                                                                     class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25"
+                                                                     data-bs-toggle="tooltip"
+                                                                     data-bs-placement="top" title="Пройдено 60%"></x-medals>
+                                                           <x-medals type="{{$quiz->medal}}"
+                                                                     class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25"
+                                                                     data-bs-toggle="tooltip"
+                                                                     data-bs-placement="top" title="Пройдено 80%"></x-medals>
+                                                           <x-medals type="{{$quiz->medal}}"
+                                                                     class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25"
+                                                                     data-bs-toggle="tooltip"
+                                                                     data-bs-placement="top" title="Пройдено 95%"></x-medals>
+                                                       </div>
+                                                       <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}"
+                                                                    time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
+                                                                    class="mt-2"></x-quiz-info>
+                                                   </div>
+                                                   <div class="card-footer text-muted">
+                                                       <a href="{{route('quiz', $quiz->alias)}}" class="btn btn-outline-warning w-100">Играть</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       @endforeach
 
 
-    @if(count($quizzesAll))
-        <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
-            <h3 class="text-center text-warning">Тематические</h3>
-            <div class="row text-center">
-                @foreach($quizzesAll as $quiz)
-                    <div class="col-sm-3 col-6 mb-2">
-                        <div class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
-                            {{--                        @if($quiz->id == 3)--}}
-                            {{--                            <div class="card-lock-overlay">--}}
-                            {{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
-                            {{--                                <div class="lock-content">--}}
-                            {{--                                    <span>Будет доступно с 20 марта</span>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-                            {{--                        @endif--}}
-                            <div class="card-header">
-                                <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title text-warning">{{$quiz->title}}</h5>
-                                <p class="card-text d-none d-sm-block">{{$quiz->text}}</p>
-                                @php $rank = $quiz->user_medals() @endphp
-                                <div class="d-flex justify-content-evenly   ">
-                                    <x-medal
-                                        class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Пройдено 60%"></x-medal>
-                                    <x-medal
-                                        class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Пройдено 80%"></x-medal>
-                                    <x-medal
-                                        class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Пройдено 95%"></x-medal>
-                                </div>
-                                <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}"
-                                             time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
-                                             class="mt-2"></x-quiz-info>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <a href="{{route('quiz', $quiz->alias)}}"
-                                   class="btn btn-outline-warning w-100">Играть</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                                   </div>
+                               </div>
 
-            </div>
-        </div>
-    @endif
-    @if(!auth()->check())
-        @include('components.login-modal')
-    @endif
+
+                               @if(count($quizzesAll))
+                                   <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
+                                       <h3 class="text-center text-warning">Тематические</h3>
+                                       <div class="row text-center">
+                                           @foreach($quizzesAll as $quiz)
+                                               <div class="col-sm-4 col-6 mb-2  px-1">
+                                                   <div
+                                                       class="bg-dark border-0 card shadow-light-md-hover transition-hover-zoom no-hover">
+                                                       {{--                        @if($quiz->id == 3)--}}
+                                                       {{--                            <div class="card-lock-overlay">--}}
+                                                       {{--                                <i class="fi fi-locked" style="font-size: 48px;"></i>--}}
+                                                       {{--                                <div class="lock-content">--}}
+                                                       {{--                                    <span>Будет доступно с 20 марта</span>--}}
+                                                       {{--                                </div>--}}
+                                                       {{--                            </div>--}}
+                                                       {{--                        @endif--}}
+                                                       <div class="card-header">
+                                                           <img src="{{asset('images/quiz/'.$quiz->image)}}" class="card-img-top"
+                                                                alt="...">
+                                                       </div>
+                                                       <div class="card-body">
+                                                           <h5 class="card-title text-warning">{{$quiz->title}}</h5>
+                                                           <p class="card-text d-none d-sm-block">{{$quiz->text}}</p>
+                                                           @php $rank = $quiz->user_medals() @endphp
+                                                           <div class="d-flex justify-content-evenly   ">
+                                                               <x-medal
+                                                                   class=" {{($rank and $rank->rank > 0) ? '' : 'fill-inactive'}} fill-brown w-25"
+                                                                   data-bs-toggle="tooltip"
+                                                                   data-bs-placement="top" title="Пройдено 60%"></x-medal>
+                                                               <x-medal
+                                                                   class=" {{($rank and $rank->rank > 1) ? '' : 'fill-inactive'}} fill-gray-200 w-25"
+                                                                   data-bs-toggle="tooltip"
+                                                                   data-bs-placement="top" title="Пройдено 80%"></x-medal>
+                                                               <x-medal
+                                                                   class=" {{($rank and $rank->rank == 3) ? '' : 'fill-inactive'}} fill-warning w-25"
+                                                                   data-bs-toggle="tooltip"
+                                                                   data-bs-placement="top" title="Пройдено 95%"></x-medal>
+                                                           </div>
+                                                           <x-quiz-info errors="{{$quiz->errors}}"
+                                                                        results="{{$quiz->unique_results()}}"
+                                                                        time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
+                                                                        class="mt-2"></x-quiz-info>
+                                                       </div>
+                                                       <div class="card-footer text-muted">
+                                                           <a href="{{route('quiz', $quiz->alias)}}"
+                                                              class="btn btn-outline-warning w-100">Играть</a>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           @endforeach
+
+                                       </div>
+                                   </div>
+                               @endif
+                               @if(!auth()->check())
+                                   @include('components.login-modal')
+                               @endif
+                           </div>
+
+                           <div class="col-4 d-none d-sm-block my-3" id="stick_wrapper">
+                               <div class="row  test-stick" id="test-stick">
+                                   <div class="bg-dark border-0 card shadow-light-md-hover">
+                                       <div class="card-header">
+                                           <h5 class="text-warning">
+                                               Список лидеров
+                                           </h5>
+                                       </div>
+                                       <div class="card-body text-white table-leaders">
+                                           <table class="table table-dark">
+                                               <thead>
+                                               <tr class="fs-10p text-secondary">
+                                                   <th>#</th>
+                                                   <th colspan="2"> пользователь</th>
+                                                   <th >очки</th>
+                                                   <th class="fs-10p text-secondary">поп.</th>
+                                               </tr>
+                                               </thead>
+                                               <tbody class="border-0">
+                                               @foreach($results as $result)
+
+                                                   <tr class="align-middle @if($result['id'] == auth()->id()) text-success @endif">
+                                                       <td>{{$loop->iteration}}</td>
+                                                       <td>
+                                                           <a href="{{route('profile.index', $result['id'])}}">
+                                                               <img
+                                                                   src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}"
+                                                                   alt="Ваня" class="avatar header">
+                                                           </a>
+                                                       </td>
+                                                       <td>{{$result['name']}}</td>
+                                                       {{--                                    @foreach($result['points'] as $point)--}}
+                                                       {{--                                        <td>{{$point}}</td>--}}
+                                                       {{--                                    @endforeach--}}
+                                                       <td>{{$result['sum']}}</td>
+                                                       <td >{{$result['attempts']}}</td>
+                                                   </tr>
+                                               @endforeach
+                                               </tbody>
+                                           </table>
+
+                                       </div>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+
+
 
 
 
@@ -205,8 +233,10 @@
                                 <div class="row align-items-center">
                                     <div class="col-1">{{$loop->iteration}}</div>
                                     <div class="col-3">
-                                        <a href="{{route('profile.index', $result['id'])}}" >
-                                            <img src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}" alt="Ваня" class="avatar header  {{$loop->iteration == 1 ? 'border-warning' : ''}}">
+                                        <a href="{{route('profile.index', $result['id'])}}">
+                                            <img src="{{asset('images/uploads/'.($result['avatar'] ?: 'default.jpg'))}}"
+                                                 alt="Ваня"
+                                                 class="avatar header  {{$loop->iteration == 1 ? 'border-warning' : ''}}">
                                         </a>
                                     </div>
                                     <div class="col-4">{{$result['name']}}</div>
@@ -215,7 +245,8 @@
                                     {{--                                    @endforeach--}}
                                     <div class="col-2">
                                         <div class="text-center">{{$result['sum']}}</div>
-                                        <div class="fs-10p text-secondary">очки</div></div>
+                                        <div class="fs-10p text-secondary">очки</div>
+                                    </div>
                                     <div class="col-2 text-center">
                                         <div class="text-center">{{$result['attempts']}}</div>
                                         <div class="fs-10p text-secondary">поп.</div>
