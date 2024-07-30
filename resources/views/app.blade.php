@@ -115,6 +115,12 @@
 
 
                             </li>
+                            <li class="nav-item">
+
+                                <a href="/vote" class="nav-link">Турнир</a>
+
+
+                            </li>
 
                             <!-- pages -->
                             <li class="nav-item">

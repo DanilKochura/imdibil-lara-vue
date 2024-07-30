@@ -20,7 +20,13 @@ class QuizController extends Controller
 
     public static function index()
     {
-        $quizzes = Quiz::all();
+        if (auth()->id() == 4)
+        {
+            $quizzes = Quiz::all();
+        } else
+        {
+            $quizzes = Quiz::where('user_id', '=', auth()->id())->get();
+        }
          return view('admin.quiz.create', compact('quizzes'));
     }
 
@@ -80,7 +86,13 @@ class QuizController extends Controller
     }
     public static function show_quizzes()
     {
-        $quizzes = Quiz::all();
+        if (auth()->id() == 4)
+        {
+            $quizzes = Quiz::all();
+        } else
+        {
+            $quizzes = Quiz::where('user_id', '=', auth()->id())->get();
+        }
         return view('admin.quiz.quizzes', compact('quizzes'));
 
     }
@@ -100,13 +112,13 @@ class QuizController extends Controller
            "status" => "numeric|in:1,0",
            "image" => "required|image|max:500",
         ]);
-        $validated['user_id'] = auth()->id();
         $quiz = Quiz::create($request->all());
         if ($request->hasFile('image')) {
             $quiz->image =  $quiz->alias . '.' . $request->image->extension();
             $request->image->move(public_path("images/quiz/"), $quiz->image);
             $quiz->save();
         }
+        $quiz->update(['user_id' => auth()->id()]);
         return redirect()->back();
 
     }

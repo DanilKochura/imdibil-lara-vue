@@ -3,7 +3,7 @@
 @section('meta')
 
     <meta name="keywords" content="киновикторина, викторина про кино, тесты на знание кино, викторина кинематограф, кинематограф, веселые тесты, развлекательные тесты" />
-    <meta name="description" content="На нашем портале доступны различные викторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры." />
+    <meta name="description" content="На нашем портале доступны различные киновикторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры." />
     <title>Киновикторина</title>
     <meta property="og:site_name" content="IMDibil - Киновикторина">
     <meta property="og:title" content="Киновикторины IMDIBIL">
@@ -22,7 +22,7 @@
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
         }
     </style>
-{{--    <h1>Викторина</h1>--}}
+    <h1 class="text-gold text-center">Викторины</h1>
     <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
         <h3 class="text-center text-warning">Фильм по кадру</h3>
         <div class="row text-center">

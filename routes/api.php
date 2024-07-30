@@ -3,6 +3,7 @@
 use App\Models\Third;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -105,4 +106,33 @@ Route::post('/login', function (Request $request) {
 
 Route::prefix('mobile/')->group(function (){
     Route::get('/meetings', [\App\Http\Controllers\Api\Mobile\MainController::class, 'index']);
+    Route::get('/stats', [\App\Http\Controllers\Api\Mobile\MainController::class, 'stats']);
+    Route::get('/thirds', [\App\Http\Controllers\Api\Mobile\MainController::class, 'thirds']);
+    Route::post('/login', function (Request $request) {
+        Log::info(print_r($request->all(), 1));
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            'device_name' => 'required'
+        ]);
+
+        $user = User::where('login', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'no!', 'token' => '', 'user_id' => '']);
+        }
+        Log::build([
+            'driver' => 'daily',
+            'path' => storage_path('logs/mobile_login.log'),
+        ])->info("Вход в мобильное приложение: ".$user->name." #".$user->id);
+        Log::info(json_encode(['token' => $user->createToken($request->device_name)->plainTextToken, 'user_id' => $user->id]));
+        return response()->json(['token' => $user->createToken($request->device_name)->plainTextToken, 'user_id' => $user->id]);
+    });
+
+    Route::middleware(['auth:sanctum'])->get('profile', [\App\Http\Controllers\Api\Mobile\ProfileController::class, 'index']);
 });
+
+
+
+
+

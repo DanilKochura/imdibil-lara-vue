@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">
     <script src="{{asset('/js/callbacks.js')}}"></script>
 
+    <meta name="keywords" content="киновикторина, киноклуб, тесты о кино, кинотесты" />
+    <meta name="description" content="Imdibil - Киноклуб мгту имени Баумана и компания друзей, которые любят обсуждать кино. На протяжении почти двух лет мы периодически собираемся для того, чтобы поговорить о фильмах, а этот портал помогает Вам следить за нашей деятельностью, а также проходить различные викторины на знание кинематографа
+" />
+    <title>Киновикторина</title>
+    <meta property="og:title" content="Киноклуб IMDIBIL">
     <title>IMDibil</title>
     @if(auth()->check())
         <meta name="csrf-token" content="{{ csrf_token() }}" />

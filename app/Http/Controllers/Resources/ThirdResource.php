@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MeetingResource extends JsonResource
+class ThirdResource extends JsonResource
 {
 	/**
 	 * Transform the resource into an array.
@@ -17,12 +17,9 @@ class MeetingResource extends JsonResource
 	public function toArray($request): array
 	{
 		return [
-            "id"  => $this->id,
-            "movie_id" => $this->movie_id,
-            "date_at" => $this->date_at,
-            "movie"  => $this->movie,
-            "rates" => $this->rates,
-            "positions" => $this->positions ?? null
+         "movies" => [$this->firstMovie, $this->secondMovie, $this->thirdMovie],
+            "selected" => $this->selected_id,
+            "user_id" => $this->user_id
             ];
 
 	}

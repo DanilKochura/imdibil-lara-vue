@@ -400,8 +400,9 @@
 
             <div class="col-sm-1"></div>
         </div>
+        </div>
         @if($quiz->count())
-            <div class="row mt-2 d-none d-md-block">
+            <div class="row mt-2 d-none d-md-flex">
                 <div class="col-sm-1"></div>
                 <div class="col-md-10 col-12">
                     <p class="h4">Прогресс викторины</p>
@@ -664,6 +665,5 @@
             </div>
         @endif
 
-    </div>
     </div>
 @endsection
