@@ -100,6 +100,12 @@ class User extends Authenticatable
         return $this->hasMany(QuizProgress::class, 'user_id', 'id')->with('quiz')->get();
     }
 
+    public function quiz_attempts()
+    {
+        return $this->hasMany(QuizAttempts::class, 'user_id', 'id')->get();
+    }
+
+
     public function medals()
     {
         return $this->hasMany(UserQuizMedal::class, 'user_id', 'id')->orderByDesc('rank');

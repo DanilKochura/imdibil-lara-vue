@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MainFilterRequest;
 use App\Models\Meeting;
 use App\Models\Quiz;
+use App\Models\QuizAttempts;
 use App\Models\QuizProgress;
 use App\Models\Rate;
 use App\Models\Third;
 use App\Models\User;
 use App\Models\UserQuizMedal;
+use App\UseCases\ActivityService;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -21,16 +23,25 @@ class QuizController extends Controller
 {
     public static function index($difficulty)
     {
+        $quiz = Quiz::where('alias', '=', $difficulty)->get()->first();
+        if (!($quiz))
+        {
+            return abort(404);
+        }
         $user = "Неизвестен";
         if (\auth()->check())
         {
             $user = \auth()->user()->name;
+            QuizAttempts::create([
+                'quiz_id' => $quiz->id,
+                'user_id' => \auth()->id()
+            ]);
         }
         Log::build([
             'driver' => 'daily',
             'path' => storage_path('logs/quiz.log'),
         ])->info("Кто-то играет: ".$difficulty.". ".$user);
-        $quiz = Quiz::where('alias', '=', $difficulty)->get()->first();
+        $quiz->increment('attempts');
         $quiz = [
             'id' => $quiz->id,
             'image' => asset('images/quiz/' . $quiz->image),
@@ -62,6 +73,8 @@ class QuizController extends Controller
 
         $results = collect($results);
         $results = $results->sortByDesc("sum")->slice(0, 10);
+
+
         return view('game', compact('quizzes', 'results', 'quizzesAll'));
     }
 

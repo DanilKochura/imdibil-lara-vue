@@ -592,21 +592,58 @@ $(document).ready(function(){
                    $('.test-stick').css("top", row_top+15)
                    console.log('top')
                } else {
-                   if (row_bottom < stick_bottom + 20) {
-                       $('.test-stick').css("top",row_bottom - 15 - block_height)
-                       console.log('bottom')
-                       console.log(row_bottom + 15 - block_height)
 
-                   } else
-                   {
                        console.log('no')
                        $('.test-stick').css("top", header_height+10)
-                   }
 
                }
            });
        }
     } catch (e) {}
+
+
+    if($('.squares').length > 0 )
+    {
+        let id = $('meta#user_id').attr('content')
+        if (id)
+        {
+            axios.get('https://imdibil.ru/api/user-activity?id='+id).then(function(data){
+                const squares = document.querySelector('.squares');
+                data.data.forEach((value) => {
+                    let level = 0;
+                    if(value.count > 5)
+                    {
+                        level = 3
+                    } else if(value.count > 2)
+                    {
+                        level = 2
+                    }else if(value.count > 0)
+                    {
+                        level = 1
+                    }
+                    console.log(level)
+                    squares.insertAdjacentHTML('beforeend', `<li data-level="${level}" data-bs-toggle="tooltip"
+                                                                     data-bs-placement="top" title="${value.count} попыток ${value.date}"></li>`);
+                })
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                })
+                $('#loader-activity').remove()
+            })
+        } else
+        {
+            const squares = document.querySelector('.squares');
+            for (var i = 1; i < 113; i++) {
+                const level = Math.floor(Math.random() * 3);
+                squares.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
+            }
+            $('#loader-activity').remove()
+
+        }
+
+
+    }
     if($('.chartjss').length > 0)
     {
         axios.get('https://imdibil.ru/api/statistics/user_graph').then(function(data){

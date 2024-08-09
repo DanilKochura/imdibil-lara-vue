@@ -3,13 +3,19 @@
 @section('meta')
 
     <meta name="keywords"
-          content="киновикторина, викторина про кино, тесты на знание кино, викторина кинематограф, кинематограф, веселые тесты, развлекательные тесты"/>
+          content="киновикторина, фильм по кадру, викторина онлайн, викторина про кино, тесты на знание кино, викторина кинематограф, кинематограф, веселые тесты, развлекательные тесты"/>
     <meta name="description"
-          content="На нашем портале доступны различные киновикторины на знание мирового кинематографа. Фильмы по кадрам, актеры, франшизы, постеры."/>
+          content="Порверьте свои знания мирового кино, проходя наши киновикторины онлайн. Фильм по кадру, актеры, франшизы, постеры."/>
+{{--    На нашем портале доступны различные киновикторины на знание мирового кинематографа--}}
+    <meta name="robots" content="index, follow" />
+
     <title>Киновикторина</title>
     <meta property="og:site_name" content="IMDibil - Киновикторина">
     <meta property="og:title" content="Киновикторины IMDIBIL">
     <meta property="og:image" content="{{asset('images/quiz_preview.png')}}">
+    @if(auth()->check())
+        <meta id="user_id" content="{{auth()->id()}}">
+    @endif
 @endsection
 
 @section('content')
@@ -31,7 +37,7 @@
                        <div class="row" id="sticker-handler">
                            <div class="col-12 col-md-8">
                                <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
-                                   <h3 class="text-center text-warning">Фильм по кадру</h3>
+                                   <h3 class="text-center text-warning">Угадай фильм по кадру</h3>
                                    <div class="row text-center">
                                        @foreach($quizzes as $quiz)
                                            <div class="col-sm-4 col-6 mb-2 px-1">
@@ -66,7 +72,7 @@
                                                                      data-bs-toggle="tooltip"
                                                                      data-bs-placement="top" title="Пройдено 95%"></x-medals>
                                                        </div>
-                                                       <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->unique_results()}}"
+                                                       <x-quiz-info errors="{{$quiz->errors}}" results="{{$quiz->attempts}}"
                                                                     time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
                                                                     class="mt-2"></x-quiz-info>
                                                    </div>
@@ -84,7 +90,7 @@
 
                                @if(count($quizzesAll))
                                    <div class="container bg-dark bg-opacity-50 my-3  rounded-2">
-                                       <h3 class="text-center text-warning">Тематические</h3>
+                                       <h3 class="text-center text-warning">Тематические тесты</h3>
                                        <div class="row text-center">
                                            @foreach($quizzesAll as $quiz)
                                                <div class="col-sm-4 col-6 mb-2  px-1">
@@ -121,7 +127,7 @@
                                                                    data-bs-placement="top" title="Пройдено 95%"></x-medal>
                                                            </div>
                                                            <x-quiz-info errors="{{$quiz->errors}}"
-                                                                        results="{{$quiz->unique_results()}}"
+                                                                        results="{{$quiz->attempts}}"
                                                                         time="{{$quiz->time}}" count="{{$quiz->questions()->count()}}"
                                                                         class="mt-2"></x-quiz-info>
                                                        </div>
@@ -143,9 +149,46 @@
 
                            <div class="col-4 d-none d-sm-block my-3" id="stick_wrapper">
                                <div class="row  test-stick" id="test-stick">
+                                       <div class="bg-dark mb-3 border-0 card shadow-light-md-hover mx-0 px-0">
+                                           <div style="margin: 20px">
+                                               <h5 class="text-center text-warning mb-1 pb-1">Ваша активность</h5>
+                                               <div class="graph">
+
+                                                   <ul class="days">
+                                                       <li>Пн</li>
+                                                       <li>Вт</li>
+                                                       <li>Ср</li>
+                                                       <li>Чт</li>
+                                                       <li>Пт</li>
+                                                       <li>Сб</li>
+                                                       <li>Вс</li>
+                                                   </ul>
+                                                   <ul class="squares">
+                                                       <!-- added via javascript -->
+                                                   </ul>
+
+                                               </div>
+                                           </div>
+                                           <div class="p-3 position-absolute text-center w-100 " style="top: 30%">
+                                               <div class="spinner-grow text-success position-absolute" id="loader-activity" role="status">
+                                                   <span class="visually-hidden">Loading...</span>
+                                               </div>
+                                           </div>
+                                           @if(!auth()->check())
+                                               <div class="p-3 position-absolute text-center w-100" style="backdrop-filter: brightness(50%); height: 100%">
+                                                   <div class="mt-4">
+                                                       <button type="button" class="btn btn-sm  btn-outline-warning mb-2" data-bs-toggle="modal"
+                                                               data-bs-target="#modalLogin" title="Редактировать личные данные">
+                                                           Авторизуйтесь
+                                                       </button>
+                                                       <p class="text-white">чтобы сохранять свой результат</p>
+                                                   </div>
+                                               </div>
+                                           @endif
+                                       </div>
                                    <div class="bg-dark border-0 card shadow-light-md-hover">
                                        <div class="card-header">
-                                           <h5 class="text-warning">
+                                           <h5 class="text-warning text-center">
                                                Список лидеров
                                            </h5>
                                        </div>
@@ -161,7 +204,7 @@
                                                </thead>
                                                <tbody class="border-0">
                                                @foreach($results as $result)
-
+                                                    @if($loop->iteration == 8) @break($loop) @endif
                                                    <tr class="align-middle @if($result['id'] == auth()->id()) text-success @endif">
                                                        <td>{{$loop->iteration}}</td>
                                                        <td>
