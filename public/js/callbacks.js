@@ -19,4 +19,5 @@ var filmAddCallback = function (el, data) {
 
 var modalClose = function (el, data) {
     $(el).closest('.modal').modal('hide')
+    window.location.reload()
 }

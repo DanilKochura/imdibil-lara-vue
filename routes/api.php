@@ -2,6 +2,7 @@
 
 use App\Models\Third;
 use App\Models\User;
+use App\UseCases\ActivityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -133,6 +134,12 @@ Route::prefix('mobile/')->group(function (){
 });
 
 
-
+Route::get('/user-activity', function (\Illuminate\Http\Request $request){
+    $request = $request->all();
+    $id = $request['id'];
+    $service = new ActivityService(User::find($id));
+    $activity = $service->getActivity();
+    return response()->json($activity);
+});
 
 

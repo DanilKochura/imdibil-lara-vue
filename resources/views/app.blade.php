@@ -24,7 +24,10 @@
 
     {{--    <link href="https://imdibil.ru/styles/stylesheet.css" type="text/css" rel="stylesheet"/>--}}
 
-    <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
+{{--    <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">--}}
+    <link rel="shortcut icon" href="https://imdibil.ru/favicon.svg" type="image/svg+xml">
+
+   @include('components.counters')
 
 </head>
 <body class="header-sticky header-fixed @if(Route::is('statistics')) bg-dark @endif">

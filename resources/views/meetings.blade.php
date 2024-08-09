@@ -6,6 +6,7 @@
     <title>Главная</title>
     <meta property="og:site_name" content="IMDibil - Информационный портал киноклуба">
     <meta property="og:title" content="Хронология заседаний">
+
 @endsection
 
 @section('content')

@@ -179,16 +179,31 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="row selected overflow-hidden">
-                            <div class="your-class mb-0" style="height: 250px;">
+                        <div class="swiper-container swiper-white" data-swiper='{
+		"slidesPerView": 2,
+		"spaceBetween": 8,
+		"slidesPerGroup": 1,
+		"loop": true,
+		"autoplay": { "delay" : 1500, "disableOnInteraction": false },
+		"breakpoints": {
+			"1024": { "slidesPerView": "2" },
+			"920":	{ "slidesPerView": "2" },
+			"640":	{ "slidesPerView": "2" }
+		}
+	}'>
+
+                            <div class="hide swiper-wrapper">
+
                                 @foreach($advices as $movie)
-                                    <div class="slide-cust" style="">
-                                        <a href="{{$movie->url}}" target="_blank">
-                                            <img src="{{asset('images/posters/'.$movie->poster)}}" class="img-fluid"
-                                                 alt="">
-                                        </a>
+                                    <div class="swiper-slide">
+                                        <div class="img-fluid" style="height: 250px; background: url('{{asset('images/posters/'.$movie->poster)}}');
+    background-size: cover; background-repeat: no-repeat"></div>
                                     </div>
+{{--                                    <img src="{{asset('images/posters/'.$movie->poster)}}" class="img-fluid" alt="...">--}}
                                 @endforeach
+
+
+
                             </div>
                         </div>
                     </div>

@@ -8,18 +8,20 @@
     <link rel="stylesheet" href="{{ asset('/css/core.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/css/stylesheet.css')}}">
     <script src="{{asset('/js/callbacks.js')}}"></script>
-
+    <meta name="robots" content="index, follow" />
     <meta name="keywords" content="киновикторина, киноклуб, тесты о кино, кинотесты" />
     <meta name="description" content="Imdibil - Киноклуб мгту имени Баумана и компания друзей, которые любят обсуждать кино. На протяжении почти двух лет мы периодически собираемся для того, чтобы поговорить о фильмах, а этот портал помогает Вам следить за нашей деятельностью, а также проходить различные викторины на знание кинематографа
 " />
-    <title>Киновикторина</title>
+    <title>Киноклуб IMDIBIL</title>
     <meta property="og:title" content="Киноклуб IMDIBIL">
     <title>IMDibil</title>
     @if(auth()->check())
         <meta name="csrf-token" content="{{ csrf_token() }}" />
     @endif
-    <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">
+{{--    <link rel="shortcut icon" href="https://imdibil.ru/image/favicon.ico" type="image/x-icon">--}}
+    <link rel="shortcut icon" href="https://imdibil.ru/favicon.svg" type="image/svg+xml">
 
+    @include('components.counters')
 
 </head>
 <body class="" style="background-color: #252525">
@@ -184,6 +186,19 @@
             </div>
         </div>
     </div>
+<div class="container-fluid bottom-0 py-4">
+    <footer >
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+            <li class="nav-item"><a href="{{route('news')}}" class="nav-link px-2 text-white">Новости</a></li>
+            <li class="nav-item"><a href="{{route('meetings')}}" class="nav-link px-2 text-white">Заседания</a></li>
+            {{--                <li class="nav-item"><a href="/feedback.php" class="nav-link px-2 text-muted">Форум</a></li>--}}
+            <li class="nav-item"><a href="{{'statictics'}}" class="nav-link px-2 text-white">Аналитика</a></li>
+            <li class="nav-item"><a href="{{'quiz'}}" class="nav-link px-2 text-white">Викторина</a></li>
+        </ul>
+        <p class="text-center text-white">© 2022 - {{\Carbon\Carbon::now()->format('Y')}} IMDBil</p>
+    </footer>
+</div>
 <script src="{{asset('/js/core.min.js')}}"></script>
 
 <script>

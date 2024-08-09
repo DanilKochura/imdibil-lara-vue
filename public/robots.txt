@@ -1,2 +1,11 @@
 User-agent: *
 Disallow: /admin/*
+Disallow: /?page=*
+Disallow: /news?*
+Disallow: /meetings?*
+
+
+
+
+
+Sitemap: https://imdibil.ru/sitemap.xml

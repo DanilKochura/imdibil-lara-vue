@@ -56,6 +56,7 @@
                         <select class="form-select" name="type" id="difSel">
                             <option value="1" {{ $quiz->type == '1' ? 'selected' : 'disabled' }}>Стандартная</option>
                             <option value="2" {{ $quiz->type == '2' ? 'selected' : 'disabled' }}>Тематические</option>
+                            <option value="2" {{ $quiz->type == '3' ? 'selected' : 'disabled' }}>Актеры</option>
                         </select>
                     </div>
                     <div class="col-4">
