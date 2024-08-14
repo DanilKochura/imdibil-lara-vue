@@ -949,6 +949,23 @@ $(document).ready(function(){
             }
         }
     });
+    $('.star-rating-big').each(function() {
+        const starContainer = $(this);
+        const rating = parseFloat(starContainer.attr('data-rating')); // Преобразование в пятибальную шкалу
+        const maxStars = 10;
+        const fullStars = Math.floor(rating);
+        const fractionalPart = rating - fullStars;
+
+        for (let i = 0; i < maxStars; i++) {
+            if (i < fullStars) {
+                starContainer.append('<span class="star">&#9733;</span>');
+            } else if (i === fullStars && fractionalPart > 0) {
+                starContainer.append(`<span class="star partial" style="--fill-percentage: ${fractionalPart * 100}%">&#9733;</span>`);
+            } else {
+                starContainer.append('<span class="star empty">&#9733;</span>');
+            }
+        }
+    });
 });
 
 const RateCl = document.querySelectorAll('.rate-ch');

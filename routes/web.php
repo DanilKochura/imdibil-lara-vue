@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\ProfileController;
@@ -27,6 +28,8 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 Route::get('/', [\App\Http\Controllers\MainController::class, 'landing'])->name('main');
 Route::get('/meetings', [\App\Http\Controllers\MainController::class, 'index'])->name('meetings');
+Route::get('/metings', [\App\Http\Controllers\MainController::class, 'old'])->name('metings');
+Route::get('/meeting/{meeting}', [\App\Http\Controllers\MainController::class, 'meeting'])->name('meeting');
 Route::get('/news', [\App\Http\Controllers\MainController::class, 'news'])->name('news');
 Route::get('/statistics', [\App\Http\Controllers\MainController::class, 'statistics'])->name('statistics');
 
@@ -67,6 +70,12 @@ Route::prefix('/admin')->middleware(['auth', 'admin'])->name('admin.')->group(fu
         Route::post('/save-quiz', [QuizController::class, 'saveQuiz'])->name('save-quiz');
         Route::post('/{quiz}/update-quiz', [QuizController::class, 'updateQuiz'])->name('update-quiz');
         Route::get('/{quiz}/questions', [QuizController::class, 'questions'])->name('questions');
+    });
+    Route::prefix('/movies')->name('movies.')->group(function () {
+        Route::get('/show-movies', [MovieController::class, 'index'])->name('show_movies');
+        Route::get('/edit/{movie}', [MovieController::class, 'edit'])->name('edit');
+        Route::post('/update/{movie}', [MovieController::class, 'update'])->name('update');
+
     });
 });
 

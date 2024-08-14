@@ -115,7 +115,7 @@
                             <!-- features -->
                             <li class="nav-item">
 
-                                <a href="/meetings" class="nav-link">Заседания</a>
+                                <a href="/meetings" class="nav-link {{ (Route::is('meetings') or Route::is('metings')) ? 'active' : ''}}">Заседания</a>
 
 
                             </li>

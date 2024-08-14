@@ -19,7 +19,46 @@ class MainController extends Controller
             ->orderByDesc('id')->get();
         return view('landing', compact('meetings'));
     }
+
+
+
+
     public static function index(MainFilterRequest $request)
+    {
+        $perPage = 20  ;
+        $page = $request->input('page', 1);
+
+        // Получаем встречи в исходном порядке (уменьшение id) с пагинацией
+        $paginatedMeetings = Meeting::with(['movie', 'movie.director', 'movie.citates', 'movie.genres', 'rates', 'rates.user'])
+            ->orderByDesc('id')
+            ->paginate($perPage, ['*'], 'page', $page);
+
+        // Получаем все встречи для добавления позиции
+        $allMeetings = Meeting::with(['movie', 'movie.director',  'movie.citates','movie.genres',  'rates', 'rates.user'])
+            ->get()
+            ->sortByDesc(function ($meeting) {
+                return $meeting->movie->our_rate;
+            })
+            ->values();
+
+        // Добавляем поле position каждому элементу коллекции
+        $allMeetings->each(function ($meeting, $index) {
+            $meeting->movie->position = $index + 1;
+            $third = Third::where('selected_id', '=', $meeting->movie->id)->get()->first();
+            $meeting->author = $third ? $third->user_id : null;
+        });
+
+        // Связываем позиции с пагинированной коллекцией
+        $paginatedMeetings->getCollection()->transform(function ($meeting) use ($allMeetings) {
+            $meeting->movie->position = $allMeetings->firstWhere('id', $meeting->id)->movie->position;
+            $meeting->author = $allMeetings->firstWhere('id', $meeting->id)->author;
+
+            return $meeting;
+        });
+        $meetings = $paginatedMeetings;
+        return view('meetings', compact('paginatedMeetings', 'meetings'));
+    }
+    public static function old(MainFilterRequest $request)
     {
         $perPage = 20  ;
         $page = $request->input('page', 1);
@@ -40,16 +79,19 @@ class MainController extends Controller
         // Добавляем поле position каждому элементу коллекции
         $allMeetings->each(function ($meeting, $index) {
             $meeting->movie->position = $index + 1;
+            $third = Third::where('selected_id', '=', $meeting->movie->id)->get()->first();
+            $meeting->author = $third ? $third->user_id : null;
         });
 
         // Связываем позиции с пагинированной коллекцией
         $paginatedMeetings->getCollection()->transform(function ($meeting) use ($allMeetings) {
             $meeting->movie->position = $allMeetings->firstWhere('id', $meeting->id)->movie->position;
+            $meeting->author = $allMeetings->firstWhere('id', $meeting->id)->author;
+
             return $meeting;
         });
-
         $meetings = $paginatedMeetings;
-        return view('meetings', compact('paginatedMeetings', 'meetings'));
+        return view('old_meetings', compact('paginatedMeetings', 'meetings'));
     }
 
     public static function statistics()
@@ -126,5 +168,16 @@ class MainController extends Controller
         $thirds = Third::with('selected', 'user')->where('checked','=', 1)->orderByDesc('id')->paginate(5);
 //        dd($thirds);
         return view('thirds', compact('thirds'));
+    }
+
+
+    public static function meeting(Meeting $meeting)
+    {
+        $meeting->load(['movie', 'movie.director', 'movie.citates', 'rates', 'rates.user']);
+        $third = Third::where('selected_id', '=', $meeting->movie->id)->get()->first();
+        $meeting->author = $third ? $third->user_id : null;
+        $meetings = Meeting::all()->sortByDesc('id');
+        return view('meeting', compact('meeting', 'meetings'));
+
     }
 }

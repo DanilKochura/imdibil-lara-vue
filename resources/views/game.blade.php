@@ -133,7 +133,7 @@
                                                        </div>
                                                        <div class="card-footer text-muted">
                                                            <a href="{{route('quiz', $quiz->alias)}}"
-                                                              class="btn btn-outline-warning w-100">Играть</a>
+                                                              class="btn btn-outline-warning w-100 btn-quiz">Играть</a>
                                                        </div>
                                                    </div>
                                                </div>
@@ -169,13 +169,13 @@
 
                                                </div>
                                            </div>
-                                           <div class="p-3 position-absolute text-center w-100 " style="top: 30%">
+                                           <div class="p-3 position-absolute text-center w-100 " style="top: 10%">
                                                <div class="spinner-grow text-success position-absolute" id="loader-activity" role="status">
                                                    <span class="visually-hidden">Loading...</span>
                                                </div>
                                            </div>
                                            @if(!auth()->check())
-                                               <div class="p-3 position-absolute text-center w-100" style="backdrop-filter: brightness(50%); height: 100%">
+                                               <div class="p-3 position-absolute text-center w-100 rounded" style="backdrop-filter: brightness(50%); height: 100%">
                                                    <div class="mt-4">
                                                        <button type="button" class="btn btn-sm  btn-outline-warning mb-2" data-bs-toggle="modal"
                                                                data-bs-target="#modalLogin" title="Редактировать личные данные">

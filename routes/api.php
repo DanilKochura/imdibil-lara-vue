@@ -142,4 +142,6 @@ Route::get('/user-activity', function (\Illuminate\Http\Request $request){
     return response()->json($activity);
 });
 
+Route::post('/upload-image/{movie}', [\App\Http\Controllers\Admin\MovieController::class, 'uploadImage'])->name('api.upload_image');
+
 

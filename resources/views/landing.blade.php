@@ -34,7 +34,7 @@
             <h1 class="">Welcome to IMDibil</h1>
             <p>Откройте для себя кино с новой стороны</p>
             <div class="button-container">
-                <a href="#history-cards" class="button">Заседания</a>
+                <a href="{{route('meetings')}}" class="button">Заседания</a>
                 <a class="button quiz-btn" href="{{route('game')}}">Викторина</a>
                 <a class="button" href="{{route('news')}}">Тройки</a>
                 <a class="button" href="{{route('profile.index')}}">

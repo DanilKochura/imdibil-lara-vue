@@ -53,6 +53,9 @@
 
 
             </div>
+            <div>
+                <a class="link" href="/register">Еще нет аккаунта?</a>
+            </div>
         </form>
     </x-auth-card>
 </x-guest-layout>

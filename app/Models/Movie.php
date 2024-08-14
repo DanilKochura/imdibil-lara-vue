@@ -22,6 +22,7 @@ class Movie extends Model
         'users_rate',
         'original',
         'poster',
+        'poster_horizontal',
         'url',
         'description'
     ];
@@ -29,6 +30,12 @@ class Movie extends Model
     public function director()
     {
         return $this->hasOne(Director::class, 'id', 'director_id');
+    }
+
+
+    public function citates()
+    {
+        return $this->hasMany(Citate::class, 'movie_id', 'id');
     }
 
     public function genres()
