@@ -1936,11 +1936,11 @@ body {
 
 
 @keyframes animate-bg {
-    0% {
+   from {
         background-size: 130%;
     }
 
-    50% {
+    to {
         background-size: 160%;
     }
 }
@@ -1953,6 +1953,7 @@ body {
 
 .bg-zoom-hover:hover {
     animation: animate-bg 3s ease-in-out;
+    animation-fill-mode:forwards
 }
 
 .text-lines {

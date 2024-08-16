@@ -80,7 +80,7 @@
                             Mobile Menu Logo
                             Logo : height: 70px max
                         -->
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="/">
                             <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="...">
                         </a>
 

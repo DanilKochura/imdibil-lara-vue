@@ -5,8 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>IMDIBIL - Регистрация</title>
-
+        @if(Route::is('register'))
+            <title>IMDIBIL - Регистрация</title>
+            <meta name="description" content="IMDIBIL - Регистрация"/>
+        @elseif(Route::is('login'))
+            <title>IMDIBIL - Авторизация</title>
+            <meta name="description" content="IMDIBIL - Авторизация"/>
+        @elseif(Route::is('password.request'))
+            <title>IMDIBIL - Восстановление пароля</title>
+            <meta name="description" content="IMDIBIL - Восстановление пароля"/>
+        @endif
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 

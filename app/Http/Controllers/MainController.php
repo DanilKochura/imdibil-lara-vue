@@ -32,27 +32,10 @@ class MainController extends Controller
         $paginatedMeetings = Meeting::with(['movie', 'movie.director', 'movie.citates', 'movie.genres', 'rates', 'rates.user'])
             ->orderByDesc('id')
             ->paginate($perPage, ['*'], 'page', $page);
-
-        // Получаем все встречи для добавления позиции
-        $allMeetings = Meeting::with(['movie', 'movie.director',  'movie.citates','movie.genres',  'rates', 'rates.user'])
-            ->get()
-            ->sortByDesc(function ($meeting) {
-                return $meeting->movie->our_rate;
-            })
-            ->values();
-
-        // Добавляем поле position каждому элементу коллекции
-        $allMeetings->each(function ($meeting, $index) {
-            $meeting->movie->position = $index + 1;
+        // Связываем позиции с пагинированной коллекцией
+        $paginatedMeetings->getCollection()->transform(function ($meeting) {
             $third = Third::where('selected_id', '=', $meeting->movie->id)->get()->first();
             $meeting->author = $third ? $third->user_id : null;
-        });
-
-        // Связываем позиции с пагинированной коллекцией
-        $paginatedMeetings->getCollection()->transform(function ($meeting) use ($allMeetings) {
-            $meeting->movie->position = $allMeetings->firstWhere('id', $meeting->id)->movie->position;
-            $meeting->author = $allMeetings->firstWhere('id', $meeting->id)->author;
-
             return $meeting;
         });
         $meetings = $paginatedMeetings;

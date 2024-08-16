@@ -1,6 +1,15 @@
 @extends('app')
 
 
+@section('meta')
+    <meta name="keywords" content="киноклуб, мгту"/>
+    <meta name="description" content="Статистика оценок сообщества"/>
+    <title>Статистика</title>
+    <meta property="og:site_name" content="IMDibil - статистика">
+    <meta property="og:title" content="Статистика заседаний">
+
+@endsection
+
 @section('content')
 
    <div class="container mt-2">
