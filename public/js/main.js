@@ -966,6 +966,11 @@ $(document).ready(function(){
             }
         }
     });
+
+    $('.copy').on('click', function (){
+        navigator.clipboard.writeText(window.location.href)
+        $.SOW.core.toast.show('success', '', 'Ссылка скопирована в буфер обмена', 'top-center', 20, true);
+    });
 });
 
 const RateCl = document.querySelectorAll('.rate-ch');

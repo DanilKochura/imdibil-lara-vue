@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="director">Режиссер: {{$film->director->name_d}}</div>
+                                        <div class="director">Реж.: {{$film->director->name_d}}</div>
                                         <div class="genres">Жанры: {{$film->genres->pluck('name_g')->implode(', ')}}</div>
                                         <svg width="722" style="width: 100%" height="12" viewBox="0 0 722 12" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">

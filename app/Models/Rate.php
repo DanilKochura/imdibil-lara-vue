@@ -30,4 +30,5 @@ class Rate extends Model
     {
         return $this->meeting()->with('movie');
     }
+
 }

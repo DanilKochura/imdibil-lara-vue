@@ -100,8 +100,13 @@
                         @endif
                         <div class="d-block d-sm-flex col-md-6 col-2 align-items-center mt-3 mt-0-md">
                             <a href="profile/{{ $rate->user->id  }}" class="mx-auto my-2">
-                                <img src="https://imdibil.ru/images/uploads/{{$rate->user->avatar}}"
-                                     alt="{{$rate->user->name}}" class="avatar">
+                                @if($rate->user->avatar)
+                                    <img src="https://imdibil.ru/images/uploads/{{$rate->user->avatar}}"
+                                         alt="{{$rate->user->name}}" class="avatar">
+                                @else
+                                    <img src="https://imdibil.ru/images/uploads/default.jpg"
+                                         alt="{{$rate->user->name}}" class="avatar">
+                                @endif
                             </a>
                             <div
                                 class="rate-ch text-center w-1 {{$movie->author == $rate->user->id ? 'text-gold' : ''}}">{{ $rate->rate  }}</div>
@@ -194,8 +199,13 @@
                         @endif
                         <div class="col d-flex flex-column mt-4 mt-0-md">
                             <a href="profile/{{ $rate->user->id  }}" class="mx-auto my-2">
-                                <img src="https://imdibil.ru/images/uploads/{{$rate->user->avatar}}"
-                                     alt="{{$rate->user->name}}" class="avatar">
+                                @if($rate->user->avatar)
+                                    <img src="https://imdibil.ru/images/uploads/{{$rate->user->avatar}}"
+                                         alt="{{$rate->user->name}}" class="avatar">
+                                @else
+                                    <img src="https://imdibil.ru/images/uploads/default.jpg"
+                                         alt="{{$rate->user->name}}" class="avatar">
+                                @endif
                             </a>
                             <div class="rate-ch text-center w-1">{{ $rate->rate  }}</div>
                         </div>

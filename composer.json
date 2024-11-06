@@ -14,6 +14,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "php-ai/php-ml": "*",
         "rap2hpoutre/laravel-log-viewer": "^2.4",
         "setasign/tfpdf": "^1.33"
     },
