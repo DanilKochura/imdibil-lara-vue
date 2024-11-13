@@ -10,6 +10,11 @@
 @endsection
 
 @section('content')
+    @if(\App\UseCases\ThemeTrait::isNewYear())
+       @include('components/ny-containers')
+    @endif
+
+
 
     <style>
         body {

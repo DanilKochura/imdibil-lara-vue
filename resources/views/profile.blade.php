@@ -84,6 +84,7 @@
                                     data-bs-target="#thirdAddModal" title="Добавить тройку">
                                 <i class="fi mdi-filter_3"></i>
                             </button>
+
                             {{--                            <button type="button" class="btn btn-danger rounded-circle ms-2 mb-2"--}}
                             {{--                                    data-bs-toggle="modal"--}}
                             {{--                                    data-bs-target="#pairAddModal" title="Добавить пару">--}}
@@ -94,7 +95,11 @@
 
                 </div>
 
-
+                @if(auth()->id() == 1)
+                    <form action="">
+                        <div></div>
+                    </form>
+                @endif
             </div>
 
 

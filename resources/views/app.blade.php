@@ -30,8 +30,53 @@
    @include('components.counters')
 
 </head>
-<body class="header-sticky header-fixed @if(Route::is('statistics')) bg-dark @endif">
-
+<body class="header-sticky header-fixed @if(Route::is('statistics')) bg-dark @endif {{ \App\UseCases\ThemeTrait::isNewYear() ? 'new-year' : ''}}">
+@if(\App\UseCases\ThemeTrait::isNewYear())
+    <ul class="lightrope">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+@endif
 <div class="wrapper">
     @if(!Route::is('main'))
         <header id="header" class="p-1 text-white header bg-dark">
@@ -60,7 +105,12 @@
 
                         <!-- navbar : brand (logo) -->
                         <a class="navbar-brand" href="/">
-                            <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="..." class="logo-head">
+                            @if(\App\UseCases\ThemeTrait::isNewYear())
+                                <img src="https://imdibil.ru/images/newyear.png" width="110" height="38" alt="..." class="logo-head">
+                            @else
+                                <img src="https://imdibil.ru/images/logogo.png" width="110" height="38" alt="..." class="logo-head">
+
+                            @endif
                         </a>
 
                     </div>

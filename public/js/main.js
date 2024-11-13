@@ -424,7 +424,7 @@ $('.search-m').submit(function (e){
         $.ajax({
             url: url_new,
             method: 'get',
-            headers: { 'X-API-KEY': 'BJW5RB7-7EPMVH8-HYD1773-4VEDA34' },
+                headers: { 'X-API-KEY': 'BJW5RB7-7EPMVH8-HYD1773-4VEDA34' },
             contentType: 'application/json',
             data: {name: $('#movie_input').val()},
             success: function(data){

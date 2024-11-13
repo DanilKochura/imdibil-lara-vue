@@ -24,13 +24,144 @@
     @include('components.counters')
 
 </head>
-<body class="" style="background-color: #252525">
+<body class="{{ \App\UseCases\ThemeTrait::isNewYear() ? 'new-year' : ''}}" style="background-color: #252525">
 
 <div class="container-fluid m-0 p-0">
     <div class="banner"
         >
+        @if(\App\UseCases\ThemeTrait::isNewYear())
+            <svg  width="134" height="220" viewBox="0 0 134 220" fill="none" xmlns="http://www.w3.org/2000/svg" id="floating-ball-1">
+                <g id="newyear2020">
+                    <g id="jhalar1">
+                        <path id="Vector_190" d="M65.3516 1V146.3" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path  id="Vector_191" d="M65.3449 219.005L101.69 182.66L65.3449 146.315L29 182.66L65.3449 219.005Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_192" d="M50.7523 208.3H79.9523C86.0523 208.3 91.0523 203.3 91.0523 197.2V168C91.0523 161.9 86.0523 156.9 79.9523 156.9H50.7523C44.6523 156.9 39.6523 161.9 39.6523 168V197.2C39.6523 203.4 44.5523 208.3 50.7523 208.3Z" stroke="#E27C6C" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_193"  d="M65.352 193.7C71.482 193.7 76.452 188.73 76.452 182.6C76.452 176.47 71.482 171.5 65.352 171.5C59.222 171.5 54.252 176.47 54.252 182.6C54.252 188.73 59.222 193.7 65.352 193.7Z" stroke="#E27C6C" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M60.1523 182.6C60.1523 185.5 62.4523 187.8 65.3523 187.8C68.2523 187.8 70.5523 185.5 70.5523 182.6C70.5523 179.7 68.2523 177.4 65.3523 177.4C62.4523 177.4 60.1523 179.8 60.1523 182.6Z" fill="#EFC87E"/>
+                        <path d="M65.3518 130.9C68.0028 130.9 70.1518 128.751 70.1518 126.1C70.1518 123.449 68.0028 121.3 65.3518 121.3C62.7008 121.3 60.5518 123.449 60.5518 126.1C60.5518 128.751 62.7008 130.9 65.3518 130.9Z" stroke="#E27C6C" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M61.9521 109.5C61.9521 111.4 63.4521 112.9 65.3521 112.9C67.2521 112.9 68.7521 111.4 68.7521 109.5C68.7521 107.6 67.2521 106.1 65.3521 106.1C63.4521 106.1 61.9521 107.6 61.9521 109.5Z" stroke="#E27C6C" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="under-circle1" d="M42.6523 182.6C42.6523 184.6 50.3523 185.4 50.9523 187.3C51.5523 189.2 45.8523 194.4 47.0523 196C48.2523 197.6 54.8523 193.8 56.4523 194.9C58.0523 196.1 56.4523 203.6 58.3523 204.2C60.1523 204.8 63.3523 197.8 65.3523 197.8C67.3523 197.8 70.5523 204.8 72.3523 204.2C74.2523 203.6 72.6523 196 74.2523 194.9C75.8523 193.7 82.5523 197.6 83.6523 196C84.8523 194.4 79.0523 189.3 79.7523 187.3C80.3523 185.5 88.0523 184.7 88.0523 182.6C88.0523 180.6 80.3523 179.8 79.7523 177.9C79.1523 176 84.8523 170.8 83.6523 169.2C82.4523 167.6 75.8523 171.4 74.2523 170.3C72.6523 169.1 74.2523 161.6 72.3523 161C70.5523 160.4 67.3523 167.4 65.3523 167.4C63.3523 167.4 60.1523 160.4 58.3523 161C56.4523 161.6 58.0523 169.2 56.4523 170.3C54.8523 171.5 48.1523 167.6 47.0523 169.2C45.8523 170.8 51.6523 175.9 50.9523 177.9C50.3523 179.8 42.6523 180.6 42.6523 182.6Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+
+                </g>
+            </svg>
+
+            <svg viewBox="0 0 271 220" fill="none" xmlns="http://www.w3.org/2000/svg" id="floating-ball-2">
+                <g id="newyear2020">
+                    <g id="jhalar2">
+                        <path d="M96.3996 140.6C114.239 140.6 128.7 126.139 128.7 108.3C128.7 90.461 114.239 76 96.3996 76C78.5606 76 64.0996 90.461 64.0996 108.3C64.0996 126.139 78.5606 140.6 96.3996 140.6Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M96.4002 126.5C106.452 126.5 114.6 118.352 114.6 108.3C114.6 98.2476 106.452 90.0996 96.4002 90.0996C86.3482 90.0996 78.2002 98.2476 78.2002 108.3C78.2002 118.352 86.3482 126.5 96.4002 126.5Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M96.3996 117.6C101.536 117.6 105.7 113.436 105.7 108.3C105.7 103.164 101.536 99 96.3996 99C91.2636 99 87.0996 103.164 87.0996 108.3C87.0996 113.436 91.2636 117.6 96.3996 117.6Z" stroke="#EFC87E" stroke-miterlimit="10"/>
+                        <path d="M96.3996 112.1C98.4986 112.1 100.2 110.399 100.2 108.3C100.2 106.201 98.4986 104.5 96.3996 104.5C94.3006 104.5 92.5996 106.201 92.5996 108.3C92.5996 110.399 94.3006 112.1 96.3996 112.1Z" fill="#EFC87E"/>
+                        <path  id="under-cirlce2" d="M131.9 108.3C131.9 111.5 119.9 112.7 119 115.6C118 118.6 127 126.6 125.2 129.1C123.4 131.6 112.9 125.6 110.4 127.4C107.9 129.2 110.4 141 107.4 142C104.5 142.9 99.6 132 96.4 132C93.2 132 88.3 143 85.4 142C82.4 141 84.9 129.2 82.4 127.4C79.9 125.6 69.5 131.6 67.6 129.1C65.9 126.7 74.9 118.6 73.9 115.7C73 112.8 61 111.6 61 108.4C61 105.2 73 104 73.9 101.1C74.9 98.1 65.9 90.1 67.7 87.6C69.5 85.1 80 91.1 82.5 89.3C85 87.5 82.5 75.7 85.5 74.7C88.4 73.8 93.3 84.7 96.5 84.7C99.7 84.7 104.6 73.7 107.5 74.7C110.5 75.7 108 87.5 110.5 89.3C113 91.1 123.4 85.1 125.3 87.6C127.1 90.1 118.2 98.1 119.1 101.1C119.9 103.9 131.9 105.2 131.9 108.3Z" stroke="#E27C6C" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M96.4004 76.1V1" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M99.2002 64.5H93.7002V70H99.2002V64.5Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M97.6996 54.2998H95.0996V56.8998H97.6996V54.2998Z" fill="#EFC87E"/>
+                        <path d="M97.6996 48.7002H95.0996V51.3002H97.6996V48.7002Z" fill="#EFC87E"/>
+                        <path d="M97.6996 43.7998H95.0996V46.3998H97.6996V43.7998Z" fill="#EFC87E"/>
+
+                    </g>
+
+                </g>
+            </svg>
+{{--            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" id="star-1">--}}
+{{--                <g id="newyear2020">--}}
+{{--                    <g id="Group_28">--}}
+{{--                        <path id="Vector_256" d="M220.9 47.9V68" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                        <path id="Vector_257" d="M231 57.9H210.9" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                        <path id="Vector_258" d="M225.9 53L216 62.9" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                        <path id="Vector_259" d="M225.9 62.9L216 53" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                    </g>--}}
+
+{{--                </g>--}}
+{{--            </svg>--}}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="spin-2">
+                <g id="Group_16">
+                    <path d="M12.2002 9.4V1" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.4004 9.6L8.90039 1.5" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.6004 9.89999L5.90039 3" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.0004 10.4998L3.40039 5.2998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.59979 11.2002L1.7998 8.2002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.40002 12.0004L1 11.4004" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.49979 12.9004L1.2998 14.8004" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.80002 13.7002L2.5 17.9002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.2996 14.2998L4.59961 20.4998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.9998 14.7998L7.2998 22.3998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.8 15L10.5 23.4" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12.5996 15L13.8996 23.4" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.4004 14.7998L17.1004 22.3998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.0996 14.2998L19.7996 20.4998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.5996 13.7002L21.8996 17.9002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 12.9004L23.2 14.8004" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 12.0004L23.4 11.4004" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.7998 11.2002L22.6998 8.2002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.4004 10.4998L21.0004 5.2998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.7998 9.89999L18.4998 3" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13 9.6L15.5 1.5" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+            </svg>
+            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" id="spin-1">
+                <g id="circle2">
+                    <path d="M22.8994 17.3998V0.799805" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M24.5 17.6998L29.4 1.7998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M26 18.4002L35.4 4.7002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M27.2002 19.5002L40.2002 9.2002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M28.0996 20.8994L43.4996 14.8994" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M28.3994 22.5998L44.9994 21.2998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M28.2998 24.2002L44.4998 27.9002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M27.7002 25.7998L42.1002 34.0998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M26.7002 27L38.0002 39.2" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M25.2998 28L32.4998 43" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M23.7002 28.5L26.2002 44.9" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22.0996 28.5L19.5996 44.9" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20.4998 28L13.2998 43" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.0998 27L7.7998 39.2" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.1002 25.7998L3.7002 34.0998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.4998 24.2002L1.2998 27.9002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.3998 22.5998L0.799805 21.2998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.7002 20.8994L2.2002 14.8994" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18.4996 19.5002L5.59961 9.2002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.7994 18.4002L10.3994 4.7002" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21.1994 17.6998L16.3994 1.7998" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+            </svg>
+            <svg width="100px" height="100px" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" id="star-1">
+                <g id="Group_28">
+                    <path d="M11 1V21.1" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21.1 11H1" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 6.09961L6 15.9996" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 15.9996L6 6.09961" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+
+            </svg>
+            <svg width="100px" height="100px" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" id="star-2">
+                <g id="Group_28">
+                    <path d="M11 1V21.1" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21.1 11H1" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 6.09961L6 15.9996" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 15.9996L6 6.09961" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+
+            </svg>
+            {{--                    <g id="jhalar2">--}}
+            {{--                        <path id="Vector_197" d="M197.5 176.9C215.339 176.9 229.8 162.439 229.8 144.6C229.8 126.761 215.339 112.3 197.5 112.3C179.661 112.3 165.2 126.761 165.2 144.6C165.2 162.439 179.661 176.9 197.5 176.9Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>--}}
+            {{--                        <path id="Vector_198" d="M197.5 162.8C207.552 162.8 215.7 154.652 215.7 144.6C215.7 134.548 207.552 126.4 197.5 126.4C187.448 126.4 179.3 134.548 179.3 144.6C179.3 154.652 187.448 162.8 197.5 162.8Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>--}}
+            {{--                        <path id="Vector_199" d="M197.5 153.9C202.636 153.9 206.8 149.736 206.8 144.6C206.8 139.464 202.636 135.3 197.5 135.3C192.364 135.3 188.2 139.464 188.2 144.6C188.2 149.736 192.364 153.9 197.5 153.9Z" stroke="#EFC87E" stroke-miterlimit="10"></path>--}}
+            {{--                        <path id="Vector_200" d="M197.5 148.4C199.599 148.4 201.3 146.699 201.3 144.6C201.3 142.501 199.599 140.8 197.5 140.8C195.401 140.8 193.7 142.501 193.7 144.6C193.7 146.699 195.401 148.4 197.5 148.4Z" fill="#EFC87E"></path>--}}
+            {{--                        <path id="under-cirlce2" d="M162 144.6C162 147.8 174 149 174.9 151.9C175.9 154.9 166.9 162.9 168.7 165.4C170.5 167.9 181 161.9 183.5 163.7C186 165.5 183.5 177.3 186.5 178.3C189.4 179.2 194.3 168.3 197.5 168.3C200.7 168.3 205.6 179.3 208.5 178.3C211.5 177.3 209 165.5 211.5 163.7C214 161.9 224.4 167.9 226.3 165.4C228.1 162.9 219.2 154.9 220.1 151.9C221 149 233 147.8 233 144.6C233 141.4 221 140.2 220.1 137.3C219.1 134.3 228.1 126.3 226.3 123.8C224.5 121.3 214 127.3 211.5 125.5C209 123.7 211.5 111.9 208.5 110.9C205.6 110 200.7 120.9 197.5 120.9C194.3 120.9 189.4 109.9 186.5 110.9C183.5 111.9 186 123.7 183.5 125.5C181 127.3 170.6 121.3 168.7 123.8C166.9 126.3 175.8 134.3 174.9 137.3C174 140.2 162 141.5 162 144.6Z" stroke="#E27C6C" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>--}}
+            {{--                        <path id="Vector_201" d="M197.5 112.4V37.3" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>--}}
+            {{--                        <path id="Vector_202" d="M194.727 106.224H200.227V100.724H194.727V106.224Z" stroke="#EFC87E" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>--}}
+            {{--                        <path id="Vector_203" d="M196.227 93.2425H198.827V90.6425H196.227V93.2425Z" fill="#EFC87E"></path>--}}
+            {{--                        <path id="Vector_204" d="M196.227 87.539H198.827V84.939H196.227V87.539Z" fill="#EFC87E"></path>--}}
+            {{--                        <path id="Vector_205" d="M196.227 82.6783H198.827V80.0783H196.227V82.6783Z" fill="#EFC87E"></path>--}}
+            {{--                    </g>--}}
+        @endif
         <div class="banner-text">
-            <img src="https://imdibil.ru/images/logogo.png" style="width: 300px">
+            @if(\App\UseCases\ThemeTrait::isNewYear())
+                <img src="https://imdibil.ru/images/newyear.png" style="width: 300px">
+            @else
+                <img src="https://imdibil.ru/images/logogo.png" style="width: 300px">
+            @endif
             <h1 class="">Welcome to IMDibil</h1>
             <p>Откройте для себя кино с новой стороны</p>
             <div class="button-container">

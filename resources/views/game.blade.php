@@ -19,6 +19,7 @@
 @endsection
 
 @section('content')
+    
     <style>
         .wrapper {
             background: linear-gradient(rgb(56 56 56 / 100%), rgb(110 110 110 / 76%)), url(https://imdibil.ru/image/bg.jpg) center/cover;

@@ -15,6 +15,9 @@
             background-color: rgb(46, 46, 46);
         }
     </style>
+    @if(\App\UseCases\ThemeTrait::isNewYear())
+        @include('components/ny-containers')
+    @endif
 
 
     @foreach($thirds as $third)
