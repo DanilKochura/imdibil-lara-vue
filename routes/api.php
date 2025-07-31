@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
+use App\Models\Meeting;
 use App\Models\Third;
 use App\Models\User;
 use App\UseCases\ActivityService;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Phpml\Classification\SVC;
 use Phpml\Dataset\ArrayDataset;
+use Phpml\Math\Statistic\Correlation;
 use Phpml\Preprocessing\LabelEncoder;
 use Phpml\Preprocessing\OneHotEncoder;
 use Phpml\Regression\LeastSquares;
@@ -43,11 +46,29 @@ Route::get('/rates', [\App\Http\Controllers\Api\MainController::class, 'index'])
 Route::get('/search/movie', [\App\Http\Controllers\Api\MainController::class, 'movies'])->name('search.movie');
 Route::post('/uploadImage', [\App\UseCases\UploadImage::class, 'uploadImage']);
 
+
+Route::post('/sortfix', [\App\Http\Controllers\MainController::class, 'savesort']);
+
+
+
+
 Route::get('/quiz/{difficulty}', [\App\Http\Controllers\Api\QuizController::class, 'index']);
 Route::get('/quiz-test/{difficulty?}', [\App\Http\Controllers\Api\QuizController::class, 'counter']);
 
 Route::prefix('/statistics')->group(function () {
     Route::get('user_graph', [\App\Http\Controllers\MainController::class, 'user_graph']);
+    Route::get('average_rates', function (){
+        return response()->json(\App\UseCases\StatysticsService::getAverage());
+    });
+});
+
+Route::get('/testorder', function (){
+    $third = Third::latest()->first();
+    Meeting::create([
+        'movie_id' => $third->selected_id,
+        'date_at' => \Carbon\Carbon::now()
+    ]);
+//    dd($string);
 });
 
 Route::get('/test/questions/1', function (){
@@ -257,10 +278,20 @@ Route::post('/login', function (Request $request) {
     return $user->createToken($request->device_name)->plainTextToken;
 });
 
+
+Route::prefix('/auth')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+});
+
+
 Route::prefix('mobile/')->group(function (){
     Route::get('/meetings', [\App\Http\Controllers\Api\Mobile\MainController::class, 'index']);
     Route::get('/stats', [\App\Http\Controllers\Api\Mobile\MainController::class, 'stats']);
     Route::get('/thirds', [\App\Http\Controllers\Api\Mobile\MainController::class, 'thirds']);
+    Route::get('/main', [\App\Http\Controllers\Api\Mobile\MainController::class, 'mainPage']);
+    Route::get('/search', [\App\Http\Controllers\Api\Mobile\MainController::class, 'search']);
     Route::post('/login', function (Request $request) {
         Log::info(print_r($request->all(), 1));
         $request->validate([
@@ -285,6 +316,54 @@ Route::prefix('mobile/')->group(function (){
     Route::middleware(['auth:sanctum'])->get('profile', [\App\Http\Controllers\Api\Mobile\ProfileController::class, 'index']);
 });
 
+
+Route::get('/setNulls', function (){
+//   for ($i = 1; $i < 54; $i++)
+//   {
+//       \App\Models\Rate::create([
+//          'meeting_id' => $i,
+//            'user_id' => 141,
+//           'rate' => null
+//       ]);
+//   }
+});
+
+
+
+Route::get('/getAvgThirdsRate', function (){
+   $users = User::where('role', 2)->get();
+   $rates = [];
+   foreach ($users as $user)
+   {
+       $user_r = [
+           'avg' => 0,
+           'avg_our' => 0,
+           'count' => 0,
+           'rates' => [],
+           'rates_avg' => [],
+           'movs' => []
+       ];
+        $thirds = Third::where('user_id', $user->id)->get();
+        foreach ($thirds as $third)
+        {
+            if ($third->id == 114) continue;
+            $meeting = Meeting::with('movie')->where('movie_id', $third->selected_id)->get()->first();
+            $rate = \App\Models\Rate::where('user_id', $user->id)->where('meeting_id', $meeting->id)->get()->first();
+            $user_r['rates'][] = $rate->rate;
+            $user_r['rates_avg'][] = $meeting->movie->our_rate;
+            $user_r['movs'][] = [
+                'movie' => \App\Models\Movie::find($third->selected_id)->name_m,
+                'rate' => $rate->rate,
+                'avg' => $meeting->movie->our_rate
+            ];
+            $user_r['count']++;
+        }
+        $user_r['avg_our'] = array_sum($user_r['rates_avg']) / count($user_r['rates_avg']);
+        $user_r['avg'] = array_sum($user_r['rates']) / count($user_r['rates']);
+        $rates[$user->name] = $user_r;
+   }
+   return response()->json($rates);
+});
 
 Route::get('/user-activity', function (\Illuminate\Http\Request $request){
     $request = $request->all();
@@ -327,6 +406,31 @@ Route::get('/setnulls', function (){
        }
    }
 });
+
+
+Route::get('/core', function (){
+   $rates = [];
+   $users = User::where('role', '=', '2')->get();
+   foreach ($users as $user)
+   {
+       foreach (\App\Models\Meeting::all() as $item)
+       {
+           $rate = \App\Models\Rate::where('user_id', '=', $user->id)->where('meeting_id', '=', $item->id)->get()->first();
+           $rates[$user->name][] = $rate ? $rate->rate : null;
+       }
+   }
+
+   $comparison = [];
+
+   foreach ($rates as $name => $rate)
+   {
+       foreach ($rates as $name2 => $rate2) {
+           $comparison[$name][$name2] = Correlation::pearson($rate, $rate2);
+       }
+   }
+    return response()->json($comparison);
+});
+
 
 Route::get('/predictions/{user}', function (User $user){
     $rates = \App\Models\Rate::with('meeting.movie.genres')->where('user_id', '=', $user->id)->get();
@@ -449,3 +553,6 @@ Route::get('/predictions/{user}', function (User $user){
     $predictedRating = $regression->predict($newFilmSample);
     dd($predictedRating);
 });
+
+
+

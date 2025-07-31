@@ -24,6 +24,7 @@ class Movie extends Model
         'poster',
         'poster_horizontal',
         'url',
+        'kp_id',
         'description'
     ];
 
@@ -41,6 +42,11 @@ class Movie extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class, 'movie_genres', 'movie_id', 'genre_id');
+    }
+
+    public static function getFull($id)
+    {
+        return static::with('genres', 'director', 'citates')->find($id);
     }
 
 }

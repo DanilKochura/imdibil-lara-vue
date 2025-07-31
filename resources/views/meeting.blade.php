@@ -99,6 +99,8 @@
                     <h3>Цитаты</h3>
                     <div class="row">
                         @foreach($meeting->movie->citates as $cit)
+                            @if($cit->auth_only == 1 and \Illuminate\Support\Facades\Auth::user()?->role != 2) @continue($loop) @endif
+
                             <div class="col-md-4">
                                 <div class="m-1 p-2 border rounded border-secondary">
                                     <figure>

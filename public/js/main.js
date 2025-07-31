@@ -257,6 +257,7 @@ $('.search').on('blur', function (){
 })
 $('.search').on('input', function (){
     $('.resultss').empty();
+    $('.results').empty();
     let id = $(this).attr('id');
     let wrapper = $(this).closest('.res-wrapper')
     if(this.value.length < 3)
@@ -331,7 +332,8 @@ let units =
         ['ratingImdb', 'IMDB: '],
         ['ratingKinopoisk', 'КП: '],
         ['webUrl', ''],
-        ['year', 'Год выпуска: ']
+        ['year', 'Год выпуска: '],
+        ['kp_id', 'ID']
     ];
 let data = '';
 $('.search-m').submit(function (e){
@@ -341,6 +343,7 @@ $('.search-m').submit(function (e){
     e.preventDefault();
     if(parseInt($('#movie_input').val()))
     {
+
         let url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/'+$('#movie_input').val();
         fetch(url, {
             method: 'GET',
@@ -387,6 +390,11 @@ $('.search-m').submit(function (e){
                         }else
                         {
                             $('#'+value[0]).text(value[1]+item);
+                        }
+
+                        if (value[0] === "kp_id")
+                        {
+                            item = data.kinopoiskId
                         }
 
                         let inp = '<input type="hidden" name="'+value[0]+'" value="'+item+'">';
@@ -491,7 +499,7 @@ function dataDecoder(data, index)
     inp += '<input type="hidden" name="ratingKinopoisk" value="'+kp+'">';
     inp += '<input type="hidden" name="webUrl" value="https://www.kinopoisk.ru/film/'+id+'">';
     inp += '<input type="hidden" name="year" value="'+year+'">';
-    inp += '<input type="hidden" name="id" value="'+id+'">';
+    inp += '<input type="hidden" name="kp_id" value="'+id+'">';
     form_body.append($(inp));
 
     let comparer =
@@ -558,7 +566,10 @@ function dataDecoder(data, index)
 //controller/UserFormController.php?type=feedback
 
 $(document).ready(function(){
+    $(document).ready(function() {
+        // Наведение на ячейку
 
+    });
     $('.js-togglified').on('click', function ()
     {
         if ($(this).hasClass('active'))
@@ -678,7 +689,61 @@ $(document).ready(function(){
             );
         })
     }
+    if($('#average_rates').length > 0)
+    {
+        axios.get('https://imdibil.ru/api/statistics/average_rates').then(function(data){
+            console.log(data.data)
+            let datasets = [];
+            let labels = [];
+            for (let key in data.data)
+            {
+                datasets.push(data.data[key])
+                labels.push(key)
+            }
+            console.log({
+                labels: labels,
+                datasets: [{label: "Средняя оценка", data: datasets}]
+            })
 
+            const config = {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{label: "Средняя оценка", data: datasets, backgroundColor: [
+                            'rgba(255, 215, 0, 1)',
+                        ],
+                        borderColor: [
+                            'rgb(255, 215, 0)',
+                        ],}]
+                },
+                options: {
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true
+                            }
+                        },
+                        y: {
+                            display: true,
+                            suggestedMin: 0,
+                            suggestedMax: 11
+                        }
+                    }
+                },
+            };
+            // console.log(data.data)
+            const myChart = new Chart(
+                document.getElementById('average_rates'),
+                config
+            );
+        })
+    }
     let modal = $('#modalLogin');
     console.log(modal)
     if(modal.length > 0)

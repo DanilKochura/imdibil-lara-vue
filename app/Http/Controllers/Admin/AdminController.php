@@ -9,6 +9,7 @@ use App\Models\Quiz;
 use App\Models\QuizQuestion;
 use App\Models\Rate;
 use App\Models\Third;
+use App\UseCases\PartOfSpeechDetector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -23,4 +24,25 @@ class AdminController extends Controller
          return view('admin.index');
     }
 
+
+    public static function alias()
+    {
+        return view('admin.alias.index');
+    }
+
+    public static function check(Request $request)
+    {
+//        dd($request->all());
+        $array = json_decode($request->all()['text'], false);
+        $array_clear = array_unique(($array));
+        $danger = [];
+        foreach ($array as $item)
+        {
+            if (!PartOfSpeechDetector::isNoun($item))
+            {
+                $danger[] = $item;
+            }
+        }
+        return view('admin.alias.index', compact('array', 'array_clear', 'danger'));
+    }
 }

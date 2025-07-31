@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Citate extends Model
 {
     protected $fillable = [
-        'id', 'text', 'author', 'movie_id'
+        'id', 'text', 'author', 'movie_id', 'auth_only'
     ];
 
     public $timestamps = false;

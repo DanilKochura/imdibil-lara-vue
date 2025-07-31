@@ -90,6 +90,7 @@ class ProfileController extends Controller
         $movie = Movie::updateOrCreate([
             'name_m' => $request['nameRu'],
             'year_of_cr' => $request['year'],
+            'kp_id' => $request['kp_id'],
         ],[
             'director_id' => $dir->id,
             'url' => $request['webUrl'],
@@ -99,18 +100,19 @@ class ProfileController extends Controller
             'rating' => round($request['ratingImdb'], 1),
             'rating_kp' => round($request['ratingKinopoisk'], 1),
         ]);
-        $genres = explode(' ', $request['genres']);
-        foreach ($genres as $genre)
-        {
-            $genre = Genre::firstOrCreate(['name_g' => $genre]);
-            $movie->genres()->attach($genre);
-        }
+
         $status = null;
         if(!$movie->wasRecentlyCreated && $movie->wasChanged()){
             $status = 'Данные о фильме обновлены!';
         } elseif (!$movie->wasRecentlyCreated && !$movie->wasChanged()){
             $status = 'Фильм уже есть в базе';
         } elseif($movie->wasRecentlyCreated){
+            $genres = explode(' ', $request['genres']);
+            foreach ($genres as $genre)
+            {
+                $genre = Genre::firstOrCreate(['name_g' => $genre]);
+                $movie->genres()->attach($genre);
+            }
             $image = file_get_contents($request['posterUrl']);
             $name = \Faker\Provider\Uuid::uuid().'.jpg';
 //            Storage::put(public_path('/images/posters/'.$name), $image);

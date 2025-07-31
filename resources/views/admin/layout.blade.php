@@ -276,6 +276,7 @@
 <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
 {{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js"></script>--}}
 <script src="{{asset('/js/main.js')}}"></script>
+<script src="{{asset('/js/admin.js')}}"></script>
 {{--<script src="https://imdibil.ru/scripts/main.js"></script>--}}
 <script src="{{ asset('/js/app.js')}}"></script>
 

@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <div class="container main content bg-dark d-block d-md-none px-0" style="min-height: calc(100% - 300px)">
+    <div class="container main content bg-dark d-block d-md-none px-0 {{ \App\UseCases\ThemeTrait::isNewYear() ? 'text-white' : '' }}" style="min-height: calc(100% - 300px)">
         <div class="row user-info px-2">
             <div class="col-sm-1"></div>
             <div class="col-sm-2 col-6">
@@ -79,17 +79,17 @@
                                     data-bs-target="#rateAddModal" title="Добавить оценку">
                                 <i class="fi fi-star-full"></i>
                             </button>
-                            <button type="button" class="btn btn-light rounded-circle ms-2 mb-2"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#thirdAddModal" title="Добавить тройку">
-                                <i class="fi mdi-filter_3"></i>
-                            </button>
+{{--                            <button type="button" class="btn btn-light rounded-circle ms-2 mb-2"--}}
+{{--                                    data-bs-toggle="modal"--}}
+{{--                                    data-bs-target="#thirdAddModal" title="Добавить тройку">--}}
+{{--                                <i class="fi mdi-filter_3"></i>--}}
+{{--                            </button>--}}
 
-                            {{--                            <button type="button" class="btn btn-danger rounded-circle ms-2 mb-2"--}}
-                            {{--                                    data-bs-toggle="modal"--}}
-                            {{--                                    data-bs-target="#pairAddModal" title="Добавить пару">--}}
-                            {{--                                <i class="fi mdi-filter_2"></i>--}}
-                            {{--                            </button>--}}
+                                                        <button type="button" class="btn btn-danger rounded-circle ms-2 mb-2"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#pairAddModal" title="Добавить пару">
+                                                            <i class="fi mdi-filter_2"></i>
+                                                        </button>
                         @endif
                     @endif
 
@@ -116,11 +116,11 @@
                                 </a>
                             </div>
                                 <div class="col-2">
-                                    <p class="mb-0">{{$progress->points}}</p>
+                                    <p class="mb-0 text-black">{{$progress->points}}</p>
                                     <p class="text-secondary fs-10p mb-0">очки</p>
                                 </div>
                                 <div class="col-2">
-                                    <p class="mb-0">{{$progress->attempt}}</p>
+                                    <p class="mb-0 text-black">{{$progress->attempt}}</p>
                                     <p class="text-secondary fs-10p mb-0">попытки</p>
                                 </div>
 
@@ -272,7 +272,7 @@
             </div>
         @endif
     </div>
-    <div class="container main content d-none d-md-block" style="min-height: 100%">
+    <div class="container main content d-none d-md-block {{ \App\UseCases\ThemeTrait::isNewYear() ? 'text-white' : '' }}" style="min-height: 100%">
         <div class="row user-info">
             <div class="col-sm-1"></div>
             <div class="col-sm-2 col-6">

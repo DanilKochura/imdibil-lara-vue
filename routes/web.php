@@ -32,13 +32,21 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/tree', function (){
+    return view('trees');
+});
 
+Route::get('/alias/privacy', function (){
+   return view('alias_privacy');
+});
 Route::get('/', [\App\Http\Controllers\MainController::class, 'landing'])->name('main');
 Route::get('/meetings', [\App\Http\Controllers\MainController::class, 'index'])->name('meetings');
 Route::get('/metings', [\App\Http\Controllers\MainController::class, 'old'])->name('metings');
 Route::get('/meeting/{meeting}', [\App\Http\Controllers\MainController::class, 'meeting'])->name('meeting');
 Route::get('/news', [\App\Http\Controllers\MainController::class, 'news'])->name('news');
 Route::get('/statistics', [\App\Http\Controllers\MainController::class, 'statistics'])->name('statistics');
+Route::middleware(['auth'])->get('/year/{user?}', [\App\Http\Controllers\MainController::class, 'year'])->name('year');
+Route::get('/annual', [\App\Http\Controllers\MainController::class, 'annual'])->name('annual');
 
 Route::prefix('/profile')->name('profile.')->middleware(['auth'])->group(function (){
     Route::get('/{user?}', [ProfileController::class, 'index'])->name('index');
@@ -63,6 +71,10 @@ Route::get('/posts');
 Route::get('/post/{post}', [\App\Http\Controllers\BlogController::class, 'post']);
 
 Route::get('/vote', [\App\Http\Controllers\VoteController::class, 'index']);
+Route::middleware('auth')->get('/sort', [\App\Http\Controllers\MainController::class, 'sortVote']);
+Route::get('/sorted', [\App\Http\Controllers\MainController::class, 'sortedVote']);
+Route::post('/deleteVote', [\App\Http\Controllers\MainController::class, 'deleteVote'])->name('deleteVote');
+Route::get('/getsorted', [\App\Http\Controllers\MainController::class, 'returnSorted']);
 
 Route::get('/test/1', function (){
    return view('test');
@@ -375,6 +387,8 @@ Route::get('/testt', function (){
 Route::prefix('/admin')->middleware(['auth', 'admin'])->name('admin.')->group(function (){
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
     Route::get('/', [\App\Http\Controllers\Admin\AdminController::class, 'index']);
+    Route::get('/alias', [\App\Http\Controllers\Admin\AdminController::class, 'alias']);
+    Route::post('/alias/check', [\App\Http\Controllers\Admin\AdminController::class, 'check'])->name('alias.check');
     Route::prefix('/quiz')->name('quiz.')->group(function (){
         Route::get('/create', [QuizController::class, 'index'])->name('create');
         Route::post('/create', [QuizController::class, 'save'])->name('save');
@@ -444,5 +458,12 @@ Route::get('/landing', function (){
    return view('landing', compact('meetings'));
 })->name('landing');
 Route::post('/bot', [BotController::class, 'handle']);
+
+
+Route::get('/test-colors', function (){
+   return view('test-colors');
+});
+
+
 
 require __DIR__.'/auth.php';

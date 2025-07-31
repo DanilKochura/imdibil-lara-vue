@@ -2584,3 +2584,78 @@ body.new-year {
     animation: focus-in-expand-fwd 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) infinite alternate both;
 }
 
+
+
+/*!* Стили для плавного перехода *!*/
+/*.table-hover-custom th, .table-hover-custom td {*/
+/*    transition: background-color 0.3s, color 0.3s;*/
+/*}*/
+
+/*!* При наведении на ячейку изменяется фон и цвет текста *!*/
+/*.table-hover-custom td:hover, .table-hover-custom th:hover {*/
+/*    background-color: white !important; !* Белый фон *!*/
+/*    color: gold !important; !* Золотой цвет текста *!*/
+/*}*/
+
+/*!* Для изменения фона всей строки при наведении на ячейку *!*/
+/*.table-hover-custom td:hover {*/
+/*    background-color: white !important; !* Белый фон *!*/
+/*    color: gold !important; !* Золотой текст *!*/
+/*}*/
+
+/*!* Для выделения столбца при наведении на ячейку *!*/
+/*.table-hover-custom td:hover,*/
+/*.table-hover-custom td:hover {*/
+/*    background-color: white !important; !* Фон столбца *!*/
+/*    color: gold !important; !*Заголовки *!*/
+/*}*/
+/* Стиль для таблицы */
+
+.table-hover-custom {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    overflow: hidden;
+}
+.table-hover-custom th, .table td {
+    border: 1px solid #a9a9a9;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+.table-hover-custom td:hover {
+    background: #fffabe;
+}
+.table-hover-custom td:hover {
+    color: gold;
+    font-weight: bold;
+}
+.table-hover-custom td:hover:before {
+    background-color: rgba(0, 0, 0, 0.2);
+
+    content: '';
+    height: 100%;
+    left: -5000px;
+    position: absolute;
+    top: 0;
+    width: 10000px;
+    z-index: -2;
+}
+
+.table-hover-custom td:hover:after {
+    background-color: rgba(0, 0, 0, 0.2);
+    content: '';
+    height: 10000px;
+    left: 0;
+    position: absolute;
+    top: -5000px;
+    width: 100%;
+    z-index: -1;
+}
+#movieList:nth-last-child(1), #movieList:nth-last-child(1),#movieList:nth-last-child(1),#movieList:nth-last-child(1),#movieList:nth-last-child(1)
+{
+    background-color: #feeef0 !important;
+    color: #a30819 !important;
+}

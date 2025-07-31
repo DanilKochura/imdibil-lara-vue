@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -19,10 +20,11 @@ class MeetingResource extends JsonResource
 		return [
             "id"  => $this->id,
             "movie_id" => $this->movie_id,
-            "date_at" => $this->date_at,
+            "date_at" => Carbon::parse($this->date_at)->translatedFormat("d F Y"),
             "movie"  => $this->movie,
             "rates" => $this->rates,
-            "positions" => $this->positions ?? null
+            "positions" => $this->positions ?? null,
+            "author" => $this->getAuthor()
             ];
 
 	}

@@ -13,7 +13,7 @@ class Director extends Model
 {
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'name_d'
+        'id', 'name_d', 'kp_id', 'avatar'
     ];
 
     public $timestamps = false;

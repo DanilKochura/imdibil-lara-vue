@@ -12,32 +12,56 @@
 
 @section('content')
 
-   <div class="container mt-2">
+   <div class="container mt-5">
        <ul class="d-flex justify-content-center nav nav-pills nav-sm mb-3" id="myTab">
-           <li class="nav-item" role="user_rates">
-               <a class="nav-link link-light active" id="user_rates-tab" data-bs-toggle="tab" href="#user_rates" role="tab" aria-controls="user_rates" aria-selected="true">Графики оценок</a>
-           </li>
-<!--           <li class="nav-item" role="presentation">
-               <a class="nav-link  link-light" disabled id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Инструкция</a>
+           <li class="nav-item" role="presentation">
+               <a class="nav-link link-light active fs-5" id="user_rates-tab" data-bs-toggle="tab" href="#user_rates" role="tab" aria-controls="user_rates" aria-selected="true">Графики оценок</a>
            </li>
            <li class="nav-item" role="presentation">
-               <a class="nav-link link-light" disabled id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Корреляция оценок (пирсон)</a>
+               <a class="nav-link  link-light  fs-5" id="correlations-tab" data-bs-toggle="tab" href="#correlations" role="tab" aria-controls="correlations" aria-selected="false">Корреляции</a>
            </li>
            <li class="nav-item" role="presentation">
-               <a class="nav-link link-light" disabled id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Близость интересов</a>
+               <a class="nav-link  link-light  fs-5" id="average-tab" data-bs-toggle="tab" href="#average" role="tab" aria-controls="average" aria-selected="false">Средние</a>
            </li>
+           <!--          <li class="nav-item" role="presentation">
+                         <a class="nav-link link-light" disabled id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Корреляция оценок (пирсон)</a>
+                     </li>
+                     <li class="nav-item" role="presentation">
+                         <a class="nav-link link-light" disabled id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Близость интересов</a>
+                     </li>
 
-           <li class="nav-item" role="presentation">
-               <a class="nav-link link-light" disabled id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Графики по жанрам</a>
-           </li>-->
+                     <li class="nav-item" role="presentation">
+                         <a class="nav-link link-light" disabled id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Графики по жанрам</a>
+                     </li>-->
        </ul>
 
        <div class="tab-content" id="myTabContent">
-           <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-                 </div>
-           <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-               <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+           <div class="tab-pane fade" id="average" role="tabpanel" aria-labelledby="average-tab">
+               <canvas id="average_rates"></canvas>
+           </div>
+           <div class="tab-pane fade" id="correlations" role="tabpanel" aria-labelledby="correlations-tab">
+               <table class="table table-hover-custom">
+                   <tbody>
+                        <tr>
+                            <th></th>
+                            @foreach($correlations as $name => $array)
+                                <th>{{$name}}</th>
+                            @endforeach
+                        </tr>
+                        @foreach($correlations as $name => $array)
+                            <tr>
+                                <th>{{$name}}</th>
+                                @foreach($array as $name1 => $value)
+                                    @if($name1 == $name or $value === null)
+                                        <th></th>
+                                    @else
+                                        <td class="{{$correlations[$name][$name1] >= 0.7 ? "text-success": ($value <= -0.7 ? 'text-danger' : '')}}">{{round($correlations[$name][$name1], 2)}}</td>
+                                    @endif
+                                @endforeach
+                            </tr>
+                        @endforeach
+                   </tbody>
+               </table>
            </div>
            <div class="tab-pane fade show active" id="user_rates" role="tabpanel" aria-labelledby="user_rates-tab">
                <canvas id="user_graph" class="chartjss"></canvas>
