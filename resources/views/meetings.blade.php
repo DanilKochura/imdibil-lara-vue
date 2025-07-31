@@ -232,10 +232,11 @@
                             <div class="swiper-wrapper" style="">
 
                                 @foreach($meeting->movie->citates as $cit)
+                                    @if($cit->auth_only == 1 and \Illuminate\Support\Facades\Auth::user()?->role != 2) @continue($loop) @endif
                                     <div class="swiper-slide h-100 d-middle">
                                         <figure>
                                             <blockquote class="blockquote">
-                                                <p>{{$cit->text}}</p>
+                                                <p>{{ $cit->text }}</p>
                                             </blockquote>
                                             @if($cit->author)
                                                 <figcaption class="blockquote-footer text-end">
